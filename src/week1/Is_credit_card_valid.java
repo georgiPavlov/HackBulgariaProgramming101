@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  */
 public class Is_credit_card_valid {
     public boolean is_credit_card_valid(String number){
-        if(number.length() % 2 == 0 || march(number)){
+        if(number.length() % 2 == 0 || !march(number)){
             System.out.println("string length is not odd or" +
                     " it contains not only numbers");
             return false;
