@@ -27,12 +27,34 @@ public class IsHack {
                     count++;
                 }
             }
-            if(count % 2 != 0){
+            if(count % 2 != 0 && isPalindrome(string)){
                 return true;
             }
         }
         return false;
 
+    }
+
+    boolean isPalindrome(String argument) {
+
+        int size = argument.length();
+        int frond = 0;
+        int back = size;
+
+
+        while (frond <= back) {
+            char start = argument.charAt(frond);
+            char end = argument.charAt(back);
+
+            if (!(start == end)) {
+                return false;
+            }
+            frond++;
+            back--;
+
+
+        }
+        return true;
     }
 
 
