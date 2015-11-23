@@ -1,6 +1,8 @@
 17. Fibonacci number
 
-Implement a function int fibNumber(int n), which takes an integer n and returns a number, which is formed by concatenating the first n Fibonacci numbers.
+Implement a function int fibNumber(int n),
+which takes an integer n and returns a number, which is
+formed by concatenating the first n Fibonacci numbers.
 
 Examples:
 
@@ -8,7 +10,8 @@ fibNumber(3) == 112
 fibNumber(10) == 11235813213455
 18. Lucas series
 
-Because Fibonacci is way too trivial, implement the following functions that work with Lucas series:
+Because Fibonacci is way too trivial, implement the following functions
+that work with Lucas series:
 
 int nthLucas(int n) -> returns the nth Lucas number
 Quick hint:
@@ -20,8 +23,10 @@ L(n) = L(n-1) + L(n-2)
 
 Implement the following functions:
 
-boolean IsIncreasing(int[] sequence) which returns true if for every two consecutive elements a and b, a < b holds.
-boolean IsDecreasing(int[] sequence) which returns true if for every two consecutive elements a and b, a > b holds.
+boolean IsIncreasing(int[] sequence) which returns true
+if for every two consecutive elements a and b, a < b holds.
+boolean IsDecreasing(int[] sequence) which returns true
+if for every two consecutive elements a and b, a > b holds.
 20. Longest subsequence of equal consecutive elements
 
 Implement the function int maxEqualConsecutive(int[] items), which takes an array of ints and returns an integer - the count of elements in the longest subsequence of equal consecutive elements.
