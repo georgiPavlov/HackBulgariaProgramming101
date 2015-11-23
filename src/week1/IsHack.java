@@ -29,6 +29,7 @@ public class IsHack {
             }
             if(count % 2 != 0 && isPalindrome(string)){
                 return true;
+
             }
         }
         return false;
