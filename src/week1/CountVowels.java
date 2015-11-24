@@ -6,7 +6,7 @@ package week1;
 public class CountVowels {
 
 
-    public int  countVowels(String str){
+    public static int  countVowels(String str){
         String line ="aeiouy";
         char[] charArray = str.toCharArray() ;
         int count=0;
@@ -22,5 +22,9 @@ public class CountVowels {
         }
         return count;
 
+    }
+
+    public static void main(String[] args) {
+        System.out.println(CountVowels.countVowels("Do not skip legs day"));
     }
 }

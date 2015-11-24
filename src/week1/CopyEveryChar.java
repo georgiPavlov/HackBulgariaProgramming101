@@ -3,8 +3,8 @@ package week1;
 /**
  * Created by georgipavlov on 23.11.15.
  */
-public class CopyEveryChar {
-    String copyEveryChar(String input, int k) {
+public  class CopyEveryChar {
+    static  String copyEveryChar(String input, int k) {
         k=Math.abs(k);
         StringBuilder b = new StringBuilder();
         for (int i = 0; i < input.length(); i++) {
@@ -18,6 +18,11 @@ public class CopyEveryChar {
 
         }
         return b.toString();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(CopyEveryChar.copyEveryChar("qwerty",0));
+
     }
 
 }

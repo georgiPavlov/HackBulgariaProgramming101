@@ -7,7 +7,7 @@ import java.util.Map;
  * Created by georgipavlov on 23.11.15.
  */
 public class CanBalance {
-    boolean canBalance(int[] numbers) {
+    static boolean canBalance(int[] numbers) {
         int c;
         int size = numbers.length;
         if (size % 2 == 0) {
@@ -35,5 +35,10 @@ public class CanBalance {
         } else {
             return true;
         }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(CanBalance.canBalance(new int[]{4, 2, 2, 4, 5}));
+        System.out.println(CanBalance.canBalance(new int[]{4,1,2,1}));
     }
 }

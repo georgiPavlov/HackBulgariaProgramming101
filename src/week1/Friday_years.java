@@ -11,9 +11,11 @@ public class Friday_years {
 
 
     private int index=0;
+    private boolean yearsTrue=false;
     public int friday_years(String start, String end){
         int w;
         index=hasStartOneMoreFriday("0",start);
+        yearsTrue=true;
         w = hasStartOneMoreFriday(start,end);
         return w;
     }
@@ -35,14 +37,14 @@ public class Friday_years {
         int c=index;
         boolean isLeap=false;
         StringBuilder b = new StringBuilder();
-        int weaks=0;
+        int weeks =0;
         for (int year = startYear; year <= endYear; year++) {
             if(((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)){
                 count = 9;
                 isLeap=true;
             }
             for (int j = 0; j < count; j++) {
-                if(c > days.length){
+                if(c > days.length - 1){
                     c=0;
                 }
                 if(b.length() > 0){
@@ -52,14 +54,15 @@ public class Friday_years {
                 c++;
             }
             if(isLeap || b.equals("FRIDAY")){
-                weaks +=53;
+                weeks +=53;
                 isLeap=false;
             }else {
-                weaks +=52;
+                weeks +=52;
             }
             count=8;
         }
-        return  index == 0 ? c : weaks;
+
+        return  yearsTrue ? weeks : index;
 
     }
 
@@ -73,4 +76,9 @@ public class Friday_years {
     }
     private Pattern pattern2;
     private Matcher matcher2;
+
+    public static void main(String[] args) {
+        Friday_years friday_years= new Friday_years();
+        System.out.println(friday_years.friday_years("2011","2012"));
+    }
 }

@@ -5,7 +5,7 @@ import static org.apache.commons.lang.StringUtils.countMatches;
  * Created by georgipavlov on 23.11.15.
  */
 public class CountOcurrences1 {
-    int countOcurrences1(String needle, String haystack){
+    static int countOcurrences1(String needle, String haystack){
         int k=0;
         long count =0;
         while(true){
@@ -24,7 +24,11 @@ public class CountOcurrences1 {
         return (int)count;
     }
 
-    int countOcurrences(String needle, String haystack){
+    static int  countOcurrences(String needle, String haystack){
         return countMatches(needle, haystack);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(CountOcurrences1.countOcurrences1("abs","I have six pack abs "));
     }
 }

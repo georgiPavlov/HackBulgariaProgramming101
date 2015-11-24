@@ -4,8 +4,8 @@ package week1;
  * Created by georgipavlov on 23.11.15.
  */
 public class CountConsonants {
-    public int  countConsonants(String str){
-        String line ="bcdfghjklmnpqrstvwxz";
+    static public int  countConsonants(String str){
+         String line ="bcdfghjklmnpqrstvwxz";
         char[] charArray = str.toCharArray() ;
         int count=0;
         for (int i = 0; i < charArray.length; i++) {
@@ -20,5 +20,8 @@ public class CountConsonants {
         }
         return count;
 
+    }
+    public static void main(String[] args) {
+        System.out.println(CountConsonants.countConsonants("Do not skip legs day"));
     }
 }
