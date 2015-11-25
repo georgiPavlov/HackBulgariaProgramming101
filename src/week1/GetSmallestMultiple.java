@@ -4,12 +4,9 @@ package week1;
  * Created by georgipavlov on 23.11.15.
  */
 public class GetSmallestMultiple {
-    long getSmallestMultiple(int upperBound) {
+     static  long getSmallestMultiple(int upperBound) {
 
-        if(upperBound<0){
-            System.out.println("Need to be positive");
-            return -1;
-        }
+        upperBound = Math.abs(upperBound);
         long n = upperBound;
         p:
         for (int i = 1; i < upperBound; i++) {
@@ -23,5 +20,9 @@ public class GetSmallestMultiple {
 
         }
         return n;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(GetSmallestMultiple.getSmallestMultiple(3));
     }
 }
