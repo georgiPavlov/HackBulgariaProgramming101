@@ -4,14 +4,11 @@ package week1;
  * Created by georgipavlov on 23.11.15.
  */
 public class GetLargestPalindrome {
-    long getLargestPalindrome(long N) {
+    static  long getLargestPalindrome(long N) {
         if(N==0){
             return 0;
         }
-        if(N<0){
-            System.out.println("Need to be positive");
-            return -1;
-        }
+        N = Math.abs(N);
         long temp = 0;
         for (long i = 0; i < N; i++) {
             if (i < 9 && temp < i) {
@@ -23,12 +20,12 @@ public class GetLargestPalindrome {
         return temp;
     }
 
-    boolean itIsPalindrome(long i) {
+    static boolean itIsPalindrome(long i) {
         i= Math.abs(i);
         String num = Long.toString(i);
         int size = num.length();
         int frond = 0;
-        int back = size;
+        int back = size-1;
 
 
         while (frond <= back) {
@@ -44,5 +41,9 @@ public class GetLargestPalindrome {
 
         }
         return true;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(GetLargestPalindrome.getLargestPalindrome(100));
     }
 }
