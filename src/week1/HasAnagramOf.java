@@ -4,7 +4,7 @@ package week1;
  * Created by georgipavlov on 23.11.15.
  */
 public class HasAnagramOf {
-    boolean hasAnagramOf(String A,String B){
+    static boolean hasAnagramOf(String A,String B){
         int count=0;
 
         char[] a=A.toCharArray();
@@ -24,5 +24,10 @@ public class HasAnagramOf {
         }
         return false;
 
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println(HasAnagramOf.hasAnagramOf("abc","bac"));
     }
 }

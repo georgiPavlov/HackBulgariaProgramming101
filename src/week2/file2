@@ -117,11 +117,16 @@ Make the class immutable.
 
 Create and implement a class StackImpl, representing a... well, stack.
 
-Think about all the required (public) operations needed, so that one can use a stack class. You know, stuff like actually pushing an element, popping an element, length, clear, isEmpty, stuff like that. Think about the return types of those operations (see task 5, you may get a hint about one). Extract them all to an interface Stack, which your class should implement.
+Think about all the required (public) operations needed, so that one can use a stack class.
+You know, stuff like actually pushing an element, popping an element, length, clear, isEmpty, stuff like that.
+ Think about the return types of those operations (see task 5, you may get a hint about one).
+  Extract them all to an interface Stack, which your class should implement.
 
 27. No clones allowed.
 
-Create an implementation of your Stack interface, which has the added invariant: -It does not allow an element to be duplicated. If there is an element 'a' in the stack, and some smart guy pushes 'a' again, his operation should fail, and the smart guy should have a way to know this.
+Create an implementation of your Stack interface, which has the added invariant:
+-It does not allow an element to be duplicated. If there is an element 'a' in the stack
+ and some smart guy pushes 'a' again, his operation should fail, and the smart guy should have a way to know this.
 
 28. On two fronts
 
