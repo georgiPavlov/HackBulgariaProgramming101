@@ -123,11 +123,23 @@ public class DoubleList implements DoubleListInterfase{
     public void remove(int elementIndex) {
         int count1=this.size()-1;
         int count2=0;
-        boolean endOfLoop=false;
-
-
         Node temp =head;
         Node temp2 =tail;
+        boolean endOfLoop=false;
+        if(elementIndex == count1){
+            head=temp.left;
+            if(head!= null){
+                head.right=null;
+            }
+            return;
+        }else if(elementIndex == count2){
+            tail=temp2.right;
+            if(tail!= null){
+                tail.left=null;
+            }
+            return;
+        }
+
         do{
             if(temp.left == temp2 ){
                 endOfLoop=true;
@@ -136,9 +148,11 @@ public class DoubleList implements DoubleListInterfase{
                 if(count1 == elementIndex){
                     temp.right.left=temp.left;
                     temp.left.right=temp.right;
+                    return;
                 }else {
                     temp2.right.left=temp2.left;
                     temp2.left.right=temp2.right;
+                    return;
                 }
             }
             if(temp == temp2){break;}
