@@ -15,7 +15,10 @@ public class MyStack extends DoubleList implements StackInterface{
 
     @Override
     public Object pop() {
-        return super.getPop();
+        Object p = super.getHead();
+        int len=length()-1;
+        super.remove(len);
+        return p;
     }
 
 

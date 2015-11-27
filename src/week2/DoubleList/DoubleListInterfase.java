@@ -11,5 +11,6 @@ public interface DoubleListInterfase {
     public int get(int elementIndex);
     public int getHead ();
     public int getTail();
+    public void remove(int index);
 
 }

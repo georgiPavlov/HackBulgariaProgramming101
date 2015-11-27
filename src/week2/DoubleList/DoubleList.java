@@ -119,7 +119,41 @@ public class DoubleList implements DoubleListInterfase{
         return tail.o;
     }
 
-    protected int getPop(){
+    @Override
+    public void remove(int elementIndex) {
+        int count1=this.size()-1;
+        int count2=0;
+        boolean endOfLoop=false;
+
+
+        Node temp =head;
+        Node temp2 =tail;
+        do{
+            if(temp.left == temp2 ){
+                endOfLoop=true;
+            }
+            if(count1 == elementIndex || count2 == elementIndex){
+                if(count1 == elementIndex){
+                    temp.right.left=temp.left;
+                    temp.left.right=temp.right;
+                }else {
+                    temp2.right.left=temp2.left;
+                    temp2.left.right=temp2.right;
+                }
+            }
+            if(temp == temp2){break;}
+
+            temp=temp.left;
+            temp2=temp2.right;
+            count2++;
+            count1--;
+        }while(!endOfLoop);
+        System.out.println("element not found");
+
+
+    }
+
+    public int getPop(){
         if(head== null){
             System.out.println("No elements");
             return -1;
