@@ -130,13 +130,16 @@ Create an implementation of your Stack interface, which has the added invariant:
 
 28. On two fronts
 
-Implement a (doubly-linked) list (using ints only). Just as before, extract all of its required public operations in an interface. Some of those operations are add, remove, size, get(int elementIndex), getHead (getFirst), getTail(getLast), etc. Think good and hard about your implementation, and whether you will need another class for a List Node.
+Implement a (doubly-linked) list (using ints only). Just as before, extract all of its required public operations in an
+interface. Some of those operations are add, remove, size, get(int elementIndex), getHead (getFirst), getTail(getLast), etc.
+Think good and hard about your implementation, and whether you will need another class for a List Node.
 
 29. Mr. ListStack
 
 Implement your own Stack with your own (doubly) LinkedList class : )
 
-Bonus implement a unique stack just as before, but using your LinkedList and an anonymous implementation, combined with a factory method. See http://www.programmerinterview.com/index.php/java-questions/java-anonymous-class-example/
+Bonus implement a unique stack just as before, but using your LinkedList and an anonymous implementation,
+ combined with a factory method. See http://www.programmerinterview.com/index.php/java-questions/java-anonymous-class-example/
 
 Return your anonymous implementation from a factory method!
 

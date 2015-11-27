@@ -53,11 +53,7 @@ class StackImpl  implements StackInterface {
 
     @Override
     public void clear() {
-        Node temp;
-        for (temp = head;temp != null; temp=temp.next) {
-            temp=temp.next;
-        }
-        head = temp;
+        head = null;
     }
 
     @Override
