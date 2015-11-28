@@ -81,12 +81,12 @@ public class Calculator3 {
     }
 
     private String MultiDiv(String calc){
-        double sum=0;
-        int i=0;
+        int i=1;
         int j=1;
         boolean b1=false;
         String[] parts = calc.split("[\\*//]+");
         String[] operators = calc.split("[0-9]");
+        double sum= Double.parseDouble(parts[0]);
         for (; i <parts.length ; i++,j++) {
             parts[i].trim();
             if(operators[j].charAt(0) == '*'){
