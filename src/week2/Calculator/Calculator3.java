@@ -1,10 +1,7 @@
 package week2.Calculator;
 
-/**
- * Created by georgipavlov on 27.11.15.
- */
 public class Calculator3 {
-    String operation = "2+(-4+5+(5+3))-2";
+    String operation = "2+(-4+5+(5+3+1+6*2))-2";
     public String firstStage(){
         StringBuilder b = new StringBuilder();
         p: for (int i = 0; i <operation.length() ; i++) {
@@ -31,7 +28,7 @@ public class Calculator3 {
             if(operation.charAt(index) == '('){
                 String temp;
                 temp =bracket(index);
-                temp = calculate(temp);
+                //temp = calculate(temp);
                 if(temp.charAt(0) == '-'){
                 b.substring(0,b.length()-1);
                 }
@@ -52,18 +49,21 @@ public class Calculator3 {
     }
 
     public String calculate(String calc){
+
         double sum=0;
         int i=1;
         int j=1;
         boolean b1=false;
         String[] parts = calc.split("[+-]+");
-        String[] operators = calc.split("[0-9]");
+        String[] operators = calc.split("[0-9.]+");
+
+
         if(calc.charAt(0) == '-' || calc.charAt(0) == '+') {
             b1 = true;
             i = 2;
         }
         for (; i <parts.length ; i++,j++) {
-            //parts[i] = MultiDiv(parts[i]);
+            parts[i] = MultiDiv(parts[i]);
             parts[i].trim();
             if(operators[j].charAt(0) == '+'){
             sum += Double.parseDouble(parts[i]);
@@ -75,7 +75,6 @@ public class Calculator3 {
             sum -= Double.parseDouble(parts[1]);
         }else {
             sum += Double.parseDouble(parts[0]);
-
         }
         return Double.toString(sum);
     }
@@ -85,7 +84,7 @@ public class Calculator3 {
         int j=1;
         boolean b1=false;
         String[] parts = calc.split("[\\*//]+");
-        String[] operators = calc.split("[0-9]");
+        String[] operators = calc.split("[0-9.]+");
         double sum= Double.parseDouble(parts[0]);
         for (; i <parts.length ; i++,j++) {
             parts[i].trim();
@@ -97,6 +96,7 @@ public class Calculator3 {
         }
         return Double.toString(sum);
     }
+
     public static void main(String[] args) {
         Calculator3 calculator3 = new Calculator3();
         System.out.println(calculator3.firstStage());
