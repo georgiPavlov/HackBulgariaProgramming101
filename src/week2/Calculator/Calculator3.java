@@ -17,8 +17,8 @@ public class Calculator3 {
             int x = temoIndex-i;
             i+=x+1;
         }
-
-      return "";
+        String result = calculate(b.toString());
+        return result;
     }
 
     int count=0;
@@ -97,12 +97,8 @@ public class Calculator3 {
         }
         return Double.toString(sum);
     }
-
-
-
-
     public static void main(String[] args) {
         Calculator3 calculator3 = new Calculator3();
-        calculator3.firstStage();
+        System.out.println(calculator3.firstStage());
     }
 }
