@@ -5,7 +5,6 @@ package week2.Calculator;
  */
 public class Calculator3 {
     String operation = "2+(-4+5+(5+3))-2";
-
     public String firstStage(){
         StringBuilder b = new StringBuilder();
         p: for (int i = 0; i <operation.length() ; i++) {
@@ -15,18 +14,17 @@ public class Calculator3 {
             }
             String temp = bracket(i);
             b.append(temp);
-            i+=count;
+            int x = temoIndex-i;
+            i+=x+1;
         }
 
       return "";
     }
-// (7+(6+(5)))
+
     int count=0;
     int temoIndex=0;
     public String bracket(int index){
-
         StringBuilder b = new StringBuilder();
-
         while(true){
             count++;
             index++;
@@ -39,7 +37,7 @@ public class Calculator3 {
                 }
                 b.append(temp);
                 int t = temoIndex-index;
-                index = index + t;
+                 index = index + t;
             }
             if(operation.charAt(index) == ')'){
                 String temp2 = calculate(b.toString());
@@ -49,17 +47,12 @@ public class Calculator3 {
             }
             b.append(operation.charAt(index));
         }
-
         temoIndex=index;
         return b.toString();
-
     }
 
     public String calculate(String calc){
-        int operatorsCount=0;
-        int partsCount=0;
         double sum=0;
-        int add=0;
         int i=1;
         int j=1;
         boolean b1=false;
@@ -77,7 +70,6 @@ public class Calculator3 {
             }else {
                 sum -= Double.parseDouble(parts[i]);
             }
-
         }
         if(b1){
             sum -= Double.parseDouble(parts[1]);
@@ -87,6 +79,25 @@ public class Calculator3 {
         }
         return Double.toString(sum);
     }
+
+    private String MultiDiv(String calc){
+        double sum=0;
+        int i=0;
+        int j=1;
+        boolean b1=false;
+        String[] parts = calc.split("[\\*//]+");
+        String[] operators = calc.split("[0-9]");
+        for (; i <parts.length ; i++,j++) {
+            parts[i].trim();
+            if(operators[j].charAt(0) == '*'){
+                sum *= Double.parseDouble(parts[i]);
+            }else if(operators[j].charAt(0) == '/') {
+                sum /= Double.parseDouble(parts[i]);
+            }
+        }
+        return Double.toString(sum);
+    }
+
 
 
 
