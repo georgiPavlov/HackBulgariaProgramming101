@@ -1,8 +1,25 @@
 package week2.Calculator;
+import java.util.Scanner;
 
 public class Calculator3 {
-    String operation = "2+(-4+5+(5+3+1+6*2))-2";
+    public static void main(String[] args) {
+        Calculator3 calculator3 = new Calculator3();
+        System.out.println("Enter expression:> ");
+        Scanner scanner = new Scanner(System.in);
+        calculator3.operation1=scanner.nextLine();
+        System.out.println("Output:> ");
+        System.out.print(calculator3.firstStage());
+    }
+    String operation1,operation;
     public String firstStage(){
+        StringBuilder tempBuld = new StringBuilder();
+        pa:for (int i = 0; i < operation1.length(); i++) {
+            if(Character.isWhitespace(operation1.charAt(i))){
+                continue pa;
+            }
+            tempBuld.append(operation1.charAt(i));
+        }
+        operation = tempBuld.toString();
         StringBuilder b = new StringBuilder();
         p: for (int i = 0; i <operation.length() ; i++) {
             if(operation.charAt(i) != '('){
@@ -10,27 +27,27 @@ public class Calculator3 {
                 continue p;
             }
             String temp = bracket(i);
+            if(temp.charAt(0) == '-'){
+                b.delete(b.length()-1,b.length());
+            }
             b.append(temp);
             int x = temoIndex-i;
-            i+=x+1;
+            i+=x;
         }
         String result = calculate(b.toString());
         return result;
     }
-
-    int count=0;
     int temoIndex=0;
     public String bracket(int index){
         StringBuilder b = new StringBuilder();
         while(true){
-            count++;
             index++;
             if(operation.charAt(index) == '('){
                 String temp;
                 temp =bracket(index);
                 //temp = calculate(temp);
                 if(temp.charAt(0) == '-'){
-                b.substring(0,b.length()-1);
+                    b.delete(b.length()-1,b.length());
                 }
                 b.append(temp);
                 int t = temoIndex-index;
@@ -49,15 +66,11 @@ public class Calculator3 {
     }
 
     public String calculate(String calc){
-
         double sum=0;
-        int i=1;
-        int j=1;
+        int i=1,j=1;
         boolean b1=false;
         String[] parts = calc.split("[+-]+");
         String[] operators = calc.split("[0-9.]+");
-
-
         if(calc.charAt(0) == '-' || calc.charAt(0) == '+') {
             b1 = true;
             i = 2;
@@ -80,9 +93,7 @@ public class Calculator3 {
     }
 
     private String MultiDiv(String calc){
-        int i=1;
-        int j=1;
-        boolean b1=false;
+        int i=1,j=1;
         String[] parts = calc.split("[\\*//]+");
         String[] operators = calc.split("[0-9.]+");
         double sum= Double.parseDouble(parts[0]);
@@ -95,10 +106,5 @@ public class Calculator3 {
             }
         }
         return Double.toString(sum);
-    }
-
-    public static void main(String[] args) {
-        Calculator3 calculator3 = new Calculator3();
-        System.out.println(calculator3.firstStage());
     }
 }
