@@ -6,7 +6,7 @@ import java.util.Arrays;
  * Created by georgipavlov on 27.11.15.
  */
 public class Calculator {
-    private String calculations="2*(10*5)";
+    private String calculations="200/(10*5)";
 
     public Calculator(){
         engine();
