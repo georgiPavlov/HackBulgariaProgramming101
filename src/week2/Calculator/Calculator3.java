@@ -6,8 +6,8 @@ public class Calculator3 {
         Calculator3 calculator3 = new Calculator3();
         System.out.println("Enter expression:> ");
         Scanner scanner = new Scanner(System.in);
-        //calculator3.operation1=scanner.nextLine();
-        calculator3.operation1="6*2";
+        calculator3.operation1=scanner.nextLine();
+        //calculator3.operation1="6*2";
         System.out.println("Output:> ");
         System.out.print(calculator3.firstStage());
     }
