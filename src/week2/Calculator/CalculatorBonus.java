@@ -26,6 +26,7 @@ public class CalculatorBonus {
 
     public String firstStage(){
         boolean fac=false;
+        int count=-1;
         StringBuilder tempBuld = new StringBuilder();
         pa:for (int i = 0; i < operation1.length(); i++) {
             if(Character.isWhitespace(operation1.charAt(i))){
@@ -35,6 +36,9 @@ public class CalculatorBonus {
                 continue pa;
             }
             tempBuld.append(operation1.charAt(i));
+            if(operation1.charAt(i) == '('){
+                count++;
+            }
         }
         operation = tempBuld.toString();
         StringBuilder b = new StringBuilder();
@@ -45,21 +49,11 @@ public class CalculatorBonus {
             }
             String temp = bracket(i);
             if(temp.charAt(0) == '-'){
-                if(b.toString().charAt(b.length()-1) == '-'){
-                    temp = '+' + temp.substring(1,temp.length()-1);
-                    b.delete(b.length()-1,b.length());
-                }else if(b.toString().charAt(b.length()-1) == '+'){
-                    b.delete(b.length()-1,b.length());
-                }else {
-                    String t = MultiDivBracket(b.toString());
-                    b= new StringBuilder();
-                    b.append(t);
-                    temp = temp.substring(1,temp.length()-1);
-                }
+               temp = bracketStage(b,temp);
             }
             b.append(temp);
             int x = temoIndex-i;
-            i+=x;
+            i+=x+count;
         }
         String result = calculate(b.toString());
         if(fac){
@@ -100,9 +94,9 @@ public class CalculatorBonus {
                         b.delete(b.length()-1,b.length());
                     }else {
                         String t = MultiDivBracket(b.toString());
-                        b= new StringBuilder();
+                        b.delete(0,b.length());
                         b.append(t);
-                        temp = temp.substring(1,temp.length()-1);
+                        temp = temp.substring(1,temp.length());
                     }
                 }
                 b.append(temp);
@@ -111,7 +105,7 @@ public class CalculatorBonus {
             }
             if(operation.charAt(index) == ')'){
                 String temp2 = calculate(b.toString());
-                b= new StringBuilder();
+                b.delete(0,b.length());
                 b.append(temp2);
                 break;
             }
@@ -198,4 +192,20 @@ public class CalculatorBonus {
         }
         return  '-' + part;
     }
+
+    String bracketStage(StringBuilder b , String temp){
+        if(b.toString().charAt(b.length()-1) == '-'){
+            temp = '+' + temp.substring(1,temp.length()-1);
+            b.delete(b.length()-1,b.length());
+        }else if(b.toString().charAt(b.length()-1) == '+'){
+            b.delete(b.length()-1,b.length());
+        }else {
+            String t = MultiDivBracket(b.toString());
+            b.delete(0,b.length());
+            b.append(t);
+            temp = temp.substring(1,temp.length());
+        }
+        return temp;
+    }
+
 }
