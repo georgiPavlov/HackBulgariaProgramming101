@@ -45,7 +45,17 @@ public class CalculatorBonus {
             }
             String temp = bracket(i);
             if(temp.charAt(0) == '-'){
-                b.delete(b.length()-1,b.length());
+                if(b.toString().charAt(b.length()-1) == '-'){
+                    temp = '+' + temp.substring(1,temp.length()-1);
+                    b.delete(b.length()-1,b.length());
+                }else if(b.toString().charAt(b.length()-1) == '+'){
+                    b.delete(b.length()-1,b.length());
+                }else {
+                    String t = MultiDivBracket(b.toString());
+                    b= new StringBuilder();
+                    b.append(t);
+                    temp = temp.substring(1,temp.length()-1);
+                }
             }
             b.append(temp);
             int x = temoIndex-i;
@@ -82,9 +92,18 @@ public class CalculatorBonus {
             if(operation.charAt(index) == '('){
                 String temp;
                 temp =bracket(index);
-                //temp = calculate(temp);
                 if(temp.charAt(0) == '-'){
-                    b.delete(b.length()-1,b.length());
+                    if(b.toString().charAt(b.length()-1) == '-'){
+                        temp = '+' + temp.substring(1,temp.length()-1);
+                        b.delete(b.length()-1,b.length());
+                    }else if(b.toString().charAt(b.length()-1) == '+'){
+                        b.delete(b.length()-1,b.length());
+                    }else {
+                        String t = MultiDivBracket(b.toString());
+                        b= new StringBuilder();
+                        b.append(t);
+                        temp = temp.substring(1,temp.length()-1);
+                    }
                 }
                 b.append(temp);
                 int t = temoIndex-index;
@@ -163,5 +182,17 @@ public class CalculatorBonus {
         return Double.toString(sum);
     }
 
-
+    String MultiDivBracket(String part){
+        for (int i = part.length() -1; i < 0 ;i--) {
+            if(part.charAt(i) == '-' ){
+                part = part.substring(0,i-1) + '+' + part.substring(i+1,part.length()-1);
+                return part;
+            }else if(part.charAt(i) == '+' ){
+                part = part.substring(0,i-1) + '-' + part.substring(i+1,part.length()-1);
+                return part;
+            }
+        }
+        part = '-' + part;
+        return part;
+    }
 }
