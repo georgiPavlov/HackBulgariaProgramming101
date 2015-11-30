@@ -1,15 +1,12 @@
 package week2.Calculator;
 import java.util.Scanner;
-
 public class Calculator3 {
     public static void main(String[] args) {
         Calculator3 calculator3 = new Calculator3();
         System.out.println("Enter expression:> ");
         Scanner scanner = new Scanner(System.in);
         calculator3.operation1=scanner.nextLine();
-        //calculator3.operation1="6*2";
-        System.out.println("Output:> ");
-        System.out.print(calculator3.firstStage());
+        System.out.println("Output:> " + calculator3.firstStage());
     }
     String operation1;
     String operation;

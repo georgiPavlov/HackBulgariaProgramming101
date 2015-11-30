@@ -183,16 +183,19 @@ public class CalculatorBonus {
     }
 
     String MultiDivBracket(String part){
-        for (int i = part.length() -1; i < 0 ;i--) {
+        for (int i = part.length() -1; i >= 0 ;i--) {
             if(part.charAt(i) == '-' ){
-                part = part.substring(0,i-1) + '+' + part.substring(i+1,part.length()-1);
+                if(i == 0){
+                    part =part.substring(i+1,part.length());
+                }else {
+                    part = part.substring(0,i-1) + '+' + part.substring(i+1,part.length());
+                }
                 return part;
             }else if(part.charAt(i) == '+' ){
-                part = part.substring(0,i-1) + '-' + part.substring(i+1,part.length()-1);
+                part = part.substring(0,i-1) + '+' + part.substring(i+1,part.length());
                 return part;
             }
         }
-        part = '-' + part;
-        return part;
+        return  '-' + part;
     }
 }
