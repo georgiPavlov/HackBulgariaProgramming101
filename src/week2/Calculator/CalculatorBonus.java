@@ -30,11 +30,11 @@ public class CalculatorBonus {
         StringBuilder tempBuld = new StringBuilder();
         pa:for (int i = 0; i < operation1.length(); i++) {
             if(Character.isWhitespace(operation1.charAt(i))){
-                continue pa;
-            }else if(operation1.charAt(i) == '!'){
-                fac=true;
-                continue pa;
-            }
+                continue pa;}
+           // }else if(operation1.charAt(i) == '!'){
+              //  fac=true;
+              //  continue pa;
+          //  }
             tempBuld.append(operation1.charAt(i));
             if(operation1.charAt(i) == '('){
                 count++;
@@ -148,6 +148,8 @@ public class CalculatorBonus {
         String[] operators = calc.split("[0-9.\\^!]+");
         if(parts[0].contains("^")){
             parts[0] = pow(parts[0]);
+        }else if(parts[0].contains("!")){
+            parts[0] = facStage(parts[0]);
         }
         double sum= Double.parseDouble(parts[0]);
         for (; i <parts.length ; i++,j++) {
@@ -165,12 +167,14 @@ public class CalculatorBonus {
     String pow(String calc){
         String[] parts = calc.split("[\\^]+");
         String[] operators = calc.split("[0-9.!]+");
-        facStage(parts[0]);
+         parts[0] = facStage(parts[0]);
         double sum = Double.parseDouble(parts[0]);
         if(parts.length > 1){
+            parts[1] = facStage(parts[1]);
             sum = Math.pow( Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
         }
         for (int i = 2; i <parts.length ; i++) {
+            parts[i] = facStage(parts[i]);
             sum = Math.pow( sum, Double.parseDouble(parts[1]));
         }
         return Double.toString(sum);
@@ -179,7 +183,10 @@ public class CalculatorBonus {
     public String facStage(String calc){
         String[] parts = calc.split("[!]+");
         String[] operators = calc.split("[0-9.]+");
-        double sum = Double.parseDouble(fac((long)Double.parseDouble(parts[0])));
+        double sum=Double.parseDouble(parts[0]);
+        if(operators.length > 1){
+            sum = Double.parseDouble(fac((long)Double.parseDouble(parts[0])));
+        }
         return Double.toString(sum);
     }
 
