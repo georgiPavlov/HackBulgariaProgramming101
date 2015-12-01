@@ -13,12 +13,12 @@ public class CalculatorBonus {
 
     public static void main(String[] args) {
         CalculatorBonus calculator3 = new CalculatorBonus();
-        System.out.println("Enter expression:> ");
+        System.out.print("Enter expression:> ");
         Scanner scanner = new Scanner(System.in);
         calculator3.operation1=scanner.nextLine();
         //calculator3.operation1="6*2";
-        System.out.println("Output:> ");
-        System.out.print(calculator3.firstStage());
+        System.out.println("Output:> " + calculator3.firstStage());
+
     }
 
     String operation1;
@@ -43,17 +43,21 @@ public class CalculatorBonus {
         operation = tempBuld.toString();
         StringBuilder b = new StringBuilder();
         p: for (int i = 0; i <operation.length() ; i++) {
-            if(operation.charAt(i) != '('){
+            if (operation.charAt(i) != '(') {
                 b.append(operation.charAt(i));
+                continue p;
+            }else if(operation.charAt(i) == ')'){
                 continue p;
             }
             String temp = bracket(i);
-            if(temp.charAt(0) == '-'){
-               temp = bracketStage(b,temp);
+            if (temp.charAt(0) == '-') {
+                if (!b.toString().equals("")) {
+                    temp = bracketStage(b, temp);
+                }
             }
             b.append(temp);
-            int x = temoIndex-i;
-            i+=x+count;
+            i = temoIndex;
+            //i+=x+count;
         }
         String result = calculate(b.toString());
         if(fac){
@@ -87,21 +91,13 @@ public class CalculatorBonus {
                 String temp;
                 temp =bracket(index);
                 if(temp.charAt(0) == '-'){
-                    if(b.toString().charAt(b.length()-1) == '-'){
-                        temp = '+' + temp.substring(1,temp.length()-1);
-                        b.delete(b.length()-1,b.length());
-                    }else if(b.toString().charAt(b.length()-1) == '+'){
-                        b.delete(b.length()-1,b.length());
-                    }else {
-                        String t = MultiDivBracket(b.toString());
-                        b.delete(0,b.length());
-                        b.append(t);
-                        temp = temp.substring(1,temp.length());
+                    if(!b.toString().equals("")){
+                        temp = bracketStage(b,temp);
                     }
                 }
                 b.append(temp);
                 int t = temoIndex-index;
-                index = index + t;
+                index = index + t + 1;
             }
             if(operation.charAt(index) == ')'){
                 String temp2 = calculate(b.toString());
@@ -121,7 +117,7 @@ public class CalculatorBonus {
         int j=1;
         boolean b1=false;
         String[] parts = calc.split("[+-]+");
-        String[] operators = calc.split("[\\*//0-9.\\^]+");
+        String[] operators = calc.split("[!\\*//0-9.\\^]+");
         if(calc.charAt(0) == '-' || calc.charAt(0) == '+') {
             b1 = true;
             i = 2;
@@ -149,7 +145,7 @@ public class CalculatorBonus {
         int i=1;
         int j=1;
         String[] parts = calc.split("[\\*//]+");
-        String[] operators = calc.split("[0-9.\\^]+");
+        String[] operators = calc.split("[0-9.\\^!]+");
         if(parts[0].contains("^")){
             parts[0] = pow(parts[0]);
         }
@@ -168,13 +164,25 @@ public class CalculatorBonus {
 
     String pow(String calc){
         String[] parts = calc.split("[\\^]+");
-        String[] operators = calc.split("[0-9.]+");
+        String[] operators = calc.split("[0-9.!]+");
+        facStage(parts[0]);
         double sum = Double.parseDouble(parts[0]);
-        if(parts.length == 2){
+        if(parts.length > 1){
             sum = Math.pow( Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
+        }
+        for (int i = 2; i <parts.length ; i++) {
+            sum = Math.pow( sum, Double.parseDouble(parts[1]));
         }
         return Double.toString(sum);
     }
+
+    public String facStage(String calc){
+        String[] parts = calc.split("[!]+");
+        String[] operators = calc.split("[0-9.]+");
+        double sum = Double.parseDouble(fac((long)Double.parseDouble(parts[0])));
+        return Double.toString(sum);
+    }
+
 
     String MultiDivBracket(String part){
         for (int i = part.length() -1; i >= 0 ;i--) {
