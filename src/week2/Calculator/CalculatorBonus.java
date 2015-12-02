@@ -124,19 +124,32 @@ public class CalculatorBonus {
         }
         for (; i <parts.length ; i++,j++) {
             parts[i] = MultiDiv(parts[i]);
+            //
             parts[i].trim();
             if(operators[j].charAt(0) == '+'){
                 sum += Double.parseDouble(parts[i]);
+                powOdd=true;
             }else {
+                if(!powOdd){
+                    sum -= Double.parseDouble(parts[i])* -1;
+                    powOdd=true;
+                }else {
                 sum -= Double.parseDouble(parts[i]);
+                }
             }
         }
         if(b1){
             parts[1] = MultiDiv(parts[1]);
-            sum -= Double.parseDouble(parts[1]);
+            if(!powOdd){
+                sum -= Double.parseDouble(parts[1])* -1;
+                powOdd=true;
+            }else {
+                sum -= Double.parseDouble(parts[1]);
+            }
         }else {
             parts[0] = MultiDiv(parts[0]);
             sum += Double.parseDouble(parts[0]);
+            powOdd=true;
         }
         return Double.toString(sum);
     }
@@ -172,12 +185,12 @@ public class CalculatorBonus {
         double sum = Double.parseDouble(parts[0]);
         if(parts.length > 1){
             parts[1] = facStage(parts[1]);
-            if(Double.parseDouble(parts[1]) % 2 == 0);{powOdd = false;}
+            if(Double.parseDouble(parts[1])/2 == (int)(Double.parseDouble(parts[1])/2)){powOdd = false;}
             sum = Math.pow( Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
         }
         for (int i = 2; i <parts.length ; i++) {
             parts[i] = facStage(parts[i]);
-            if(Double.parseDouble(parts[1]) % 2 == 0);{powOdd = false;}
+            if(Double.parseDouble(parts[i])/2 ==(int)(Double.parseDouble(parts[i])/2)){powOdd = false;}
             sum = Math.pow( sum, Double.parseDouble(parts[1]));
         }
         return Double.toString(sum);
