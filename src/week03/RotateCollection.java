@@ -7,7 +7,11 @@ import java.util.*;
  */
 public class RotateCollection<T> {
      void rotate(Collection<T> collection, int rotateStep ){
-        int temp = rotateStep;
+        if(rotateStep<0 || rotateStep>collection.size()){
+            System.out.println("cant make the operation");
+            return;
+        }
+         int temp = rotateStep;
          Stack<T> stack = new Stack<>();
         Queue<T> queue = new LinkedList<>();
 
