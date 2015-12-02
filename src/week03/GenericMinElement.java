@@ -22,7 +22,6 @@ public class GenericMinElement<T> implements Comparable<T> {
         return swap;
     }
 
-
     public int compareTo(T item) {
         if(item.hashCode() > swap.hashCode() ){
             return -1;
@@ -33,16 +32,9 @@ public class GenericMinElement<T> implements Comparable<T> {
 
     }
 
-
-
-
     public static void main(String[] args) {
         Double[] arr = {2.0,4.0,5.0,1.0};
         GenericMinElement<Double> one = new GenericMinElement<>(arr);
         System.out.println(one.make());
     }
-
-
-
-
 }
