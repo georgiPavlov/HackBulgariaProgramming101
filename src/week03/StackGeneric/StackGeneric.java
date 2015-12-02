@@ -3,10 +3,10 @@ package week03.StackGeneric;
 /**
  * Created by georgipavlov on 30.11.15.
  */
-public class StackGeneric   {
+public class StackGeneric<T>  implements GenericStackInterface <T> {
 
     private class Node{
-            private  Object o;
+            private  T o;
             private Node next;
 
             private Node(){
@@ -19,23 +19,19 @@ public class StackGeneric   {
         private Node tail=null;
 
 
-
-
-        public void push(Object o) {
-            if(HasObject(o)){
-                System.out.println("This element is already in the stack");
-                return;
-            }
-            Node newNode = new Node();
-            newNode.o=o;
-            newNode.next=head;
-            head=newNode;
+    @Override
+    public void push(T o) {
+        if(HasObject(o)){
+            System.out.println("This element is already in the stack");
+            return;
         }
+        Node newNode = new Node();
+        newNode.o=o;
+        newNode.next=head;
+        head=newNode;
+    }
 
-
-
-
-        public Object pop() {
+    public T pop() {
             Node pop= head;
             head=head.next;
             return pop.o;
@@ -67,7 +63,7 @@ public class StackGeneric   {
             return true;
         }
 
-        public boolean HasObject(Object o){
+        public boolean HasObject(T o){
             Node temp;
             boolean result =false;
             for (temp = head;temp != null; temp=temp.next) {
