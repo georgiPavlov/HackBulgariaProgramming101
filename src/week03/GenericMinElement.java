@@ -3,7 +3,7 @@ package week03;
 /**
  * Created by georgipavlov on 02.12.15.
  */
-public class GenericMinElement<T> {
+public class GenericMinElement<T> implements Comparable<T> {
     private T[] array;
     private T swap;
 
@@ -23,7 +23,7 @@ public class GenericMinElement<T> {
     }
 
 
-    private int compareTo(T item) {
+    public int compareTo(T item) {
         if(item.hashCode() > swap.hashCode() ){
             return -1;
         }else if(item.hashCode() == swap.hashCode() ){
@@ -33,9 +33,12 @@ public class GenericMinElement<T> {
 
     }
 
+
+
+
     public static void main(String[] args) {
-        Integer[] arr = {2,4,5,1};
-        GenericMinElement<Integer> one = new GenericMinElement<>(arr);
+        Double[] arr = {2.0,4.0,5.0,1.0};
+        GenericMinElement<Double> one = new GenericMinElement<>(arr);
         System.out.println(one.make());
     }
 
