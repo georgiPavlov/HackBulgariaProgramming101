@@ -42,8 +42,18 @@ public class Matrix implements MatrixOperation{
     }
 
     @Override
-    public Pixel[][] grayscale(Pixel[][] matrix) {
-        return new Pixel[0][];
+    public Pixel grayscale(int x, int y, Pixel[][] matrix) {
+        Pixel t = matrix[y][x];
+        int red= t.getR();
+        int green = t.getG();
+        int blue = t.getB();
+        int temp = (red+green+blue)/3;
+        t.setR(temp);
+        t.setG(temp);
+        t.setB(temp);
+        matrix[y][x] = t;
+
+        return t;
     }
 
     String operate(){
