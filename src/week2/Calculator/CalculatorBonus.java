@@ -31,10 +31,6 @@ public class CalculatorBonus {
         pa:for (int i = 0; i < operation1.length(); i++) {
             if(Character.isWhitespace(operation1.charAt(i))){
                 continue pa;}
-           // }else if(operation1.charAt(i) == '!'){
-              //  fac=true;
-              //  continue pa;
-          //  }
             tempBuld.append(operation1.charAt(i));
             if(operation1.charAt(i) == '('){
                 count++;
@@ -213,11 +209,11 @@ public class CalculatorBonus {
                 if(i == 0){
                     part =part.substring(i+1,part.length());
                 }else {
-                    part = part.substring(0,i-1) + '+' + part.substring(i+1,part.length());
+                    part = part.substring(0,i) + '+' + part.substring(i+1,part.length());
                 }
                 return part;
             }else if(part.charAt(i) == '+' ){
-                part = part.substring(0,i-1) + '+' + part.substring(i+1,part.length());
+                part = part.substring(0,i) + '+' + part.substring(i+1,part.length());
                 return part;
             }
         }
