@@ -32,9 +32,6 @@ public class CalculatorBonus {
             if(Character.isWhitespace(operation1.charAt(i))){
                 continue pa;}
             tempBuld.append(operation1.charAt(i));
-            if(operation1.charAt(i) == '('){
-                count++;
-            }
         }
         operation = tempBuld.toString();
         StringBuilder b = new StringBuilder();
@@ -187,7 +184,7 @@ public class CalculatorBonus {
         for (int i = 2; i <parts.length ; i++) {
             parts[i] = facStage(parts[i]);
             if(Double.parseDouble(parts[i])/2 ==(int)(Double.parseDouble(parts[i])/2)){powOdd = false;}
-            sum = Math.pow( sum, Double.parseDouble(parts[1]));
+            sum = Math.pow( sum, Double.parseDouble(parts[i]));
         }
         return Double.toString(sum);
     }
