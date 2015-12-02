@@ -164,6 +164,7 @@ public class CalculatorBonus {
         return Double.toString(sum);
     }
 
+    private boolean powOdd = true;
     String pow(String calc){
         String[] parts = calc.split("[\\^]+");
         String[] operators = calc.split("[0-9.!]+");
@@ -171,10 +172,12 @@ public class CalculatorBonus {
         double sum = Double.parseDouble(parts[0]);
         if(parts.length > 1){
             parts[1] = facStage(parts[1]);
+            if(Double.parseDouble(parts[1]) % 2 == 0);{powOdd = false;}
             sum = Math.pow( Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
         }
         for (int i = 2; i <parts.length ; i++) {
             parts[i] = facStage(parts[i]);
+            if(Double.parseDouble(parts[1]) % 2 == 0);{powOdd = false;}
             sum = Math.pow( sum, Double.parseDouble(parts[1]));
         }
         return Double.toString(sum);
