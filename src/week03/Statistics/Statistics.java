@@ -7,7 +7,25 @@ import java.util.TreeSet;
 
 /**
  * Created by georgipavlov on 03.12.15.
+ *
+ *
+ *
  */
+
+// Get a DescriptiveStatistics instance
+//DescriptiveStatistics stats = new DescriptiveStatistics();
+
+// Add the data from the array
+       // for( int i = 0; i < inputArray.length; i++) {
+       // stats.addValue(inputArray[i]);
+      //  }
+
+// Compute some statistics
+       // double mean = stats.getMean();
+       // double std = stats.getStandardDeviation();
+       // double median = stats.getPercentile(50);
+
+
 public class Statistics implements StatisticsInterfaceWithAdd {
     private ArrayList<Integer> arrayList = new ArrayList<>();
     @Override
@@ -72,7 +90,7 @@ public class Statistics implements StatisticsInterfaceWithAdd {
         statistics.add(2);
         System.out.println(statistics.getRange());
 
-
-
     }
 }
+
+
