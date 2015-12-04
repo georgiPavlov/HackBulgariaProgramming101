@@ -7,9 +7,6 @@ import java.util.TreeSet;
 
 /**
  * Created by georgipavlov on 03.12.15.
- *
- *
- *
  */
 
 // Get a DescriptiveStatistics instance

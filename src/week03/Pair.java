@@ -4,8 +4,8 @@ package week03;
  * Created by georgipavlov on 30.11.15.
  */
 public class Pair<T,S> {
-    private T FirstObject;
-    private S SecondObject;
+    private  T FirstObject;
+    private  S SecondObject;
 
     public T getFirstObject() {
         return FirstObject;
