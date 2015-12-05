@@ -5,8 +5,8 @@ import java.util.ArrayList;
 /**
  * Created by georgipavlov on 05.12.15.
  */
-public class MyHashTable  {
-   private ArrayList<Entry> table;
+public class MyHashTable<T,E>  {
+   private ArrayList<Entry<T,E>> table;
     private int tableSize;
     private int count=0;
 
@@ -24,7 +24,7 @@ public class MyHashTable  {
         }
     }
 
-    private int hash(String key){
+    private int hash(T key){
 
         int index = (key.hashCode()) % tableSize;
         while (table.get(index).getKey() != null){
@@ -34,7 +34,7 @@ public class MyHashTable  {
         return index;
     }
 
-    public void put(String key, Integer value){
+    public void put(T key, E value){
         double persent = count/tableSize;
         if(persent >= 0.75){
             resize();
@@ -47,7 +47,7 @@ public class MyHashTable  {
         count++;
     }
 
-    public Integer get(String key){
+    public E get(T key){
         int index = key.hashCode() % tableSize;
         while (table.get(index).getKey() != null){
             if(table.get(index).getKey().equals(key)){
@@ -59,11 +59,11 @@ public class MyHashTable  {
         return null;
     }
 
-    public boolean containsKey(String key) {
+    public boolean containsKey(T key) {
         if (key == null) {
             return false;
         }
-        Integer value = get(key);
+        E value = get(key);
         if (value != null) {
             return true;
         }
@@ -72,9 +72,9 @@ public class MyHashTable  {
 
     private void resize(){
         tableSize *=2;
-        ArrayList newList =  new ArrayList(tableSize);
+        ArrayList<Entry<T,E>> newList =  new ArrayList(tableSize);
         init(newList);
-        Entry entry;
+        Entry<T,E> entry;
         for (int i = 0; i <table.size() ; i++) {
             if(table.get(i).getKey() != null){
                 entry=table.get(i);

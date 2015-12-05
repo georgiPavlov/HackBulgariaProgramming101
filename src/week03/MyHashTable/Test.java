@@ -7,7 +7,7 @@ public class Test {
 
 
     public static void main(String[] args) {
-        MyHashTable myHashTable = new MyHashTable();
+        MyHashTable<String,Integer> myHashTable = new MyHashTable<>();
         myHashTable.put("one" , 1);
         myHashTable.put("two" , 2);
         myHashTable.put("tree" , 3);
