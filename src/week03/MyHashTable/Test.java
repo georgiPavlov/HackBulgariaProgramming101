@@ -13,6 +13,8 @@ public class Test {
         myHashTable.put("tree" , 3);
         myHashTable.put("four" , 4);
         System.out.println(myHashTable.containsKey("four"));
+        System.out.println( myHashTable.toString());
+
 
     }
 

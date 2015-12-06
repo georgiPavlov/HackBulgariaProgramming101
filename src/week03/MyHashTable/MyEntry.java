@@ -3,11 +3,11 @@ package week03.MyHashTable;
 /**
  * Created by georgipavlov on 05.12.15.
  */
-public class Entry<T,E> {
+public class MyEntry<T,E> {
     private T key;
     private E value;
 
-    public Entry() {
+    public MyEntry() {
         this.key=null;
         this.value = null;
     }
