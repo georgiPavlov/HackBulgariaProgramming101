@@ -29,7 +29,9 @@ public class MyHashTable<T,E> implements Map<T,E> {
         int index = (key.hashCode()) % tableSize;
         while (table.get(index).getKey() != null){
             ++index;
-            index %=tableSize-1;
+            if(index == tableSize-1){
+                index=0;
+            }
         }
         return index;
     }
@@ -57,7 +59,9 @@ public class MyHashTable<T,E> implements Map<T,E> {
                 return table.get(index).getValue();
             }
             ++index;
-            index %=tableSize-1;
+            if(index == tableSize-1){
+                index=0;
+            }
         }
         return null;
     }
@@ -218,9 +222,4 @@ public class MyHashTable<T,E> implements Map<T,E> {
         }
         table=newList;
     }
-
-
-
-
-
 }
