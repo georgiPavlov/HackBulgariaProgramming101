@@ -9,7 +9,9 @@ public class RotateCollection<T> {
      void rotate(Collection<T> collection, int rotateStep ){
         if(rotateStep<0 || rotateStep>collection.size()){
             if(rotateStep>collection.size()){
-                rotateStep = rotateStep - collection.size();
+                while (rotateStep<collection.size()) {
+                    rotateStep = rotateStep - collection.size();
+                }
             }else {
                 System.out.println("cant make the operation");
                 return;
