@@ -93,7 +93,7 @@ public class MyHashTable<T,E> implements Map<T,E> {
 
     @Override
     public boolean containsValue(Object value) {
-        for (int i = 0; i < table.size(); i++) {
+        for (int i = 0; i < tableSize; i++) {
             if(table.get(i).getKey() != null){
                 if(table.get(i).getValue().equals((E)value)){
                     return true;
@@ -107,7 +107,7 @@ public class MyHashTable<T,E> implements Map<T,E> {
 
     @Override
     public E remove(Object key) {
-        for (int i = 0; i <table.size() ; i++) {
+        for (int i = 0; i <tableSize ; i++) {
             if(table.get(i).getKey().equals(key)){
                 if(hash(prevHash(i)) == hash(nextHash(i)) ){
                     MyEntry<T,E> e = table.get(next(i));
