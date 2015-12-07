@@ -44,4 +44,10 @@ public class Is_credit_card_valid {
     }
     private Pattern pattern;
     private Matcher matcher;
+
+    public static void main(String[] args) {
+        Is_credit_card_valid is = new Is_credit_card_valid();
+
+        System.out.println(is.is_credit_card_valid("43535435435353"));
+    }
 }

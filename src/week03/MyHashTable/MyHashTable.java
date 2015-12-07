@@ -183,28 +183,7 @@ public class MyHashTable<T,E> implements Map<T,E> {
     @Override
     public Set<Entry<T, E>> entrySet() {
         Set<Entry<T, E>> set= new TreeSet<>();
-        for (int i = 0; i <tableSize ; i++) {
-          final int z =i;
-            Entry<T,E> entry = new Entry<T, E>() {
-
-              @Override
-              public T getKey() {
-                  return table.get(z).getKey();
-              }
-
-              @Override
-              public E getValue() {
-                  return table.get(z).getValue();
-              }
-
-              @Override
-              public E setValue(E value) {
-                  value = table.get(z).getValue();
-                  return value;
-              }
-          };
-            set.add(entry);
-        }
+        set.addAll(table);
         return set;
     }
 

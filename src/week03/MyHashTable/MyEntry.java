@@ -1,9 +1,11 @@
 package week03.MyHashTable;
 
+import java.util.Map;
+
 /**
  * Created by georgipavlov on 05.12.15.
  */
-public class MyEntry<T,E> {
+public class MyEntry<T,E> implements Map.Entry<T,E> {
     private T key;
     private E value;
 
@@ -24,7 +26,10 @@ public class MyEntry<T,E> {
         return value;
     }
 
-    public void setValue(E value) {
+
+
+    public E setValue(E value) {
         this.value = value;
+        return value;
     }
 }

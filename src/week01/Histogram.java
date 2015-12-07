@@ -34,4 +34,21 @@ public class Histogram {
         return result;
     }
 
+    public static void main(String[] args) {
+        Histogram histogram = new Histogram();
+       short[][] shorts =  new short[][]{
+               { 0, 0, 0, 0, 0 },
+               { 3, 3, 0, 3, 0},
+               { 0, 0, 5, 3, 0},
+               { 0, 0, 43, 3, 0},
+               { 0, 0, 4, 3, 0}
+       };
+        int[] arr =histogram.histogram(shorts);
+        for (int i = 0; i <arr.length ; i++) {
+            if(arr[i]!= 0)
+            System.out.println("i = "+ i + " " + arr[i]);
+        }
+
+    }
+
 }

@@ -35,6 +35,9 @@ public class CountOccurencesOfWords {
         long startTime = System.currentTimeMillis();
         StringBuilder builder = new StringBuilder();
         builder.append("{");
+
+
+
         //This implementation takes more time!!!!!
         //List<String > list = Arrays.asList(a);
         //Set<String> set = new TreeSet<>(list);
