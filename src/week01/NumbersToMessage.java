@@ -21,6 +21,7 @@ public class NumbersToMessage {
             }
             if(pressedSequence[i]==0){
                 b.append(" ");
+                continue p;
             }else {
                 switch (pressedSequence[i]){
                     case 2:
@@ -64,30 +65,28 @@ public class NumbersToMessage {
 
     private int Letter(int i,char x,char y,char z,char w ) {
         int temp =i;
-        int count=1;
-        int tempCount;
-        while (pressedSequence[i]==pressedSequence[temp]){
-            if(pressedSequence[i]== -1){
-                break ;
-            }else if(pressedSequence.length-1 == i){
+        int count=0;
+        while (pressedSequence[i]==pressedSequence[temp] && pressedSequence[i]!= -1 ){
+            count++;
+            temp++;
+            if(pressedSequence.length-1 <= temp){
                 break;
             }
-            temp++;
-            count++;
+
         }
         if(w == ' ' && count > 3){
-            tempCount = count;
             count=3;
-            temp -=tempCount-count;
+            temp=i+2;
 
 
         }else  if(w != ' ' && count > 4){
-            tempCount = count;
             count=4;
-            temp -=tempCount-count;
+            temp=i+3;
 
+        }else {
+           temp=count-1 + i;
         }
-        if(count == 2){
+        if(count == 1){
             if(upperLetter){b.append(Character.toUpperCase(x));
                 upperLetter=false;}
             else {b.append(x);}
@@ -110,7 +109,7 @@ public class NumbersToMessage {
 
     public static void main(String[] args) {
         NumbersToMessage numbersToMessage = new NumbersToMessage();
-        int[] arr  = {1, 4, 4, 4, 8, 8, 8, 6, 6, 6, 0, 3, 3, 0, 1, 7, 7, 7, 7, 7, 2, 6, 6, 3, 2};
+        int[] arr  = {1, 4, 4, 4, 8, 8, 8, 6, 6, 6, 0, 3, 3, 0, 1, 7, 2, 6, 6, 3, 2};
 
         System.out.println( numbersToMessage.numbersToMessage(arr));
     }
