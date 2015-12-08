@@ -69,6 +69,8 @@ public class NumbersToMessage {
         while (pressedSequence[i]==pressedSequence[temp]){
             if(pressedSequence[i]== -1){
                 break ;
+            }else if(pressedSequence.length-1 == i){
+                break;
             }
             temp++;
             count++;
@@ -103,6 +105,14 @@ public class NumbersToMessage {
             else {b.append(w);}
         }
         return temp;
+    }
+
+
+    public static void main(String[] args) {
+        NumbersToMessage numbersToMessage = new NumbersToMessage();
+        int[] arr  = {1, 4, 4, 4, 8, 8, 8, 6, 6, 6, 0, 3, 3, 0, 1, 7, 7, 7, 7, 7, 2, 6, 6, 3, 2};
+
+        System.out.println( numbersToMessage.numbersToMessage(arr));
     }
 
 }
