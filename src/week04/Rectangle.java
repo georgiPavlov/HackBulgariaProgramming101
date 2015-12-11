@@ -78,14 +78,37 @@ public class Rectangle {
     }
 
      public double getPerimeter(){
-
+         return width()*2 + height()*2;
      }
 
+    public double getArea(){
+        return  width()*height();
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Rectangle)) return false;
 
+        Rectangle rectangle = (Rectangle) o;
 
+        if (!getUpperLeft.equals(rectangle.getUpperLeft)) return false;
+        return getLowerRight.equals(rectangle.getLowerRight);
 
+    }
 
+    @Override
+    public int hashCode() {
+        int result = getUpperLeft.hashCode();
+        result = 31 * result + getLowerRight.hashCode();
+        return result;
+    }
 
-
+    @Override
+    public String toString() {
+        return "Rectangle{" +
+                "getUpperLeft=" + getUpperLeft +
+                ", getLowerRight=" + getLowerRight +
+                '}' + " height " + height() + " width " + width();
+    }
 }
