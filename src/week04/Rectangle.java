@@ -17,6 +17,11 @@ public class Rectangle {
         }
     }
 
+    public Rectangle(Rectangle t){
+        getUpperLeft = t.getUpperLeftV();
+        getLowerRight = t.getLowerRightV();
+    }
+
     public Point getUpperLeftV(){
         getUpperLeft.toString();
         return  getUpperLeft;
@@ -72,9 +77,9 @@ public class Rectangle {
 
 
     public Point center(){
-        double x = width()/2;
-        double y = height()/2;
-        return new Point(y,x);
+        double xM = (getLowerRight.getX() + getUpperLeft.getX())/2;
+        double yM = (getLowerRight.getY() + getUpperLeft.getY())/2;
+        return new Point(yM,xM);
     }
 
      public double getPerimeter(){
