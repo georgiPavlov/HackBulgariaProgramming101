@@ -3,7 +3,7 @@ package week04;
 /**
  * Created by georgipavlov on 11.12.15.
  */
-public class Rectangle {
+public class Rectangle implements Shape {
    private Point getUpperLeft;
    private Point getLowerRight;
 
@@ -82,10 +82,12 @@ public class Rectangle {
         return new Point(yM,xM);
     }
 
-     public double getPerimeter(){
+    @Override
+    public double getPerimeter(){
          return width()*2 + height()*2;
      }
 
+    @Override
     public double getArea(){
         return  width()*height();
     }

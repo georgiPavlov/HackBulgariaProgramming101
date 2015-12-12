@@ -3,7 +3,7 @@ package week04;
 /**
  * Created by georgipavlov on 12.12.15.
  */
-public class Triangle {
+public class Triangle implements Shape{
     private final Point poin1;
     private final Point poin2;
     private final Point poin3;
@@ -68,11 +68,13 @@ public class Triangle {
         return  new Point(yM,xM);
     }
 
+    @Override
     public double getPerimeter(){
         return getSegment1().getLength() + getSegment2().getLength()
                 + getSegment3().getLength();
     }
 
+    @Override
     public double getArea(){
         return (getBase()*getHeight())/2;
     }
