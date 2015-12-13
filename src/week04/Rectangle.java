@@ -7,10 +7,11 @@ public class Rectangle implements Shape {
    private Point getUpperLeft;
    private Point getLowerRight;
 
-    public Rectangle(Point getUpperLeft, Point getLowerRight) {
+    public Rectangle(Point getUpperLeft, Point getLowerRight) throws Exception {
         if(getLowerRight.getX() == getUpperLeft.getX() ||
                 getLowerRight.getY() == getUpperLeft.getY() ){
             System.out.println("error");
+            throw new Exception();
         }else {
         this.getUpperLeft = getUpperLeft;
         this.getLowerRight = getLowerRight;
@@ -29,14 +30,14 @@ public class Rectangle implements Shape {
     }
 
     public Point getUpperRightV(){
-        Point point = new Point(getUpperLeft.getX(), getLowerRight.getY());
+        Point point = new Point(getUpperLeft.getY(), getLowerRight.getX());
         point.toString();
         return  point;
     }
 
 
     public Point getLowerLeftV(){
-       Point point = new Point(getLowerRight.getX(),getUpperLeft.getY());
+       Point point = new Point(getLowerRight.getY(),getUpperLeft.getX());
         point.toString();
         return point;
 

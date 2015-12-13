@@ -7,7 +7,7 @@ public class LineSegment implements Comparable<LineSegment> {
     private final Point xPoint;
     private final Point yPoint;
 
-    public LineSegment(Point x, Point y) {
+    public LineSegment(Point x, Point y) throws Exception {
         if(!x.equals(y)) {
             this.xPoint = x;
             this.yPoint = y;
@@ -15,6 +15,7 @@ public class LineSegment implements Comparable<LineSegment> {
             System.out.println("they are not equal");
             this.xPoint = null;
             this.yPoint = null;
+            throw new Exception();
         }
     }
 

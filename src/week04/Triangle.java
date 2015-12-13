@@ -9,13 +9,14 @@ public class Triangle implements Shape{
     private final Point poin3;
 
 
-    public Triangle(Point poin1, Point poin2, Point poin3) {
+    public Triangle(Point poin1, Point poin2, Point poin3) throws Exception {
         if((poin1.getX() == poin2.getX() && poin1.getX() == poin3.getX() )||
                 (poin1.getY() == poin2.getY() && poin1.getY() == poin3.getY())){
             System.out.println("On same line error");
             this.poin1 = null;
             this.poin2 = null;
             this.poin3 = null;
+            throw new Exception();
 
         }else {
             this.poin1 = poin1;

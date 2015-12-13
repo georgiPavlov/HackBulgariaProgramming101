@@ -9,18 +9,19 @@ public class Point {
     private  Point pointCopy;
     private static final int ORIGIN=0;
 
-
-
-
     public Point() {
         this.x = 0;
         this.y = 0;
     }
 
-
     public Point(double y, double x) {
         this.y = y;
         this.x = x;
+    }
+
+    public Point(Point p){
+        this.y=p.getY();
+        this.x=p.getX();
     }
 
 

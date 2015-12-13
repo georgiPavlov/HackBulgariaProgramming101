@@ -7,11 +7,12 @@ public class Ellipse  implements  Shape{
     private final double max;
     private final double min;
 
-    public Ellipse(double max, double min) {
+    public Ellipse(double max, double min) throws Exception {
         if(max == 0 || min == 0){
             System.out.println("they are on the 0");
             this.max =0;
             this.min = 0;
+            throw new Exception();
         }else {
             this.max = Math.abs(max);
             this.min = Math.abs(min);
