@@ -18,24 +18,20 @@ public class Circle implements Shape{
         r=this.getR();
     }
 
-
-
-    public Point getUpperLeftV(){
-        return  new Point(r,-r);
+    public Point getUpperV(){
+        return  new Point(0,r);
     }
 
-    public Point getUpperRightV(){
-        return  new Point(r,r);
+    public Point getRightV(){
+        return  new Point(r,0);
     }
 
 
-    public Point getLowerLeftV(){
-        return  new Point(-r,-r);
+    public Point getLeftV(){
+        return  new Point(-r,0);
     }
 
-    public Point getLowerRightV(){
-        return  new Point(-r,r);
-    }
+    public Point getLowerV(){return  new Point(0,-r);}
 
 
     public Point getCenter(){
