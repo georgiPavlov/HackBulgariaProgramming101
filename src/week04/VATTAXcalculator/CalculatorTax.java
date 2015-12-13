@@ -9,6 +9,22 @@ public class CalculatorTax {
     final  boolean IsDefault;
 
 
+    public CalculatorTax(int countryId, double VATTax,
+                         boolean isDefault) {
+        this.countryId = countryId;
+        this.VATTax = VATTax;
+        IsDefault = isDefault;
+    }
 
+    public int getCountryId() {
+        return countryId;
+    }
 
+    public double getVATTax() {
+        return VATTax;
+    }
+
+    public boolean isDefault() {
+        return IsDefault;
+    }
 }
