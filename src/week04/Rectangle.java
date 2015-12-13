@@ -49,20 +49,20 @@ public class Rectangle implements Shape {
         return getLowerRight;
     }
 
-    public void getUpper(){
+    public void getUpper() throws Exception {
         System.out.println(new LineSegment(getUpperLeftV(),getUpperRightV()));
     }
 
-    public void getRight(){
+    public void getRight() throws Exception {
         System.out.println(new LineSegment(getUpperRightV(),getLowerRightV()));
 
     }
 
-    public void getLower(){
+    public void getLower() throws Exception {
         System.out.println(new LineSegment(getLowerLeftV(),getLowerRightV()));
     }
 
-    public  void getLeft(){
+    public  void getLeft() throws Exception {
         System.out.println(new LineSegment(getUpperLeftV(),getLowerLeftV()));
     }
 

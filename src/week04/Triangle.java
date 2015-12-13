@@ -38,23 +38,23 @@ public class Triangle implements Shape{
     }
 
 
-    public LineSegment getSegment1(){
+    public LineSegment getSegment1() throws Exception {
         return new LineSegment(poin1, poin2);
     }
 
-    public LineSegment getSegment2(){
+    public LineSegment getSegment2() throws Exception {
         return new LineSegment(poin1, poin3);
     }
 
-    public LineSegment getSegment3(){
+    public LineSegment getSegment3() throws Exception {
         return new LineSegment(poin2, poin3);
     }
 
-    public double getBase(){
+    public double getBase() throws Exception {
         return getSegment1().getLength();
     }
 
-    public  double getHeight(){
+    public  double getHeight() throws Exception {
         double m = getBase();
         double b = poin1.getY() - m*poin1.getX();
         double height = m*poin3.getX() - poin3.getY() + b;
@@ -71,13 +71,25 @@ public class Triangle implements Shape{
 
     @Override
     public double getPerimeter(){
-        return getSegment1().getLength() + getSegment2().getLength()
-                + getSegment3().getLength();
+        double res=0;
+        try {
+           res =getSegment1().getLength() + getSegment2().getLength()
+                    + getSegment3().getLength();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
     }
 
     @Override
     public double getArea(){
-        return (getBase()*getHeight())/2;
+        double res=0;
+        try {
+            res = (getBase()*getHeight())/2;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res ;
     }
 
     @Override
@@ -103,9 +115,15 @@ public class Triangle implements Shape{
 
     @Override
     public String toString() {
-        return "Triangle{" + getSegment1().toString() + " " +
-                getSegment2().toString() + " " +
-                getSegment3().toString() + " " +'}' + " base " +
-                getBase() + " height " + getHeight();
+        String t = null;
+        try {
+            t = "Triangle{" + getSegment1().toString() + " " +
+                    getSegment2().toString() + " " +
+                    getSegment3().toString() + " " +'}' + " base " +
+                    getBase() + " height " + getHeight();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return t;
     }
 }

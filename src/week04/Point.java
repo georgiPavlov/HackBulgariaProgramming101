@@ -64,7 +64,7 @@ public class Point {
         return y;
     }
 
-    public LineSegment Add(Point point1, Point point2){
+    public LineSegment Add(Point point1, Point point2) throws Exception {
         LineSegment lineSegment = new LineSegment(point1,point2);
         return lineSegment;
     }
