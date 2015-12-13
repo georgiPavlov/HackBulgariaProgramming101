@@ -32,23 +32,19 @@ public class Ellipse  implements  Shape{
     }
 
 
-    public Point getUpperLeftV(){
-        return  new Point(min,-max);
+    public Point getUpper(){
+        return  new Point(0,min);
     }
 
-    public Point getUpperRightV(){
-        return  new Point(min,max);
+    public Point getRightV(){
+        return  new Point(max,0);
     }
 
+    public Point getLeftV(){return  new Point(-max,0);}
 
-    public Point getLowerLeftV(){
-        return  new Point(-min,-max);
+    public Point getLowerV(){
+        return  new Point(0,-min);
     }
-
-    public Point getLowerRightV(){
-        return  new Point(-min,max);
-    }
-
 
     public Point getCenter(){
         return new Point(0,0);
