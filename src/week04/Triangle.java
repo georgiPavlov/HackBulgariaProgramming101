@@ -65,7 +65,7 @@ public class Triangle implements Shape{
         double yM = (getPoin1().getY() + getPoin2().getY())/2;
         double xG = (2*xM + poin3.getX())/3;
         double yG = (2*yM + poin3.getY())/3;
-        return  new Point(yM,xM);
+        return  new Point(yG,xG);
     }
 
     @Override
