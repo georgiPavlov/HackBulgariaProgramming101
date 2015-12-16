@@ -45,10 +45,15 @@ public class Game extends Canvas implements Runnable{
     @Override
     public void run() {
         while (gameRunning){
-            player.tick();
-            if(shell.startShell) {
-                shell.tick();
-            }
+            //player.tick();
+            Thread p = new Thread(new PlayerT());
+            p.start();
+            Thread s = new Thread(new SwellT());
+            s.start();
+            //if(shell.startShell) {
+              //  shell.tick();
+          //  }
+
             balls.tick();
             render(globalGraphics);
             try {

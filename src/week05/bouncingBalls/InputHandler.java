@@ -12,9 +12,7 @@ public class InputHandler implements KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
+    public void keyTyped(KeyEvent e) {}
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -30,11 +28,11 @@ public class InputHandler implements KeyListener {
         }else if(keyCode == KeyEvent.VK_UP){
             Game.shell.startShell=true;
         }
-        if (keyCode == KeyEvent.VK_ESCAPE) ;
+        if (keyCode == KeyEvent.VK_ESCAPE){
+            Game.gameRunning = false;
+        }
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
+    public void keyReleased(KeyEvent e) {}
 }
