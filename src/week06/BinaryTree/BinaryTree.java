@@ -55,7 +55,7 @@ public class BinaryTree<T extends Comparable<T>> {
         if(value == null){
             throw new IllegalArgumentException();
         }
-        //this.root = insert
+        this.root = insert(value,null,root);
     }
 
     public BinaryTreeNode<T> insert(T value,BinaryTreeNode<T> parentNode,BinaryTreeNode<T> node){
