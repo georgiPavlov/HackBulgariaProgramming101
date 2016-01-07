@@ -77,16 +77,16 @@ public class Ball {
             temp = body.get(i);
             if (temp.x + count > 30 || temp.x + count < 0) {
                 reverse1 = !reverse1;
-                System.out.println(reverse1);
+                //System.out.println(reverse1);
                 body = temp3;
-                System.out.println(" 1 x= " + temp.x + "y= " + temp.y);
+               // System.out.println(" 1 x= " + temp.x + "y= " + temp.y);
                 tick();
             }
             if (temp.y + ycount > 30 || temp.y + ycount < 0) {
                 reverse2 = !reverse2;
-                System.out.println(reverse2);
+               // System.out.println(reverse2);
                 body = temp3;
-                System.out.println(" 2 x= " + temp.x + "y= " + temp.y);
+                //System.out.println(" 2 x= " + temp.x + "y= " + temp.y);
                 tick();
             }
             temp.x = temp.x + count;
@@ -110,6 +110,22 @@ public class Ball {
         Collections.addAll(body,
                 new Box(13, 15),
                 new Box(13, 16),
+                new Box(13, 17),
+                new Box(13, 18),
+                new Box(14, 15),
+                new Box(14, 16),
+                new Box(14, 17),
+                new Box(14, 18),
+                new Box(15, 15),
+                new Box(15, 16),
+                new Box(15, 17),
+                new Box(15, 18),
+                new Box(12, 15),
+                new Box(12, 16),
+                new Box(12, 17),
+                new Box(12, 18),
+
+
                 new Box(12, 15),
                 new Box(12, 16)
         );
