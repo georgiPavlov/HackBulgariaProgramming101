@@ -148,8 +148,10 @@ public class BinaryTree<T extends Comparable<T>> {
             }else {
                 if(node.parent.leftChild == null){
                     node.parent.leftChild = null;
+                    //To do
                 }else {
                     node.parent.rightChild = null;
+                    //To do
                 }
             }
 
