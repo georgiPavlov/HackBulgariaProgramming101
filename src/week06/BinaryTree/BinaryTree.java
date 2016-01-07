@@ -12,6 +12,8 @@ public class BinaryTree<T extends Comparable<T>> {
         BinaryTreeNode<T> parent;
         BinaryTreeNode<T> leftChild;
         BinaryTreeNode<T> rightChild;
+        int heightNode=0;
+        int depthNode=0;
 
         public BinaryTreeNode(T value) {
             this.value = value;
@@ -55,25 +57,32 @@ public class BinaryTree<T extends Comparable<T>> {
         if(value == null){
             throw new IllegalArgumentException();
         }
-        this.root = insert(value,null,root);
+        this.root = insert(value,null,root,0);
     }
-
-    public BinaryTreeNode<T> insert(T value,BinaryTreeNode<T> parentNode,BinaryTreeNode<T> node){
+    //-----------------------------------------------------------------------------
+    public BinaryTreeNode<T> insert(T value,BinaryTreeNode<T> parentNode,BinaryTreeNode<T> node,int d){
         if(node == null){
             node = new BinaryTreeNode<>(value);
             node.parent = parentNode;
+            node.depthNode=d;
+            if(parentNode.heightNode <= node.heightNode){
+              update(parentNode);
+            }
         }else {
             int compareTo = value.compareTo(node.value);
             if(compareTo < 0){
-                node.leftChild = insert(value,node,node.leftChild);
+                node.leftChild = insert(value,node,node.leftChild,d+1);
             }else if(compareTo > 0){
-                node.rightChild = insert(value,node,node.rightChild);
+                node.rightChild = insert(value,node,node.rightChild,d+1);
             }else {
                 throw new IllegalArgumentException();
             }
         }
         return node;
     }
+
+
+    //--------------------------------------------------------------------------------
 
     int depth=0;
     private BinaryTreeNode<T> find(T value){
@@ -104,6 +113,8 @@ public class BinaryTree<T extends Comparable<T>> {
     }
 
     public void remove(BinaryTreeNode<T> node){
+        int hh;
+        int dd;
         if(node.leftChild!= null && node.rightChild!= null){
             BinaryTreeNode<T> replacement = node.rightChild;
             while (replacement.leftChild != null){
@@ -122,9 +133,13 @@ public class BinaryTree<T extends Comparable<T>> {
                 root = theChild;
             }else {
                 if(node.parent.leftChild == node){
+                    theChild.heightNode = node.heightNode;
+                    theChild.depthNode = node.depthNode;
                     node.parent.leftChild = theChild;
+                    //to DO BFS update
                 }else {
                     node.parent.rightChild = theChild;
+                    //to DO BFs update
                 }
             }
         }else {
@@ -163,6 +178,15 @@ public class BinaryTree<T extends Comparable<T>> {
             DFS(i+1,node.rightChild);
         }
         return;
+    }
+
+    public void update(BinaryTreeNode<T> node){
+        node.heightNode++;
+        if(node.parent != null){
+          if(node.parent.heightNode >= node.heightNode ){
+            update(node.parent);
+          }
+        }
     }
 
 
