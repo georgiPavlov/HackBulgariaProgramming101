@@ -144,9 +144,25 @@ public class BinaryTree<T extends Comparable<T>> {
     public String depthAndHeight(T value){
       BinaryTreeNode<T> node= find(value);
         String result = "depth: " + this.depth;
-        //DFS
+        maxHeight=0;
+        DFS(0,node);
+        return result + " Height: " + maxHeight;
+    }
 
-    return null;
+    int maxHeight=0;
+    private void DFS(int i,BinaryTreeNode<T> node){
+        if(node == null){
+            if(maxHeight< i){
+                maxHeight=i;
+            }
+            return;
+        }
+        if(node.leftChild != null){
+            DFS(i+1,node.leftChild);
+        }else if(node.rightChild != null){
+            DFS(i+1,node.rightChild);
+        }
+        return;
     }
 
 
