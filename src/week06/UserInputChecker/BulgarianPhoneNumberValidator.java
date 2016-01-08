@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
  * Created by georgipavlov on 06.01.16.
  */
 public class BulgarianPhoneNumberValidator {
-    private static final String NAME = "Jonny";
     boolean result;
     UserInputChecker.Validator t;
     private Pattern pattern;
