@@ -65,7 +65,7 @@ public class BinaryTree<T extends Comparable<T>> {
             node = new BinaryTreeNode<>(value);
             node.parent = parentNode;
             node.depthNode=d;
-            if(parentNode.heightNode <= node.heightNode){
+            if(parentNode.heightNode == node.heightNode){
               update(parentNode);
             }
         }else {
@@ -113,8 +113,7 @@ public class BinaryTree<T extends Comparable<T>> {
     }
 
     public void remove(BinaryTreeNode<T> node){
-        int hh;
-        int dd;
+
         if(node.leftChild!= null && node.rightChild!= null){
             BinaryTreeNode<T> replacement = node.rightChild;
             while (replacement.leftChild != null){
@@ -130,17 +129,26 @@ public class BinaryTree<T extends Comparable<T>> {
             theChild.parent = node.parent;
 
             if(node.parent == null){
+                if(root.heightNode > 1){
+                  theChild.heightNode = root.heightNode;
+                }
                 root = theChild;
+                root.depthNode = 0;
+
             }else {
                 if(node.parent.leftChild == node){
-                    theChild.heightNode = node.heightNode;
                     theChild.depthNode = node.depthNode;
                     node.parent.leftChild = theChild;
-                    //to DO BFS update
+
                 }else {
+                    theChild.depthNode = node.depthNode;
                     node.parent.rightChild = theChild;
-                    //to DO BFs update
+
                 }
+                if(node.parent.heightNode - 1 > node.heightNode && needToReverseUpdate(node.parent)){
+                    reverseUpdate(node.parent);
+                }
+
             }
         }else {
             if(node.parent == null){
@@ -148,14 +156,15 @@ public class BinaryTree<T extends Comparable<T>> {
             }else {
                 if(node.parent.leftChild == null){
                     node.parent.leftChild = null;
-                    //To do
                 }else {
                     node.parent.rightChild = null;
-                    //To do
+                }
+                if(node.parent.heightNode - 1 > node.heightNode && needToReverseUpdate(node.parent)){
+                    reverseUpdate(node.parent);
                 }
             }
-
         }
+
     }
 
     public String depthAndHeight(T value){
@@ -185,13 +194,28 @@ public class BinaryTree<T extends Comparable<T>> {
     public void update(BinaryTreeNode<T> node){
         node.heightNode++;
         if(node.parent != null){
-          if(node.parent.heightNode >= node.heightNode ){
+          if(node.parent.heightNode == node.heightNode ){
             update(node.parent);
           }
         }
     }
 
+    public void reverseUpdate(BinaryTreeNode<T> node){
+        node.heightNode--;
+        if(node.parent != null){
+            if(node.parent.heightNode - 1 == node.heightNode && needToReverseUpdate(node.parent)){
+                update(node.parent);
+            }
+        }
+    }
 
-
+    public boolean needToReverseUpdate(BinaryTreeNode<T> node){
+        maxHeight=0;
+        DFS(0,node);
+        if(maxHeight < node.heightNode){
+            return true;
+        }
+        return false;
+    }
 
 }
