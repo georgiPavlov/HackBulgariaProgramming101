@@ -13,6 +13,7 @@ public class BankAccount {
     private boolean canW;
     private static long count = 0;
     private String[] operations;
+    private int coutOperation;
 
 
     public BankAccount(String firstName, String lastName, int age,
@@ -32,6 +33,10 @@ public class BankAccount {
         this.type = type;
         count++;
         operations = new String[5];
+    }
+
+    public int getCoutOperation() {
+        return coutOperation;
     }
 
 
@@ -76,5 +81,41 @@ public class BankAccount {
         if(balance < 0){
             throw new BankExeption("balance problem");
         }
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public double getInterest() {
+        return interest;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public boolean isCanW() {
+        return canW;
+    }
+
+    public long getCount1() {
+        return count;
+    }
+
+    public String[] getOperations() {
+        return operations;
     }
 }
