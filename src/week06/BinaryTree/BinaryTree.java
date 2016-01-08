@@ -205,6 +205,7 @@ public class BinaryTree<T extends Comparable<T>> {
         if(node.parent != null){
             if(node.parent.heightNode - 1 == node.heightNode && needToReverseUpdate(node.parent)){
                 update(node.parent);
+
             }
         }
     }
