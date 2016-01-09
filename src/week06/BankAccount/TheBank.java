@@ -151,17 +151,18 @@ public class TheBank implements CLI {
         double months = Double.parseDouble(res);
         double interest = current.getInterest();
         double balance  = current.getBalance();
+        double result = 0;
         switch (current.getType()){
             case 1:{
              //A(t) = A_0 * (1 + t * r)
-                double result = balance*(1 +    months/12* interest) ;
+                result = balance*(1 +    months/12* interest) ;
                 break;
             }case 2:{
-                double result = balance*Math.pow(1 + interest / 12,months);
+                 result = balance*Math.pow(1 + interest / 12,months);
                 break;
             }
         }
-        System.out.print(interest);
+        System.out.print(result);
 
     }
 
