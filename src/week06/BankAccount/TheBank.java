@@ -85,7 +85,7 @@ public class TheBank implements CLI {
 
     private BankAccount findId( int id) throws BankExeption {
         BankAccount temp;
-        for (int i = 0; i < id; i++) {
+        for (int i = 0; i < accounts.size(); i++) {
              temp = accounts.get(i);
             if(temp.getCount1() == id){
                 return temp;
@@ -94,7 +94,7 @@ public class TheBank implements CLI {
         throw new BankExeption("Wrong ID");
     }
 
-    private void LogIn() throws BankExeption {
+    public void logIn() throws BankExeption {
         int id;
         System.out.println("Enter ID");
         String res = scannerForValidation.nextLine();
@@ -174,10 +174,10 @@ public class TheBank implements CLI {
         switch (current.getType()){
             case 1:{
              //A(t) = A_0 * (1 + t * r)
-                result = balance*(1 +    months/12* interest) ;
+                result = balance*(1 +    months/12* interest/100) ;
                 break;
             }case 2:{
-                 result = balance*Math.pow(1 + interest / 12,months);
+                 result = balance*Math.pow(1 + interest/100 / 12,months);
                 break;
             }
         }
