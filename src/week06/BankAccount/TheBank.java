@@ -130,7 +130,8 @@ public class TheBank implements CLI {
     public void add_money() {
       System.out.println("Enter money to add");
         String res = scannerForValidation.nextLine();
-        validate();
+
+        //  validate();
     }
 
     @Override
