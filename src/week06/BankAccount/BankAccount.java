@@ -118,4 +118,9 @@ public class BankAccount {
     public String[] getOperations() {
         return operations;
     }
+
+    public void setBalance(double balance) throws BankExeption {
+        this.balance = balance;
+        validateBanance(balance);
+    }
 }

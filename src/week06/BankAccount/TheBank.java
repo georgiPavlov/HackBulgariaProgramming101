@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
  */
 public class TheBank implements CLI {
     private ArrayList<BankAccount> accounts ;
+    private BankAccount current;
     private String firstName;
     private String lastName;
     private int age;
@@ -18,26 +19,24 @@ public class TheBank implements CLI {
     private int type;
     private Pattern pattern;
     private Matcher matcher;
+    private Scanner scannerForValidation;
     private static final String USERNAME_PATTERN = "^[a-zA-z]{3,15}$";
     private static final String AGE = "^[0-9]{2,3}$";
     private static final String BALANCE = "^[0-9.]{1,6}$";
     private static final String INTEREST = "^[0-9.]{1,4}$";
     private static final String TYPE = "^[0-9]";
     private static final String ID = "^[0-9]{1,10}$";
+    private static final String MONEY = "^[0-9.]{1,9}$";
+    private static final String MONTH  = "^[0-9]{1,12}$";
 
 
-    private void validate(final String CONSTANT,String username ){
+    private void validate(final String CONSTANT,String username ) throws BankExeption {
         pattern = Pattern.compile(CONSTANT);
 
         matcher = pattern.matcher(username);
 
          if(!matcher.matches()){
-             try {
-                 throw new BankExeption("InvalidInput");
-             } catch (BankExeption bankExeption) {
-                 bankExeption.getMessage();
-             }
-
+             throw new BankExeption("InvalidInput");
          }
     }
 
@@ -47,7 +46,7 @@ public class TheBank implements CLI {
     }
 
     @Override
-    public void create_bank_account() {
+    public void create_bank_account() throws BankExeption {
         Scanner scanner = new Scanner(System.in);
         String res;
 
@@ -80,14 +79,7 @@ public class TheBank implements CLI {
         res = scanner.nextLine();
         validate(TYPE,res);
         type = Integer.parseInt(res);
-
-        try {
-            accounts.add(new BankAccount(firstName,lastName,age,balance,interest,type));
-        } catch (BankExeption bankExeption) {
-            bankExeption.getMessage();
-            create_bank_account();
-        }
-
+        accounts.add(new BankAccount(firstName,lastName,age,balance,interest,type));
 
     }
 
@@ -102,9 +94,6 @@ public class TheBank implements CLI {
         throw new BankExeption("Wrong ID");
     }
 
-    private Scanner scannerForValidation;
-
-    private BankAccount current;
     private void LogIn() throws BankExeption {
         int id;
         System.out.println("Enter ID");
@@ -127,25 +116,61 @@ public class TheBank implements CLI {
     }
 
     @Override
-    public void add_money() {
-      System.out.println("Enter money to add");
+    public void add_money() throws BankExeption {
+        String res = validationOperation("Enter money to add",MONEY);
+        current.setBalance(current.getBalance() + Double.parseDouble(res));
+    }
+
+    @Override
+    public void withdraw_money() throws InsufficientFundsException, BankExeption {
+        String res = validationOperation("Enter money to withdraw",MONEY);
+        double moneyToWithdraw = Double.parseDouble(res);
+        if(moneyToWithdraw > current.getBalance() || (!current.isCanW())){
+            throw new InsufficientFundsException(" the balance is smaller than the withdraw or interest is too big");
+        }
+        current.setBalance(current.getBalance() - moneyToWithdraw);
+    }
+
+    @Override
+    public void transfer_money() throws BankExeption, InsufficientFundsException {
+        String res = validationOperation("Enter ID of the person you wnat to transfer the money",ID);
+        BankAccount temp = findId(Integer.parseInt(res));
+        String transferMoney = validationOperation("Enter ID of the person you wnat to transfer the money",MONEY);
+        double transferMoneyToDouble = Double.parseDouble(transferMoney);
+        if( transferMoneyToDouble > current.getBalance() || (!current.isCanW())){
+            throw new InsufficientFundsException(" the balance is smaller than the transfer you ask or interest is too big");
+        }
+        current.setBalance(current.getBalance() - transferMoneyToDouble);
+        temp.setBalance(temp.getBalance() + transferMoneyToDouble);
+
+    }
+
+    @Override
+    public void calculate_amount() throws BankExeption {
+        String res = validationOperation("Enter number of months ",MONTH);
+        double months = Double.parseDouble(res);
+        double interest = current.getInterest();
+        double balance  = current.getBalance();
+        switch (current.getType()){
+            case 1:{
+             //A(t) = A_0 * (1 + t * r)
+                double result = balance*(1 +    months/12* interest) ;
+                break;
+            }case 2:{
+                double result = balance*Math.pow(1 + interest / 12,months);
+                break;
+            }
+        }
+        System.out.print(interest);
+
+    }
+
+    private String validationOperation(String message , final String CONSTANT) throws BankExeption {
+        System.out.println(message);
         String res = scannerForValidation.nextLine();
-
-        //  validate();
+        validate(CONSTANT,res);
+        return res;
     }
 
-    @Override
-    public void withdraw_money() {
 
-    }
-
-    @Override
-    public void transfer_money() {
-
-    }
-
-    @Override
-    public void calculate_amount() {
-
-    }
 }
