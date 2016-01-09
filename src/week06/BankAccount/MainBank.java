@@ -8,10 +8,10 @@ import java.util.Scanner;
 public class MainBank {
 
     public static void main(String[] args) {
-       case2Work();
+       caseWork();
     }
 
-    private static void caseWork(){
+    private static void case2Work(){
         StartBank bank = new StartBank();
         int key;
         do {
@@ -38,7 +38,7 @@ public class MainBank {
         } while (key != 5);
     }
 
-    private static void case2Work(){
+    private static void caseWork(){
         StartBank bank = new StartBank();
         int key;
         do {
@@ -71,7 +71,7 @@ public class MainBank {
         System.out.printf("Enter 3 to transfer money \n");
         System.out.printf("Enter 4 to withraw money\n");
         System.out.printf("Enter 5 to EXIT\n");
-        result = scanner.next();
+        result = scanner.nextLine();
         for (int i = 0; i < result.length() ; i++) {
             if(!Character.isDigit(result.charAt(i))){
                 return 0;
@@ -87,7 +87,7 @@ public class MainBank {
         System.out.printf("Enter 1 to create bank account. \n");
         System.out.printf("Enter 2 to logIn history \n");
         System.out.printf("Enter 3 to EXIT\n");
-        result = scanner.next();
+        result = scanner.nextLine();
         for (int i = 0; i < result.length() ; i++) {
             if(!Character.isDigit(result.charAt(i))){
                 return 0;
