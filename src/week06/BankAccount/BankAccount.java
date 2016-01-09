@@ -13,7 +13,7 @@ public class BankAccount {
     private boolean canW;
     private static long count = 0;
     private String[] operations;
-    private int coutOperation;
+
 
 
     public BankAccount(String firstName, String lastName, int age,
@@ -35,9 +35,7 @@ public class BankAccount {
         operations = new String[5];
     }
 
-    public int getCoutOperation() {
-        return coutOperation;
-    }
+
 
 
     private void validateName(String str) throws BankExeption {
@@ -122,5 +120,9 @@ public class BankAccount {
     public void setBalance(double balance) throws BankExeption {
         this.balance = balance;
         validateBanance(balance);
+    }
+
+    public void setOperations(String[] operations) {
+        this.operations = operations;
     }
 }

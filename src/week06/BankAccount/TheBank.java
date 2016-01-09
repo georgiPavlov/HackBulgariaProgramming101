@@ -115,10 +115,27 @@ public class TheBank implements CLI {
 
     }
 
+    private void addOperation(String message){
+        String arr[] = current.getOperations();
+        if(arr[4] != null){
+            for (int i = 0; i < arr.length-1; i++) {
+                arr[i] = arr[i+1];
+            }
+            arr[4] = null;
+        }
+        for (int i = 0; i < arr.length; i++) {
+          if(arr[i] != null){
+              arr[i] = message;
+          }
+        }
+    }
+
     @Override
     public void add_money() throws BankExeption {
         String res = validationOperation("Enter money to add",MONEY);
         current.setBalance(current.getBalance() + Double.parseDouble(res));
+        addOperation("You add " + res + "$");
+
     }
 
     @Override
@@ -129,6 +146,7 @@ public class TheBank implements CLI {
             throw new InsufficientFundsException(" the balance is smaller than the withdraw or interest is too big");
         }
         current.setBalance(current.getBalance() - moneyToWithdraw);
+        addOperation("You withdraw " + res + "$");
     }
 
     @Override
@@ -142,6 +160,7 @@ public class TheBank implements CLI {
         }
         current.setBalance(current.getBalance() - transferMoneyToDouble);
         temp.setBalance(temp.getBalance() + transferMoneyToDouble);
+        addOperation("You transfer to ID:" + res + " " + transferMoney + "$");
 
     }
 
@@ -163,6 +182,7 @@ public class TheBank implements CLI {
             }
         }
         System.out.print(result);
+        addOperation("You calculate your sum for " + months + " months ant it is " + result + "$");
 
     }
 
