@@ -29,6 +29,9 @@ public class FindAllDuplicatedFiles {
                         continue;
                     }
                 }
+                if(!Files.isRegularFile(file.toPath())){
+                    continue;
+                }
                 print.add(files[i]);
                 search(path2.toFile(),file);
                 comparedFiles.add(path2.toFile().getAbsolutePath());
@@ -41,6 +44,9 @@ public class FindAllDuplicatedFiles {
                     if(!(compare(new File(comparedFiles.get(i)),file2))){
                         continue;
                     }
+                }
+                if(!Files.isRegularFile(file.toPath())){
+                    continue;
                 }
                 print.add(file2.getAbsolutePath());
                 search(file2,file);
@@ -60,9 +66,15 @@ public class FindAllDuplicatedFiles {
             File file = new File(directory.getAbsolutePath() + "/" + files[i] );
             if(Files.isSymbolicLink(Paths.get(files[i]))){
                 Path path2= Files.readSymbolicLink(Paths.get(files[i]));
+                if(!Files.isRegularFile(file.toPath())){
+                    continue;
+                }
                 search(fileSearch,path2.toFile());
             }
-            if(file.isFile() && file.length() < 512){
+            if(file.isFile() && file.length() < 512 ){
+                if(!Files.isRegularFile(file.toPath())){
+                    continue;
+                }
                 compare(fileSearch,file);
             }else if(file.isDirectory()){
                 search(fileSearch,file);
