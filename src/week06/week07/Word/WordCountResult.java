@@ -23,6 +23,7 @@ public class WordCountResult {
             while (scanner.hasNext()){
                 wordCount++;
             }
+            scanner.close();
             return this;
         }
 

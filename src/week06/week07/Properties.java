@@ -12,9 +12,10 @@ import java.util.Scanner;
 public class Properties {
     Scanner scanner;
     Map<String, String> parseProperties;
+    File file;
 
     public Properties() throws FileNotFoundException {
-        File file = new File("a.properties");
+         file = new File("a.properties");
         this.scanner = new Scanner(file);
         this.parseProperties =new HashMap<>();
 
@@ -22,9 +23,11 @@ public class Properties {
 
     public void doTheMagic(){
         while(scanner.hasNextLine()){
+
             String result = scanner.nextLine();
             doSomeMoreMagic(result);
         }
+
     }
 
     public void doSomeMoreMagic(String line){
@@ -56,6 +59,8 @@ public class Properties {
 
         }
         parseProperties.put(key.toString(),value.toString());
+        scanner.close();
+
 
     }
 

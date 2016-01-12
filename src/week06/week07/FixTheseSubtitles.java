@@ -29,9 +29,8 @@ public class FixTheseSubtitles {
         }
         old.delete();
         newFile.renameTo(path.toFile());
-
-
-
+        scanner.close();
+        p.close();
     }
 
     public static void main(String[] args) {
