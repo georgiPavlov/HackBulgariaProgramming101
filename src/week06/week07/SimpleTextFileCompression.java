@@ -55,7 +55,7 @@ public class SimpleTextFileCompression {
             String[] results = scanner.nextLine().split("[ ]+");
             for (int i = 0; i < results.length; i++) {
                 if(map.get(results[i]) != null){
-                    writer.print(results[i]);
+                    writer.print(map.get(results[i]));
                     writer.print("~");
                 }
             }
@@ -63,9 +63,34 @@ public class SimpleTextFileCompression {
 
         scanner.close();
         writer.close();
+    }
 
+    public void deCompress(Path filePath) throws FileNotFoundException {
+        scanner = new Scanner(filePath.toFile());
+        writer = new PrintStream("decompressed.txt");
+         HashMap<Integer,String> map = new HashMap<>();
+        boolean startType = false;
+        while(scanner.hasNextLine()){
+            String result = scanner.nextLine();
+            if(result.equals("#")){
+                startType = true;
+                continue;
+            }
+            if(!startType){
+                String[] results = result.split("[: ]+");
+                map.put(Integer.parseInt(results[1]),results[0]);
+            }else if(startType){
+                String[] results2 = result.split("[~ ]+");
+                for (int i = 0; i < results2.length; i++) {
+                    if (map.get(Integer.parseInt(results2[i]))!= null){
+                        writer.print(map.get(Integer.parseInt(results2[i])) + " ");
+                    }
+                    writer.print(System.lineSeparator());
+                }
+            }
 
-
-
+        }
+        scanner.close();
+        writer.close();
     }
 }
