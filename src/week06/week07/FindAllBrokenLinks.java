@@ -16,18 +16,17 @@ public class FindAllBrokenLinks {
 
         String add = p.getAbsolutePath();
         for (int i = 0; i <a.length ; i++) {
+            Path findPath = Paths.get(a[i]);
+            if(Files.isSymbolicLink(findPath)){
+                Path symbolicLink= Files.readSymbolicLink(path);
+                File file = symbolicLink.toFile();
+                if(!file.exists()){
+                    System.out.println(symbolicLink.toString());
+                }
+            }
             File f = new File(add + "/" + a[i]);
             if(f.isDirectory()){
-                Path findPath = Paths.get(add + "/" + a[i]);
-                if(Files.isSymbolicLink(findPath)){
-                    Path symbolicLink= Files.readSymbolicLink(path);
-                    File file = symbolicLink.toFile();
-                    if(!file.exists()){
-                        System.out.println(symbolicLink.toString());
-                    }
-                }else {
-                find(findPath);
-                }
+                find(Paths.get(add + "/" + a[i]));
             }
         }
 
