@@ -2,7 +2,10 @@ package week06.week07.FindAllDuplicatedFiles;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,11 +17,23 @@ public class FindAllDuplicatedFiles {
     ArrayList<String> print;
 
 
-    public void doWork(Path path) throws FileNotFoundException {
+    public void doWork(Path path) throws IOException {
         comparedFiles = new ArrayList<>();
         File file = path.toFile();
         String[] files = file.list();
         for (int i = 0; i < files.length; i++) {
+            if(Files.isSymbolicLink(Paths.get(files[i]))){
+                Path path2= Files.readSymbolicLink(Paths.get(files[i]));
+                for (int j = 0; j <comparedFiles.size() ; j++) {
+                    if(!(compare(new File(comparedFiles.get(i)),path2.toFile()))){
+                        continue;
+                    }
+                }
+                print.add(files[i]);
+                search(path2.toFile(),file);
+                comparedFiles.add(path2.toFile().getAbsolutePath());
+                printPaths();
+             }
             String result= file.getAbsolutePath() + "/"+  files[i];
             File file2 = new File(result);
             if(file2.isFile() && file.length() < 512){
@@ -31,7 +46,7 @@ public class FindAllDuplicatedFiles {
                 search(file2,file);
                 comparedFiles.add(file2.getAbsolutePath());
                 printPaths();
-            } else if(file2.isDirectory()){
+            }else if(file2.isDirectory()){
             doWork(file2.toPath());
             }
 
@@ -39,10 +54,14 @@ public class FindAllDuplicatedFiles {
     }
 
 
-    public void search(File fileSearch,File directory) throws FileNotFoundException {
+    public void search(File fileSearch,File directory) throws IOException {
         String[] files = directory.list();
         for (int i = 0; i < files.length ; i++) {
             File file = new File(directory.getAbsolutePath() + "/" + files[i] );
+            if(Files.isSymbolicLink(Paths.get(files[i]))){
+                Path path2= Files.readSymbolicLink(Paths.get(files[i]));
+                search(fileSearch,path2.toFile());
+            }
             if(file.isFile() && file.length() < 512){
                 compare(fileSearch,file);
             }else if(file.isDirectory()){
@@ -79,7 +98,6 @@ public class FindAllDuplicatedFiles {
             if(bytesA[i]!=bytesB[i]){
                 return false;
             }
-
         }
         print.add(other.getAbsolutePath());
         return true;
