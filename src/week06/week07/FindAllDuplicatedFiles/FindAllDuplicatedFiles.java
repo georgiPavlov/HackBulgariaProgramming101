@@ -40,11 +40,15 @@ public class FindAllDuplicatedFiles {
         for (int i = 0; i < files.length ; i++) {
             File file = new File(directory.getAbsolutePath() + "/" + files[i] );
             if(file.isFile() && file.length() < 512){
-                //compare(fileSearch,file);
+                compare(fileSearch,file);
             }else if(file.isDirectory()){
                 search(fileSearch,file);
             }
             
         }
+    }
+
+    public boolean compare(File start,File other){
+        return true;
     }
 }
