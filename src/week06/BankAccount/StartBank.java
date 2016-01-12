@@ -62,6 +62,10 @@ public class StartBank {
         }
     }
 
+    public void backUP(){
+        bank.backUp();
+    }
+
 
 
 }

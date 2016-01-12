@@ -1,9 +1,11 @@
 package week06.BankAccount;
 
+import java.io.Serializable;
+
 /**
  * Created by georgipavlov on 08.01.16.
  */
-public class BankAccount {
+public class BankAccount implements Serializable{
     private String firstName;
     private String lastName;
     private int age;

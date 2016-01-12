@@ -1,5 +1,6 @@
 package week06.BankAccount;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -43,6 +44,12 @@ public class TheBank implements CLI {
     public TheBank() {
         accounts = new ArrayList<>();
         scannerForValidation = new Scanner(System.in);
+        File f = new File("/tmp/employee.ser");
+
+        if(f.exists()){
+            System.out.println("backUp Exist");
+            restore();
+        }
     }
 
     @Override
@@ -91,6 +98,9 @@ public class TheBank implements CLI {
                 return temp;
             }
         }
+        if(accounts.size() == 0){
+            System.out.println("You are fucked up");
+        }
         throw new BankExeption("Wrong ID");
     }
 
@@ -101,12 +111,21 @@ public class TheBank implements CLI {
         validate(ID,res);
         id = Integer.parseInt(res);
         current = findId(id);
+        System.out.println(current.getFirstName());
+        System.out.println(current.getLastName());
+        System.out.println(current.getInterest());
+        System.out.println(current.getType());
+        System.out.println(current.getBalance());
+        System.out.println(current.getAge());
+        System.out.println(current.isCanW());
+        current.getBalance();
 
     }
 
     @Override
     public void show_history() {
         String arr[] = current.getOperations();
+
         for (int i = 0; i < arr.length; i++) {
             if(arr[i] != null){
             System.out.print(arr[i]);
@@ -147,7 +166,7 @@ public class TheBank implements CLI {
         }
         current.setBalance(current.getBalance() - moneyToWithdraw);
         addOperation("You withdraw " + res + "$");
-    }
+    } 
 
     @Override
     public void transfer_money() throws BankExeption, InsufficientFundsException {
@@ -189,8 +208,47 @@ public class TheBank implements CLI {
     private String validationOperation(String message , final String CONSTANT) throws BankExeption {
         System.out.println(message);
         String res = scannerForValidation.nextLine();
+        System.out.println("You enter"  + res) ;
         validate(CONSTANT,res);
         return res;
+    }
+
+   public void backUp(){
+
+        try
+        {
+            FileOutputStream fileOut =
+                    new FileOutputStream("/tmp/employee.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(accounts);
+            out.close();
+            fileOut.close();
+            System.out.printf("Serialized data is saved in /tmp/employee.ser");
+        }catch(IOException i)
+        {
+            i.printStackTrace();
+        }
+    }
+
+    private void restore(){
+
+        try
+        {
+            FileInputStream fileIn = new FileInputStream("/tmp/employee.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            accounts = (ArrayList<BankAccount>) in.readObject();
+            in.close();
+            fileIn.close();
+        }catch(IOException i)
+        {
+            i.printStackTrace();
+            return;
+        }catch(ClassNotFoundException c)
+        {
+            System.out.println("Employee class not found");
+            c.printStackTrace();
+            return;
+        }
     }
 
 

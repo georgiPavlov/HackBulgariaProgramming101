@@ -11,8 +11,7 @@ public class MainBank {
        caseWork();
     }
 
-    private static void case2Work(){
-        StartBank bank = new StartBank();
+    private static void case2Work(StartBank bank){
         int key;
         do {
             key = menu2();
@@ -49,14 +48,15 @@ public class MainBank {
                     break;
                 }case 2: {
                     bank.logIn();
-                    caseWork();
+                    case2Work(bank);
                     break;
                 }
                 case 3:{
+                    bank.backUP();
                     System.out.println("bye bye for now");
                 }
                 default:{
-                    System.out.print("You enter wrong number or the input is not valid \n");
+                   // System.out.print("You enter wrong number or the input is not valid \n");
                 }
             }
         } while (key != 3);
