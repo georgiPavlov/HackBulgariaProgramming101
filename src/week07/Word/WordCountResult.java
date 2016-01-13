@@ -1,4 +1,4 @@
-package week06.week07.Word;
+package week07.Word;
 
 import java.io.File;
 import java.io.FileNotFoundException;

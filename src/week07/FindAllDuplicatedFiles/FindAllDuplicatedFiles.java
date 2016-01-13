@@ -1,4 +1,4 @@
-package week06.week07.FindAllDuplicatedFiles;
+package week07.FindAllDuplicatedFiles;
 
 import java.io.File;
 import java.io.FileNotFoundException;

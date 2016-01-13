@@ -1,4 +1,4 @@
-package week06.week07.FileUtils;
+package week07.FileUtils;
 
 /**
  * Created by georgipavlov on 12.01.16.
