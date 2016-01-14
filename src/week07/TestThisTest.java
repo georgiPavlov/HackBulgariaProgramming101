@@ -11,7 +11,7 @@ public class TestThisTest {
     @Test
     public void testA() throws Exception {
 
-        assertEquals(1,1);
+        assertEquals(1,2);
     }
 
 

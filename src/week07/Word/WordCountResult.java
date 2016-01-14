@@ -21,11 +21,44 @@ public class WordCountResult {
                 linesCount++;
             }
             while (scanner.hasNext()){
+                scanner.next();
                 wordCount++;
             }
             scanner.close();
             return this;
         }
+
+
+    public int wordCountResut(File file) throws FileNotFoundException {
+        int count=0;
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNext()){
+            scanner.next();
+            count++;
+        }
+        return count;
+    }
+
+    public int lineCount(File file) throws FileNotFoundException {
+        int count=0;
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNextLine()){
+            scanner.nextLine();
+            count++;
+        }
+        return count;
+    }
+
+    public int charCount(File file) throws FileNotFoundException {
+        int count=0;
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNextLine()){
+            count+=scanner.nextLine().length();
+        }
+        return count;
+    }
+
+
 
        public WordCountResult wordCount(Path p) throws FileNotFoundException {
            return wordCount(p.toFile());
