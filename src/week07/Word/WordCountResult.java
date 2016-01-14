@@ -16,14 +16,9 @@ public class WordCountResult {
 
         public WordCountResult wordCount(File file) throws FileNotFoundException {
             Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()){
-                charactersCount += scanner.nextLine().length();
-                linesCount++;
-            }
-            while (scanner.hasNext()){
-                scanner.next();
-                wordCount++;
-            }
+            this.wordCount = wordCountResut(file);
+            this.linesCount = lineCount(file);
+            this.charactersCount = charCount(file);
             scanner.close();
             return this;
         }
