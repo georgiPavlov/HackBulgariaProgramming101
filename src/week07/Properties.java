@@ -60,8 +60,6 @@ public class Properties {
         }
         parseProperties.put(key.toString(),value.toString());
         scanner.close();
-
-
     }
 
 

@@ -31,6 +31,7 @@ public class WordCountResult {
             scanner.next();
             count++;
         }
+       
         return count;
     }
 
