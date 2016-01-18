@@ -13,7 +13,6 @@ public class WordCountResult {
     int linesCount =0;
     int charactersCount=0;
 
-
         public WordCountResult wordCount(File file) throws FileNotFoundException {
             Scanner scanner = new Scanner(file);
             this.wordCount = wordCountResut(file);
