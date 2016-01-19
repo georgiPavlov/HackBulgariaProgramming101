@@ -50,11 +50,12 @@ public class PeerReview {
         while (true) {
             result = scanner.nextLine();
             if(result != null){
-            map.put(count,result);
-            count++;
-            }else {
-                break;
+                map.put(count,result);
+                count++;
+                continue;
             }
+            break;
+
         }
         loopTimes(map,loops);
 
