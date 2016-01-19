@@ -8,7 +8,16 @@ import java.util.*;
  */
 public class PeerReview {
     private Map<Integer,String> names;
-    Scanner scanner;
+    private Scanner scanner;
+    private int countOfNames;
+
+    public int getCountOfNames() {
+        return countOfNames;
+    }
+
+    public void setCountOfNames(int countOfNames) {
+        this.countOfNames = countOfNames;
+    }
 
     public PeerReview(){
         scanner = new Scanner(System.in);
@@ -35,7 +44,7 @@ public class PeerReview {
     }
 
     public List<Integer> snuffle(List<Integer> numbers){
-        for (int i = 0; i < names.size() ; i++) {
+        for (int i = 0; i < countOfNames ; i++) {
             numbers.add(i+1);
         }
         Collections.shuffle(numbers);
