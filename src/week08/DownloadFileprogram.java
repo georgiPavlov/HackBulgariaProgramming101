@@ -19,12 +19,19 @@ import java.util.Scanner;
 public class DownloadFileprogram {
     public static void download() throws IOException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpget = new HttpGet("http://www.thinkstockphotos.com/CMS/StaticContent/Hero/TS_AnonHP_462882495_01.jpg");
+        String link = "http://www.thinkstockphotos.com/CMS/StaticContent/Hero/TS_AnonHP_462882495_01.jpg";
+        HttpGet httpget = new HttpGet(link);
+        String format = link.substring(link.length()-3,link.length());
+        System.out.println(format);
+        if(format.contains(".")){
+            System.out.println("wrong format");
+            return;
+        }
         CloseableHttpResponse response = httpclient.execute(httpget);
         HttpEntity entity = response.getEntity();
         if (entity != null) {
             InputStream in = new BufferedInputStream(entity.getContent());
-            OutputStream out = new BufferedOutputStream(new FileOutputStream("0011.jpg"));
+            OutputStream out = new BufferedOutputStream(new FileOutputStream("0011." + format));
             while (true){
                 int read =in.read();
                 if(read == -1){
