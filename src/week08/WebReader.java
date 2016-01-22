@@ -22,12 +22,12 @@ import java.util.regex.Pattern;
 public class WebReader {
 
 
-    private static final int MAX_COUNT_OF_PAGES = 1;
+    private static final int MAX_COUNT_OF_PAGES = 5;
     private String word;
     private boolean found = false;
 
     public void start(String startLink,String word) throws IOException {
-      this.word = word;
+        this.word = word;
         search(0, startLink );
     }
 
@@ -50,18 +50,24 @@ public class WebReader {
                 String result = scanner.nextLine();
                 b.append(result);
                 b.append(System.lineSeparator());
-                System.out.println(result);
+                //System.out.println(result);
             }
 
             if(b.toString().contains(word)){
-                System.out.println(link + " founded");
+                System.out.println("-----------------------------------------------");
+                System.out.println("---------------------- founded ---------------" );
+                System.out.println("-----------------------------------------------");
+                System.out.println( "LINK TO FOLLOW: " +  link );
+                System.out.println("-----------------------------------------------");
+                System.out.println("-----------------------------------------------");
+                System.out.println("-----------------------------------------------");
                 found = true;
                 return;
             }else {
                 results = getAllLinks(b.toString());
                 for (Iterator<String> it = results.iterator(); it.hasNext();) {
                     String getLink = it.next();
-                    //System.out.println(getLink);
+                    System.out.println(getLink);
                     search(count+1,getLink);
                     if(found){
                         return;
@@ -81,7 +87,7 @@ public class WebReader {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(content);
         while (matcher.find()) {
-            if(matcher.group(1).equals("#search-container") || matcher.group(1).equals("#content") ){
+            if(!matcher.group(1).contains("http")){
                 continue;
             }
             resultList.add(matcher.group(1));
@@ -92,7 +98,7 @@ public class WebReader {
 
     public static void main(String[] args) throws IOException {
        WebReader web = new WebReader();
-        web.start("http://javac.bg/", " използването на синхронизирани методи");
+        web.start("http://smartnews.bg/", "Планета Девет");
     }
 
 
