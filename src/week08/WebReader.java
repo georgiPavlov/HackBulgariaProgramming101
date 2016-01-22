@@ -1,6 +1,8 @@
 package week08;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -9,38 +11,89 @@ import org.apache.http.impl.client.HttpClients;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 /**
  * Created by georgipavlov on 22.01.16.
  */
 public class WebReader {
-    public static void operation() throws IOException {
 
+
+    private static final int MAX_COUNT_OF_PAGES = 1;
+    private String word;
+    private boolean found = false;
+
+    public void start(String startLink,String word) throws IOException {
+      this.word = word;
+        search(0, startLink );
+    }
+
+
+    private void search(int count,String link) throws IOException {
+        if(count > MAX_COUNT_OF_PAGES){
+            return;
+        }
+        HashSet<String> results ;
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        String link = "http://javac.bg/";
         HttpGet httpget = new HttpGet(link);
-        String format = link.substring(link.length()-3,link.length());
-        System.out.println(format);
         CloseableHttpResponse response = httpclient.execute(httpget);
         HttpEntity entity = response.getEntity();
+
         if (entity != null) {
             InputStream in = new BufferedInputStream(entity.getContent());
-            OutputStream out = new BufferedOutputStream(new FileOutputStream("0011." + format));
             StringBuilder b = new StringBuilder();
             Scanner scanner = new Scanner(entity.getContent());
-
             while (scanner.hasNextLine()){
-                System.out.println(scanner.nextLine());
+                String result = scanner.nextLine();
+                b.append(result);
+                b.append(System.lineSeparator());
+                System.out.println(result);
+            }
+
+            if(b.toString().contains(word)){
+                System.out.println(link + " founded");
+                found = true;
+                return;
+            }else {
+                results = getAllLinks(b.toString());
+                for (Iterator<String> it = results.iterator(); it.hasNext();) {
+                    String getLink = it.next();
+                    //System.out.println(getLink);
+                    search(count+1,getLink);
+                    if(found){
+                        return;
+                    }
+                }
             }
             in.close();
-            out.close();
+            response.close();
+
         }
-
-
     }
+
+
+    public   HashSet<String> getAllLinks(String content) {
+        HashSet<String> resultList = new HashSet<>();
+        String regex = "<a.*?href=\"((?!javascript).*?)\".*?>";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(content);
+        while (matcher.find()) {
+            if(matcher.group(1).equals("#search-container") || matcher.group(1).equals("#content") ){
+                continue;
+            }
+            resultList.add(matcher.group(1));
+        }
+        return resultList;
+    }
+
 
     public static void main(String[] args) throws IOException {
-        operation();
+       WebReader web = new WebReader();
+        web.start("http://javac.bg/", " използването на синхронизирани методи");
     }
+
+
 }
