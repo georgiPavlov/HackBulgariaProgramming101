@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 public class WebReader {
 
 
-    private static final int MAX_COUNT_OF_PAGES = 5;
+    private static final int MAX_COUNT_OF_PAGES = 15;
     private String word;
     private boolean found = false;
 
@@ -98,7 +98,7 @@ public class WebReader {
 
     public static void main(String[] args) throws IOException {
        WebReader web = new WebReader();
-        web.start("http://smartnews.bg/", "Планета Девет");
+        web.start("https://www.kaldata.com/", "е, че именно 8К телевизорите бяха");
     }
 
 
