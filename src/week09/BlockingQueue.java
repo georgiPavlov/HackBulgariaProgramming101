@@ -6,43 +6,42 @@ import java.util.*;
  * Created by georgipavlov on 25.01.16.
  */
 public class BlockingQueue  {
-    static final Queue t = new LinkedList<>();
-    static BlockingQueue blockingQueue = new BlockingQueue();
+    private Queue t = new LinkedList<>();
+
     private static final int MAX_SIZE = 5;
 
 
 
-    public void putTo(Object addObject) throws InterruptedException {
-        synchronized (t){
+    public synchronized void putTo(Object addObject) throws InterruptedException {
+
         while (t.size() == MAX_SIZE){
             System.out.println("I am waiting producer");
             wait();
         }
 
             t.add(addObject);
-            t.notifyAll();
-        }
+            notifyAll();
+
     }
 
-    public synchronized void n(){
-        t.notifyAll();
-    }
 
-    public Object pollTo() throws InterruptedException {
-        synchronized (t){
+
+    public synchronized Object pollTo() throws InterruptedException {
+
         while (t.isEmpty()){
             System.out.println("Im am waiting consumer");
             wait();
         }
-        t.notifyAll();
+        notifyAll();
         return t.poll();
-        }
+
     }
 
     static class Producer extends Thread{
-
+        BlockingQueue p;
         private String l;
-        Producer(String l){
+        Producer(String l,BlockingQueue p){
+            this.p = p;
             this.l = l;
         }
         @Override
@@ -50,7 +49,7 @@ public class BlockingQueue  {
 
             try {
                 System.out.println("starting producer....");
-                blockingQueue.putTo(l);
+                p.putTo(l);
                 System.out.println("producer work done.... "  + l);
 
             } catch (InterruptedException e) {
@@ -63,14 +62,17 @@ public class BlockingQueue  {
 
     static class Consumer extends Thread{
 
-
+        BlockingQueue p;
+        public Consumer(BlockingQueue p){
+            this.p = p;
+        }
 
         @Override
         public void run() {
-            blockingQueue = new BlockingQueue();
+
             try {
                 System.out.println("Starting consumer...");
-                Object object = blockingQueue.pollTo();
+                Object object = p.pollTo();
                 System.out.println("consumer work done... " + object);
 
             } catch (InterruptedException e) {
@@ -84,9 +86,9 @@ public class BlockingQueue  {
 
     public static void main(String[] args) throws InterruptedException {
 
-
-      Producer p= new Producer("one");
-        Consumer c = new Consumer();
+      BlockingQueue g = new BlockingQueue();
+      Producer p= new Producer("one",g);
+        Consumer c = new Consumer(g);
         c.start();
         p.start();
         c.join();
