@@ -91,8 +91,7 @@ public class BlockingQueue  {
         Consumer c = new Consumer(g);
         c.start();
         p.start();
-        c.join();
-        p.join();
+
 
     }
 
