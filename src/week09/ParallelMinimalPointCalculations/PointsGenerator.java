@@ -58,7 +58,6 @@ public class PointsGenerator {
             }
             lenTemp =null;
             map.put(getPoint,result);
-
         }
         return map;
     }
