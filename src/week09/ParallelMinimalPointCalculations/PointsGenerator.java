@@ -37,7 +37,7 @@ public class PointsGenerator implements Runnable{
         }
     }
 
-  /*  Map<Point,Point> getNearestPoints(List<Point> generatedPoints){
+    Map<Point,Point> getNearestPoints(List<Point> generatedPoints){
         Point getPoint;
         Point temp;
         Point result = null;
@@ -71,7 +71,7 @@ public class PointsGenerator implements Runnable{
             map.put(getPoint,result);
         }
         return map;
-    }*/
+    }
 
     private double triangleCalc(Point getPoint,Point temp){
         Point newPoint = new Point(temp.getX(),getPoint.getY());
