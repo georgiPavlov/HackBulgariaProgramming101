@@ -79,14 +79,14 @@ public class PointsGenerator implements Runnable{
     }
 
 
-    public   void  doCalculations(List<Point> inPoints, int indexFrom,
+    public   Map<Point,Point>  doCalculations(List<Point> inPoints, int indexFrom,
                                int indexTo, Map<Point, Point> outMap){
         Point getPoint;
         Point temp;
         Point result = null;
         double lenght;
         Double lenTemp = null;
-        map = new Hashtable<>();
+        Map<Point,Point> map = new Hashtable<>();
         for (int i = indexFrom; i < indexTo ; i++) {
                 getPoint = inPoints.get(i);
             System.out.println("out LOOP " +i);
@@ -118,12 +118,17 @@ public class PointsGenerator implements Runnable{
             map.put(getPoint,result);
 
         }
+
+        outMap.putAll(map);
+
+        return outMap;
+
     }
 
 
     @Override
     public void run() {
-        doCalculations(points, index , (HOW_MANY_POINTS)+ index,map);
+        map = doCalculations(points, index , (HOW_MANY_POINTS/2)+ index,map);
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -134,7 +139,7 @@ public class PointsGenerator implements Runnable{
         Thread thread1 =new Thread(p1);
         Thread thread2 =new Thread(p2);
         thread1.start();
-        //thread2.start();
+        thread2.start();
         thread1.join();
         thread2.join();
         System.out.println("Time: " +  ((System.currentTimeMillis() - time)/1000)/60) ;
