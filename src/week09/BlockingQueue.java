@@ -1,11 +1,14 @@
 package week09;
 
 import java.util.*;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by georgipavlov on 25.01.16.
  */
 public class BlockingQueue  {
+    Lock lock =new  ReentrantLock();
     private Queue t = new LinkedList<>();
 
     private static final int MAX_SIZE = 5;
@@ -18,9 +21,13 @@ public class BlockingQueue  {
             System.out.println("I am waiting producer");
             wait();
         }
+           if (!lock.tryLock()){
+               lock.lock();
+               t.add(addObject);
+               lock.unlock();
+           }
 
-            t.add(addObject);
-            notifyAll();
+         notifyAll();
 
     }
 
@@ -33,6 +40,7 @@ public class BlockingQueue  {
             wait();
         }
         notifyAll();
+        while (lock.tryLock()){}
         return t.poll();
 
     }

@@ -14,6 +14,10 @@ public class PointsGenerator implements Runnable{
     static Map<Point,Point> map =  new HashMap<>();
     static Lock lock = new ReentrantLock();
 
+    public PointsGenerator(int index){
+        this.index = index;
+    }
+
     public static void generatePoints(){
         Random random = new Random();
         int x;
@@ -25,7 +29,7 @@ public class PointsGenerator implements Runnable{
         }
     }
 
-    Map<Point,Point> getNearestPoints(List<Point> generatedPoints){
+  /*  Map<Point,Point> getNearestPoints(List<Point> generatedPoints){
         Point getPoint;
         Point temp;
         Point result = null;
@@ -59,7 +63,7 @@ public class PointsGenerator implements Runnable{
             map.put(getPoint,result);
         }
         return map;
-    }
+    }*/
 
     private double triangleCalc(Point getPoint,Point temp){
         Point newPoint = new Point(temp.getX(),getPoint.getY());
@@ -69,7 +73,7 @@ public class PointsGenerator implements Runnable{
     }
 
 
-    public  synchronized void  doCalculations(List<Point> inPoints, int indexFrom,
+    public   void  doCalculations(List<Point> inPoints, int indexFrom,
                                int indexTo, Map<Point, Point> outMap){
         Point getPoint;
         Point temp;
@@ -79,6 +83,7 @@ public class PointsGenerator implements Runnable{
         map = new Hashtable<>();
         for (int i = indexFrom; i < indexTo ; i++) {
                 getPoint = inPoints.get(i);
+            System.out.println("out LOOP " +i);
                 p:for (int j = 0; j <inPoints.size(); j++) {
                     temp = inPoints.get(j);
                     if(j == i){
@@ -99,6 +104,8 @@ public class PointsGenerator implements Runnable{
                         lenTemp = lenght;
                         result = temp;
                     }
+                    //System.out.println("Inner loop " + j);
+
                 }
                 lenTemp =null;
                 if(!lock.tryLock()){
@@ -106,27 +113,26 @@ public class PointsGenerator implements Runnable{
                 map.put(getPoint,result);
                     lock.unlock();
                 }
-
         }
     }
 
 
     @Override
     public void run() {
-        doCalculations(points,index,index + points.size()/2,map);
+        doCalculations(points, index , (HOW_MANY_POINTS/2)+ index,map);
     }
 
     public static void main(String[] args) throws InterruptedException {
-        long time = System.currentTimeMillis();
+        double time = System.currentTimeMillis();
         PointsGenerator.generatePoints();
-         PointsGenerator p1= new PointsGenerator();
-        PointsGenerator p2= new PointsGenerator();
+         PointsGenerator p1= new PointsGenerator(0);
+        PointsGenerator p2= new PointsGenerator(HOW_MANY_POINTS/2);
         Thread thread1 =new Thread(p1);
         Thread thread2 =new Thread(p2);
         thread1.start();
         thread2.start();
         thread1.join();
         thread2.join();
-        System.out.println("Time: " +  (System.currentTimeMillis() - time)) ;
+        System.out.println("Time: " +  ((System.currentTimeMillis() - time)/1000)/60) ;
     }
 }
