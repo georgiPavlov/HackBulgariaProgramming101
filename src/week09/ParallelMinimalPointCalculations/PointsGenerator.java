@@ -1,6 +1,7 @@
 package week09.ParallelMinimalPointCalculations;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -10,14 +11,14 @@ import java.util.concurrent.locks.ReentrantLock;
 public class PointsGenerator implements Runnable{
     private static List<Point> points =  new ArrayList<>();
     int index = 0;
-    private static final int HOW_MANY_POINTS  = 100_000;
+    private static final int HOW_MANY_POINTS  = 1000;
     static Map<Point,Point> map;
     static Lock lock;
 
     public PointsGenerator(int index){
         this.index = index;
         if(map == null){
-            map = new HashMap<>();
+            map = new ConcurrentHashMap<>();
         }
         if(lock == null){
             lock =new ReentrantLock();
@@ -79,14 +80,13 @@ public class PointsGenerator implements Runnable{
     }
 
 
-    public   Map<Point,Point>  doCalculations(List<Point> inPoints, int indexFrom,
-                               int indexTo, Map<Point, Point> outMap){
+    public  void  doCalculations(List<Point> inPoints, int indexFrom,
+                               int indexTo, Map<Point, Point> map){
         Point getPoint;
         Point temp;
         Point result = null;
         double lenght;
         Double lenTemp = null;
-        Map<Point,Point> map = new Hashtable<>();
         for (int i = indexFrom; i < indexTo ; i++) {
                 getPoint = inPoints.get(i);
             System.out.println("out LOOP " +i);
@@ -119,16 +119,20 @@ public class PointsGenerator implements Runnable{
 
         }
 
-        outMap.putAll(map);
+    }
 
-        return outMap;
-
+    public static void printMap(){
+        for (Map.Entry<Point, Point> entry : map.entrySet())
+        {
+            System.out.println(entry.getKey().getX()+":" + entry.getKey().getY()  + "/" +
+                    entry.getValue().getX()+":"+ entry.getValue().getY());
+        }
     }
 
 
     @Override
     public void run() {
-        map = doCalculations(points, index , (HOW_MANY_POINTS/2)+ index,map);
+        doCalculations(points, index , (HOW_MANY_POINTS/2)+ index,map);
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -143,5 +147,6 @@ public class PointsGenerator implements Runnable{
         thread1.join();
         thread2.join();
         System.out.println("Time: " +  ((System.currentTimeMillis() - time)/1000)/60) ;
+        printMap();
     }
 }
