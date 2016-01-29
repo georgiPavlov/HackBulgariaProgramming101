@@ -2,6 +2,7 @@ package week09.ParallelMinimalPointCalculations;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -137,6 +138,8 @@ public class PointsGenerator implements Runnable{
 
     public static void main(String[] args) throws InterruptedException {
         double time = System.currentTimeMillis();
+        int cores = Runtime.getRuntime().availableProcessors();
+        System.out.println(cores + ": cores ");
         PointsGenerator.generatePoints();
          PointsGenerator p1= new PointsGenerator(0);
         PointsGenerator p2= new PointsGenerator(HOW_MANY_POINTS/2);
