@@ -11,11 +11,17 @@ public class PointsGenerator implements Runnable{
     private static List<Point> points =  new ArrayList<>();
     int index = 0;
     private static final int HOW_MANY_POINTS  = 100_000;
-    static Map<Point,Point> map =  new HashMap<>();
-    static Lock lock = new ReentrantLock();
+    static Map<Point,Point> map;
+    static Lock lock;
 
     public PointsGenerator(int index){
         this.index = index;
+        if(map == null){
+            map = new HashMap<>();
+        }
+        if(lock == null){
+            lock =new ReentrantLock();
+        }
     }
 
     public static void generatePoints(){
@@ -108,18 +114,16 @@ public class PointsGenerator implements Runnable{
 
                 }
                 lenTemp =null;
-                if(!lock.tryLock()){
-                    lock.lock();
-                map.put(getPoint,result);
-                    lock.unlock();
-                }
+
+            map.put(getPoint,result);
+
         }
     }
 
 
     @Override
     public void run() {
-        doCalculations(points, index , (HOW_MANY_POINTS/2)+ index,map);
+        doCalculations(points, index , (HOW_MANY_POINTS)+ index,map);
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -130,7 +134,7 @@ public class PointsGenerator implements Runnable{
         Thread thread1 =new Thread(p1);
         Thread thread2 =new Thread(p2);
         thread1.start();
-        thread2.start();
+        //thread2.start();
         thread1.join();
         thread2.join();
         System.out.println("Time: " +  ((System.currentTimeMillis() - time)/1000)/60) ;
