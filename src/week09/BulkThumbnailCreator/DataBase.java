@@ -14,5 +14,7 @@ public class DataBase {
     protected static Queue<String> links = new ConcurrentLinkedQueue<>();
     protected static int height;
     protected static int widht;
+    protected static Producer producer;
+    protected static Consumer consumer;
 
 }

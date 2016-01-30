@@ -57,5 +57,6 @@ public class Consumer extends DataBase implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 }

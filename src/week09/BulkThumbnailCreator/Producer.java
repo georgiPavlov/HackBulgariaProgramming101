@@ -48,7 +48,7 @@ public class Producer extends DataBase implements Runnable{
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                this.notifyAll();
+                consumer.notifyAll();
             }
         }
 
