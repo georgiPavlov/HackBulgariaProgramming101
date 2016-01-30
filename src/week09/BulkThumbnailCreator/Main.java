@@ -7,5 +7,6 @@ public class Main {
     public static void main(String[] args) {
         Thread thread = new Thread(new BulkThumbnail("/home/georgipavlov/TestImage/"));
         thread.start();
+        System.out.println("finish");
     }
 }

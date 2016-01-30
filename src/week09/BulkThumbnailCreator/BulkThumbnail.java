@@ -12,6 +12,8 @@ public class BulkThumbnail extends DataBase implements Runnable{
     public static boolean recursive  = false;
     private String link;
     private static final int MAX_THREADS = Runtime.getRuntime().availableProcessors() + 5;
+    private Thread threadProducer;
+    private Thread threadConsumer;
 
     BulkThumbnail(String link){
         this.link = link;
@@ -22,6 +24,12 @@ public class BulkThumbnail extends DataBase implements Runnable{
        setStart();
         search(link);
 
+        while ((!(threadProducer.getState() == Thread.State.WAITING)) ||
+                (!(threadConsumer.getState() == Thread.State.WAITING))){}
+        threadProducer.interrupt();
+        threadConsumer.interrupt();
+
+
     }
 
     private void setStart(){
@@ -29,10 +37,10 @@ public class BulkThumbnail extends DataBase implements Runnable{
             start =false;
             producer= producer.createProduser();
             consumer = consumer.createConsumer();
-            Thread threadProduer = new Thread(producer);
-            Thread threadConsumer = new Thread(consumer);
+            threadProducer = new Thread(producer);
+            threadConsumer = new Thread(consumer);
             System.out.println("starting producer");
-            threadProduer.start();
+            threadProducer.start();
             System.out.println("starting consumer");
             threadConsumer.start();
         }
