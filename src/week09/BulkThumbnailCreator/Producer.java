@@ -38,6 +38,7 @@ public class Producer extends DataBase implements Runnable{
             synchronized (this){
             while (links.size() == 0){
                 try {
+                    System.out.println("producer is waiting");
                     this.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -45,9 +46,11 @@ public class Producer extends DataBase implements Runnable{
             }
                 try {
                     putIn(links.poll());
+                    System.out.println("producer produced picture");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                System.out.println("notify consumer");
                 consumer.notifyAll();
             }
         }
@@ -56,7 +59,7 @@ public class Producer extends DataBase implements Runnable{
 
     private void putIn(String path) throws IOException {
         BufferedImage img = new BufferedImage(widht, height, BufferedImage.TYPE_INT_RGB);
-        img.createGraphics().drawImage(ImageIO.read(new File("test.jpg")).
+        img.createGraphics().drawImage(ImageIO.read(new File(path)).
                 getScaledInstance(widht, height, Image.SCALE_SMOOTH),0,0,null);
         images.add(new EntryForImage(img,path));
     }

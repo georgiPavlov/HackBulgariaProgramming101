@@ -30,7 +30,7 @@ public class EntryForImage {
     private void setLinkTo(String linkTo) {
         Path path = Paths.get(linkTo);
         this.nameTo = path.getFileName().toString();
-        this.linkTo = path.getParent().toString() + "//thumbnails";
+        this.linkTo = path.getParent().toString() + "/thumbnails";
     }
 
     public EntryForImage(BufferedImage image, String linkTo) {

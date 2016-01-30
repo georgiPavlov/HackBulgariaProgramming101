@@ -40,6 +40,7 @@ public class Consumer extends DataBase implements Runnable {
     public synchronized void pollIn(){
         while (images.size() == 0) {
             try {
+                System.out.println("consumer is waiting");
                 this.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -53,6 +54,7 @@ public class Consumer extends DataBase implements Runnable {
             file.mkdir();
         }
         try {
+            System.out.println("creating small image " + entry.getLinkTo() + " name: " + entry.getNameTo());
             ImageIO.write(entry.getImage(), "jpg", new File(entry.getLinkTo() + entry.getNameTo()));
         } catch (IOException e) {
             e.printStackTrace();
