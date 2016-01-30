@@ -1,7 +1,11 @@
 package week09.BulkThumbnailCreator;
 
+import sun.plugin.javascript.navig.Image;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,8 +16,6 @@ import java.nio.file.Paths;
 public class Consumer extends DataBase implements Runnable {
     Consumer consumer;
     public static boolean loop = true;
-    public static boolean pull = false;
-
 
 
     private Consumer(){}
@@ -49,6 +51,11 @@ public class Consumer extends DataBase implements Runnable {
         if(Files.notExists(path)){
             File file = path.toFile();
             file.mkdir();
+        }
+        try {
+            ImageIO.write(entry.getImage(), "jpg", new File(entry.getLinkTo() + entry.getNameTo()));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
