@@ -12,7 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class PointsGenerator implements Runnable{
     private static List<Point> points =  new ArrayList<>();
     int index = 0;
-    private static final int HOW_MANY_POINTS  = 1000;
+    private static final int HOW_MANY_POINTS  = 100_000;
     static Map<Point,Point> map;
     static Lock lock;
 
