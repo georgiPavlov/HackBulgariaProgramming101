@@ -14,13 +14,13 @@ import java.nio.file.Paths;
  * Created by georgipavlov on 30.01.16.
  */
 public class Consumer extends DataBase implements Runnable {
-    Consumer consumer;
+    private static Consumer consumer;
     public static boolean loop = true;
 
 
     private Consumer(){}
 
-    public Consumer createConsumer(){
+    public static Consumer createConsumer(){
         if(consumer == null){
             consumer = new Consumer();
             return consumer;
@@ -41,9 +41,10 @@ public class Consumer extends DataBase implements Runnable {
         while (images.size() == 0) {
             try {
                 System.out.println("consumer is waiting");
-                this.wait();
+                consumer.wait();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.out.println("consumer stopped");
+                return;
             }
         }
 
@@ -55,7 +56,7 @@ public class Consumer extends DataBase implements Runnable {
         }
         try {
             System.out.println("creating small image " + entry.getLinkTo() + " name: " + entry.getNameTo());
-            ImageIO.write(entry.getImage(), "jpg", new File(entry.getLinkTo() + entry.getNameTo()));
+            ImageIO.write(entry.getImage(), "jpg", new File(entry.getLinkTo() + "/" + entry.getNameTo()));
         } catch (IOException e) {
             e.printStackTrace();
         }

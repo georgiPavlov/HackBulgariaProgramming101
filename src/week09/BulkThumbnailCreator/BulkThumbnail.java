@@ -26,17 +26,17 @@ public class BulkThumbnail extends DataBase implements Runnable{
 
         while ((!(threadProducer.getState() == Thread.State.WAITING)) ||
                 (!(threadConsumer.getState() == Thread.State.WAITING))){}
-        threadProducer.interrupt();
-        threadConsumer.interrupt();
 
+            Producer.loop = false;
+            Consumer.loop = false;
 
     }
 
     private void setStart(){
         if(start){
             start =false;
-            producer= producer.createProduser();
-            consumer = consumer.createConsumer();
+            producer= Producer.createProduser();
+            consumer = Consumer.createConsumer();
             threadProducer = new Thread(producer);
             threadConsumer = new Thread(consumer);
             System.out.println("starting producer");

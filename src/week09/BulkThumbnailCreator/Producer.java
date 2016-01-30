@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 public class Producer extends DataBase implements Runnable{
 
-    Producer producer;
+    private static Producer producer;
     public static boolean loop = true;
     public static boolean put = false;
     public static String path;
@@ -20,7 +20,7 @@ public class Producer extends DataBase implements Runnable{
 
     private Producer(){}
 
-    public Producer createProduser(){
+    public static Producer createProduser(){
         if(producer == null){
             producer = new Producer();
             return producer;
@@ -39,9 +39,10 @@ public class Producer extends DataBase implements Runnable{
             while (links.size() == 0){
                 try {
                     System.out.println("producer is waiting");
-                    this.wait();
+                    producer.wait();
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    System.out.println("producer stopped");
+                    return;
                 }
             }
                 try {
@@ -51,7 +52,9 @@ public class Producer extends DataBase implements Runnable{
                     e.printStackTrace();
                 }
                 System.out.println("notify consumer");
+                synchronized (consumer){
                 consumer.notifyAll();
+                }
             }
         }
 
