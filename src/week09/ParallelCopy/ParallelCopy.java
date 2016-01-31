@@ -4,9 +4,12 @@ import week09.BulkThumbnailCreator.*;
 import week09.BulkThumbnailCreator.Consumer;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -17,7 +20,8 @@ public class ParallelCopy extends DataBase implements Runnable {
     private static ParallelCopy parallelCopy;
     private String directory;
     private String target;
-    private static final int MAX_THREADS = Runtime.getRuntime().availableProcessors() * 3;
+    private static final int MAX_THREADS = (Runtime.getRuntime().availableProcessors() * 6) - 6;
+    private static final int THREAD_CONSTANT = 8;
 
     private ParallelCopy(){}
 
@@ -42,18 +46,47 @@ public class ParallelCopy extends DataBase implements Runnable {
 
     public void createList(String string ){
         System.out.println("starting search");
-        boolean big =false;
-        Path path = Paths.get(string);
-        File file = new File(string);
-        if (!file.isDirectory()){
-            if((double)file.length()/1024 > 102400){
-                big = true;
-            }
-            Entry entry= new Entry(big,false,string,"");
-            files.add(entry);
-            return;
+        try {
+            findHowManyThreadsToStart(string);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        String[] children = file.list();
+
+        boolean big =false;
+
+        Queue<File> visitedDirsQueue = new LinkedList<File>();
+        visitedDirsQueue.add(new File(string));
+        while (visitedDirsQueue.size() > 0) {
+            File currentDir = visitedDirsQueue.remove();
+            System.out.println(currentDir.getAbsolutePath());
+            File[] children = currentDir.listFiles();
+            if (children != null) {
+                for (File child : children) {
+                    if (child.isDirectory()) {
+                        visitedDirsQueue.add(child);
+                        continue;
+                    }
+                    if((double)child.length()/1024 > 102400){
+                        big = true;
+                    }
+
+                    files.add(new Entry(big,false,child.getAbsolutePath(),
+                            child.getParent().replace(directory +"/","")));
+                    synchronized (files){
+                        files.notifyAll();
+                    }
+                    System.out.println(child);
+                    big=false;
+                }
+                files.add(new Entry(false,true,currentDir.getAbsolutePath(),
+                        currentDir.getParent().replace(directory+"/","")));
+                synchronized (files){
+                    files.notifyAll();
+                }
+            }
+        }
+
+        /*String[] children = file.list();
         File child;
         big = false;
 
@@ -73,6 +106,18 @@ public class ParallelCopy extends DataBase implements Runnable {
              files.notifyAll();
             }
             big= false;
+        }*/
+
+    }
+
+    public void findHowManyThreadsToStart(String path) throws IOException {
+        double size = Files.list(Paths.get(path)).count() / THREAD_CONSTANT;
+        if(size < 0){
+            maxThread = 1;
+        }else if(size > MAX_THREADS ){
+            maxThread = MAX_THREADS;
+        }else {
+            maxThread = (int)size;
         }
     }
 }

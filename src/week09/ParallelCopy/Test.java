@@ -6,34 +6,32 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Created by georgipavlov on 31.01.16.
  */
 public class Test {
-    public static void main(String[] args) {
-
-        //System.out.println((double) f.length()/1024/1024);
-        try {
-            System.out.println(Files.list(Paths.get("/home/georgipavlov/HackBulgariaProgramming101")).count());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Path dir = Paths.get("/home/georgipavlov/HackBulgariaProgramming101");
-        int i = 1;
-
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
-
-            for (Path p : stream) {
-                //larger than max files, exit
-                System.out.println(p.toString());
-                //if(p.id)
-
+    public static void traverseDir(String startDirectory) {
+        Queue<File> visitedDirsQueue = new LinkedList<File>();
+        visitedDirsQueue.add(new File(startDirectory));
+        while (visitedDirsQueue.size() > 0) {
+            File currentDir = visitedDirsQueue.remove();
+            System.out.println(currentDir.getAbsolutePath());
+            File[] children = currentDir.listFiles();
+            if (children != null) {
+                for (File child : children) {
+                    if (child.isDirectory()) {
+                        visitedDirsQueue.add(child);
+                    }
+                    System.out.println(child);
+                }
             }
-        } catch (IOException ex) {
-            ex.printStackTrace();
         }
+    }
 
+    public static void main(String[] args) {
+        traverseDir("/home/georgipavlov/HackBulgariaProgramming101/src/week09");
     }
 }
