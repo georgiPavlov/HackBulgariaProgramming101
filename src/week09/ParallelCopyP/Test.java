@@ -1,11 +1,6 @@
-package week09.ParallelCopy;
+package week09.ParallelCopyP;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -32,6 +27,9 @@ public class Test {
     }
 
     public static void main(String[] args) {
-        traverseDir("/home/georgipavlov/HackBulgariaProgramming101/src/week09");
+        String p ="/home/georgipavlov/HackBulgariaProgramming101/src/week09";
+        String z = "/home/georgipavlov";
+        System.out.println(p.substring(z.length(),p.length()));
+
     }
 }

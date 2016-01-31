@@ -1,4 +1,4 @@
-package week09.ParallelCopy;
+package week09.ParallelCopyP;
 
 /**
  * Created by georgipavlov on 31.01.16.

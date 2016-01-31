@@ -1,14 +1,11 @@
-package week09.ParallelCopy;
+package week09.ParallelCopyP;
 
-import week09.BulkThumbnailCreator.*;
-import week09.BulkThumbnailCreator.Consumer;
+
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -18,17 +15,17 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public class ParallelCopy extends DataBase implements Runnable {
     private static ParallelCopy parallelCopy;
-    private String directory;
-    private String target;
+    private static String directory;
+    private static String target;
     private static final int THREAD_CONSTANT = 8;
 
     private ParallelCopy(){}
 
-    public ParallelCopy createParallelCopy(String directory,String target){
+    public static ParallelCopy createParallelCopy(String _directory,String _target){
         if(parallelCopy == null){
             files = new ConcurrentLinkedQueue<>();
-            this.target = target;
-            this.directory=directory;
+            target = _target;
+            directory = _directory;
             parallelCopy = new ParallelCopy();
             return parallelCopy;
         }
@@ -38,7 +35,8 @@ public class ParallelCopy extends DataBase implements Runnable {
 
     @Override
     public void run() {
-        Consumer consumer = Consumer.createConsumer();
+        maxThread=1;
+         consumer = Consumer.createConsumer();
         Thread consumerThread = new Thread(consumer);
         consumerThread.start();
         createList(directory);
@@ -74,17 +72,17 @@ public class ParallelCopy extends DataBase implements Runnable {
                     if((double)child.length()/1024 > 102400){
                         big = true;
                     }
-
-                    files.add(new Entry(big,false,child.getAbsolutePath(),
-                            child.getParent().replace(directory +"/","")));
+                     String sub = child.getParent().substring(directory.length(),child.getParent().length());
+                    files.add(new Entry(big,false,child.getAbsolutePath(),target + sub));
                     synchronized (files){
                         files.notifyAll();
                     }
                     System.out.println(child);
                     big=false;
                 }
+                String sub = directory.substring(0,directory.length());
                 files.add(new Entry(false,true,currentDir.getName(),
-                        currentDir.getParent().replace(directory+"/","")));
+                        target + sub));
                 synchronized (files){
                     files.notifyAll();
                 }

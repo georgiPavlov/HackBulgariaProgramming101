@@ -1,8 +1,7 @@
-package week09.ParallelCopy;
+package week09.ParallelCopyP;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -46,6 +45,7 @@ public class ConsumerChild extends Thread{
                     }
                 }
                 try {
+                    System.out.println(entry.getTarget() + "this is the target");
                     Files.copy(Paths.get(entry.getLink()),Paths.get(entry.getTarget()) ,REPLACE_EXISTING);
                 } catch (IOException e) {
                     e.printStackTrace();

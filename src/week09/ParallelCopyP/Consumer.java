@@ -1,6 +1,4 @@
-package week09.ParallelCopy;
-
-import week09.BulkThumbnailCreator.*;
+package week09.ParallelCopyP;
 
 import java.util.ArrayList;
 import java.util.List;

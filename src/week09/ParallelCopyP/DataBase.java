@@ -1,7 +1,6 @@
-package week09.ParallelCopy;
+package week09.ParallelCopyP;
 
 import java.util.Queue;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by georgipavlov on 31.01.16.
