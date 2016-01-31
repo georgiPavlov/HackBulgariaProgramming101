@@ -7,4 +7,5 @@ import java.util.Queue;
  */
 public class DataBase {
     protected Queue<Entry> files;
+
 }

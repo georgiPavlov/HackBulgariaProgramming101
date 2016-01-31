@@ -6,10 +6,14 @@ package week09.ParallelCopy;
 public class Entry {
      private boolean newThread =false;
      private String link;
+     private String target;
+    private  boolean directory;
 
-    public Entry(boolean newThread, String link) {
+    public Entry(boolean newThread,boolean directory, String link,String target) {
         this.newThread = newThread;
         this.link = link;
+        this.target = target;
+        this.directory = directory;
     }
 
     public boolean isNewThread() {
@@ -18,5 +22,13 @@ public class Entry {
 
     public String getLink() {
         return link;
+    }
+
+    public String getTarget() {
+        return target;
+    }
+
+    public boolean isDirectory() {
+        return directory;
     }
 }

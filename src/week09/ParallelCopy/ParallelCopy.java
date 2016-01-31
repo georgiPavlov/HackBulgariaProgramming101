@@ -17,7 +17,7 @@ public class ParallelCopy extends DataBase implements Runnable {
     private static ParallelCopy parallelCopy;
     private String directory;
     private String target;
-    private static final int MAX_THREADS = Runtime.getRuntime().availableProcessors() + 5;
+    private static final int MAX_THREADS = Runtime.getRuntime().availableProcessors() * 3;
 
     private ParallelCopy(){}
 
@@ -35,6 +35,7 @@ public class ParallelCopy extends DataBase implements Runnable {
 
     @Override
     public void run() {
+        createList(directory);
 
 
     }
@@ -48,7 +49,7 @@ public class ParallelCopy extends DataBase implements Runnable {
             if((double)file.length()/1024 > 102400){
                 big = true;
             }
-            Entry entry= new Entry(big,target + path.getFileName().toString());
+            Entry entry= new Entry(big,false,string,"");
             files.add(entry);
             return;
         }
@@ -58,19 +59,19 @@ public class ParallelCopy extends DataBase implements Runnable {
 
         for (int i = 0; i <children.length ; i++) {
             child = new File(path.toString() + "/" + children[i]);
-            if(file.isDirectory()){
-                files.add(new Entry(big,target + "/" + children[i]));
+            if(child.isDirectory()){
+                files.add(new Entry(big,true,string + "/" + children[i],children[i]));
                 createList(string + "/" + children[i]);
             }else {
-                if((double)file.length()/1024 > 102400){
+                if((double)child.length()/1024 > 102400){
                     big = true;
                 }
-                files.add(new Entry(big,target + "/" + children[i]));
+                files.add(new Entry(big,false,string + "/" + children[i],""));
 
             }
-            //synchronized (){
-
-          //  }
+            synchronized (files){
+             files.notifyAll();
+            }
             big= false;
         }
     }
