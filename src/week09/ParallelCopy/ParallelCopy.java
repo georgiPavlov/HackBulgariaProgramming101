@@ -20,7 +20,6 @@ public class ParallelCopy extends DataBase implements Runnable {
     private static ParallelCopy parallelCopy;
     private String directory;
     private String target;
-    private static final int MAX_THREADS = (Runtime.getRuntime().availableProcessors() * 6) - 6;
     private static final int THREAD_CONSTANT = 8;
 
     private ParallelCopy(){}

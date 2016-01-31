@@ -39,11 +39,21 @@ public class Consumer extends DataBase implements Runnable{
                     }
                 }
                 updateThreads(maxThread);
+                value=maxThread;
             }
         }
     }
 
     private void updateThreads(int value){
+        if(value > MAX_THREADS){
+            return;
+        }else if(value == 0){
+            //end loops to all
+        }else if(value > threads.size()){
+            //addThreads(value-threads.size());
+        }else {
+            //removeThreads(threads.size() -value);
+        }
 
     }
 }
