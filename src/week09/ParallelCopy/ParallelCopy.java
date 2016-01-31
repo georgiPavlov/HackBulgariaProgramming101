@@ -39,9 +39,10 @@ public class ParallelCopy extends DataBase implements Runnable {
 
     @Override
     public void run() {
+        Consumer consumer = Consumer.createConsumer();
+        Thread consumerThread = new Thread(consumer);
+        consumerThread.start();
         createList(directory);
-
-
     }
 
     public void createList(String string ){
@@ -118,6 +119,9 @@ public class ParallelCopy extends DataBase implements Runnable {
             maxThread = MAX_THREADS;
         }else {
             maxThread = (int)size;
+        }
+        synchronized (consumer){
+            consumer.notifyAll();
         }
     }
 }
