@@ -42,6 +42,11 @@ public class ParallelCopy extends DataBase implements Runnable {
         Thread consumerThread = new Thread(consumer);
         consumerThread.start();
         createList(directory);
+        synchronized (consumer){
+            maxThread = 0;
+            consumer.notifyAll();
+        }
+        Consumer.loop = false;
     }
 
     public void createList(String string ){
@@ -78,36 +83,13 @@ public class ParallelCopy extends DataBase implements Runnable {
                     System.out.println(child);
                     big=false;
                 }
-                files.add(new Entry(false,true,currentDir.getAbsolutePath(),
+                files.add(new Entry(false,true,currentDir.getName(),
                         currentDir.getParent().replace(directory+"/","")));
                 synchronized (files){
                     files.notifyAll();
                 }
             }
         }
-
-        /*String[] children = file.list();
-        File child;
-        big = false;
-
-        for (int i = 0; i <children.length ; i++) {
-            child = new File(path.toString() + "/" + children[i]);
-            if(child.isDirectory()){
-                files.add(new Entry(big,true,string + "/" + children[i],children[i]));
-                createList(string + "/" + children[i]);
-            }else {
-                if((double)child.length()/1024 > 102400){
-                    big = true;
-                }
-                files.add(new Entry(big,false,string + "/" + children[i],""));
-
-            }
-            synchronized (files){
-             files.notifyAll();
-            }
-            big= false;
-        }*/
-
     }
 
     public void findHowManyThreadsToStart(String path) throws IOException {
