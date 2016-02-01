@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import static java.nio.file.StandardCopyOption.*;
 /**
@@ -24,6 +25,7 @@ public class ConsumerChild extends Thread{
 
     }
 
+
     public static void copy(){
         synchronized (DataBase.files){
             while (DataBase.files.size() == 0){
@@ -33,8 +35,10 @@ public class ConsumerChild extends Thread{
                     e.printStackTrace();
                 }
             }
+
             Entry entry = DataBase.files.poll();
             if(entry.isDirectory()){
+                System.out.println("making dir " + entry.getLink() +" :link " + entry.getTarget() );
                 File file = new File(entry.getTarget() + entry.getLink());
                 file.mkdir();
             }else {
@@ -45,8 +49,9 @@ public class ConsumerChild extends Thread{
                     }
                 }
                 try {
-                    System.out.println(entry.getTarget() + "this is the target");
-                    Files.copy(Paths.get(entry.getLink()),Paths.get(entry.getTarget()) ,REPLACE_EXISTING);
+                    System.out.println(entry.getTarget() + " this is the target"  + entry.getLink() + " is link");
+                    Files.copy(Paths.get(entry.getLink()),Paths.get(entry.getTarget()) ,
+                            StandardCopyOption.REPLACE_EXISTING);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

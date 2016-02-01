@@ -1,8 +1,14 @@
 package week09.ParallelCopyP;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.LinkedList;
 import java.util.Queue;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 /**
  * Created by georgipavlov on 31.01.16.
@@ -29,7 +35,14 @@ public class Test {
     public static void main(String[] args) {
         String p ="/home/georgipavlov/HackBulgariaProgramming101/src/week09";
         String z = "/home/georgipavlov";
-        System.out.println(p.substring(z.length(),p.length()));
+        //System.out.println(p.substring(z.length(),p.length()));
+        try {
+            Files.copy(Paths.get("/home/georgipavlov/Downloads/testingCopy/t.c"),
+                    Paths.get("/home/georgipavlov/Downloads/testingCopy/testingCopy2/t.c") , StandardCopyOption.REPLACE_EXISTING);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }

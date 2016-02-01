@@ -47,6 +47,7 @@ public class ParallelCopy extends DataBase implements Runnable {
         Consumer.loop = false;
     }
 
+    boolean first = false;
     public void createList(String string ){
         System.out.println("starting search");
         try {
@@ -72,20 +73,29 @@ public class ParallelCopy extends DataBase implements Runnable {
                     if((double)child.length()/1024 > 102400){
                         big = true;
                     }
-                     String sub = child.getParent().substring(directory.length(),child.getParent().length());
-                    files.add(new Entry(big,false,child.getAbsolutePath(),target + sub));
+                     String sub = child.getAbsolutePath().substring(directory.length(),child.getAbsolutePath().length());
+                    files.add(new Entry(big,false,child.getAbsolutePath(),target +"/"+ sub));
                     synchronized (files){
                         files.notifyAll();
                     }
                     System.out.println(child);
                     big=false;
                 }
-                String sub = directory.substring(0,directory.length());
-                files.add(new Entry(false,true,currentDir.getName(),
-                        target + sub));
+
+                String sub1;
+                if(!directory.equals(currentDir.getAbsolutePath())){
+                 sub1 = currentDir.getAbsolutePath().substring(directory.length(),currentDir.getAbsolutePath().length());
+                }else {
+                    sub1="";
+                    continue;
+                }
+                files.add(new Entry(false,true,currentDir.getAbsolutePath(),
+                        target + "/"+ sub1));
                 synchronized (files){
                     files.notifyAll();
                 }
+
+
             }
         }
     }

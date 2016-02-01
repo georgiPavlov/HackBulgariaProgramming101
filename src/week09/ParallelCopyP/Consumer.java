@@ -70,6 +70,7 @@ public class Consumer extends DataBase implements Runnable{
                   return;
               }
                 threads.get(i).setLoop(false);
+                threads.remove(i);
                 value--;
             }
     }

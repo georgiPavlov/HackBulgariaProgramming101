@@ -5,7 +5,8 @@ package week09.ParallelCopyP;
  */
 public class Main {
     public static void main(String[] args) {
-        Thread thread = new Thread(ParallelCopy.createParallelCopy("/home/georgipavlov/Downloads/Нова папка" , "/home/georgipavlov"));
+        Thread thread = new Thread(ParallelCopy.createParallelCopy("/home/georgipavlov/Downloads/Нова папка" ,
+                "/home/georgipavlov/Downloads/Ruby"));
         thread.start();
 
     }
