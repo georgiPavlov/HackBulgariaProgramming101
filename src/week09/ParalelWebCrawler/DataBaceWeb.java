@@ -11,5 +11,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class DataBaceWeb {
     protected static  Queue<HttpEntity> entities = new ConcurrentLinkedQueue<>();
     protected static  Queue<String> link = new ConcurrentLinkedQueue<>();
+    protected static  String word;
+    protected static boolean found = false;
 
 }

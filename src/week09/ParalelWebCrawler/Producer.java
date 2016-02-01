@@ -21,8 +21,6 @@ public class Producer extends DataBaceWeb implements Runnable{
 
 
     public void produce(String link) throws IOException {
-
-        HashSet<String> results ;
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpget = new HttpGet(link);
         CloseableHttpResponse response = httpclient.execute(httpget);
@@ -40,7 +38,11 @@ public class Producer extends DataBaceWeb implements Runnable{
         while (loop){
             while (link.size() == 0){
                 synchronized (link){
-                    link.notifyAll();
+                    try {
+                        link.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             try {
