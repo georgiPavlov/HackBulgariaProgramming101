@@ -12,7 +12,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  */
 public class DataBaceWeb {
     protected static  Queue<HttpEntity> entities = new ConcurrentLinkedQueue<>();
-    protected static Set<String> link = new CopyOnWriteArraySet<>();
+    protected static Queue<String> link = new ConcurrentLinkedQueue<>();
     protected static  String word;
     protected static boolean found = false;
     protected static final int MAX_THREADS = Runtime.getRuntime().availableProcessors();

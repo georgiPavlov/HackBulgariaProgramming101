@@ -26,7 +26,7 @@ public class ConsumerChild extends Thread{
     }
 
 
-    public static void copy(){
+    public  void copy(){
         synchronized (DataBase.files){
             while (DataBase.files.size() == 0){
                 try {
