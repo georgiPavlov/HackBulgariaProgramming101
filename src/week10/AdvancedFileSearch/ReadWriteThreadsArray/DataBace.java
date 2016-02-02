@@ -11,30 +11,37 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * Created by georgipavlov on 02.02.16.
  */
 public class DataBace {
-    private ArrayList<Integer> nums;
+    private ArrayList<Long> nums;
     private ArrayList<ReentrantReadWriteLock> locks;
     private SynchronizedArray array;
-    private static AtomicInteger finishedSegmentsRead = new AtomicInteger();
-    private static AtomicInteger finishedSegmentsWrite = new AtomicInteger();
+     static AtomicInteger finishedSegmentsRead = new AtomicInteger();
+     static AtomicInteger finishedSegmentsWrite = new AtomicInteger();
+    private long segmentBig = array.getSectorSize();
 
+    public long getSegmentBig() {
+        return segmentBig;
+    }
 
-    public Integer  getIndex( int index ){
+    public Long  getIndex(long index ){
         return array.read(index);
     }
 
-    public void setIndex(int index){
+    public void setIndex(long index){
         array.write(index);
     }
 
-    public DataBace(int size, int sectors){
+    public DataBace(long size, int sectors){
         nums = new ArrayList<>();
+        locks = new ArrayList<>();
         createArray(size);
         createLocks(sectors);
-        array = new SynchronizedArray(size,sectors,nums,locks);
+        array = new SynchronizedArray(sectors,size,nums,locks);
+        finishedSegmentsRead.set(0);
+        finishedSegmentsWrite.set(0);
     }
 
-    private void createArray(int size) {
-        for (int i = 0; i < size; i++) {
+    private void createArray(long size) {
+        for (long i = 0; i < size; i++) {
             nums.add(null);
         }
     }

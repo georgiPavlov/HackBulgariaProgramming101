@@ -9,10 +9,14 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class SynchronizedArray {
 
     private ArrayList<ReentrantReadWriteLock> locks;
-    private ArrayList<Integer> numbers;
-    private int sectorSize;
+    private ArrayList<Long> numbers;
+    private long sectorSize;
 
-    public SynchronizedArray(int sectors , int size, ArrayList<Integer> numbers,
+    public long getSectorSize() {
+        return sectorSize;
+    }
+
+    public SynchronizedArray(int sectors , long size, ArrayList<Long> numbers,
                              ArrayList<ReentrantReadWriteLock> locks){
         this.locks =locks;
         this.numbers = numbers;
@@ -20,17 +24,17 @@ public class SynchronizedArray {
     }
 
 
-    public void write(int index){
-        locks.get(index / sectorSize).writeLock().lock();
+    public void write(long index){
+        locks.get((int)(index / sectorSize)).writeLock().lock();
         numbers.add(index);
-        locks.get(index / sectorSize).writeLock().unlock();
+        locks.get((int)(index / sectorSize)).writeLock().unlock();
     }
 
-    public int read(int index){
-        int a;
-        locks.get(index / sectorSize).readLock().lock();
-         a= numbers.get(index);
-        locks.get(index / sectorSize).readLock().unlock();
+    public long read(long index){
+        long a;
+        locks.get((int)(index / sectorSize)).readLock().lock();
+         a= numbers.get((int)index);
+        locks.get((int)(index / sectorSize)).readLock().unlock();
         return a;
     }
 

@@ -3,15 +3,15 @@ package week10.AdvancedFileSearch.ReadWriteThreadsArray;
 /**
  * Created by georgipavlov on 02.02.16.
  */
-public class Producer implements Runnable {
+public class Producer extends Thread {
      DataBace dataBace;
-     int start;
-     int end;
+     long start;
+     long end;
      boolean type ;
 
 
 
-    Producer(DataBace dataBace,int start,int end,boolean type){
+    Producer(DataBace dataBace,long start,long end,boolean type){
         this.start = start;
         this.end = end;
         this.dataBace =dataBace;
@@ -29,15 +29,16 @@ public class Producer implements Runnable {
     }
 
     private void get() {
-        for (int i = start; i < end; i++) {
+        for (long i = start; i < end; i++) {
             dataBace.getIndex(i);
         }
+        DataBace.finishedSegmentsRead.incrementAndGet();
     }
 
     public void put(){
-        for (int i = start; i < end; i++) {
+        for (long i = start; i < end; i++) {
             dataBace.setIndex(i);
         }
-
+        DataBace.finishedSegmentsWrite.incrementAndGet();
     }
 }
