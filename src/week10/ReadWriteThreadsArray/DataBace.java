@@ -1,9 +1,6 @@
-package week10.AdvancedFileSearch.ReadWriteThreadsArray;
+package week10.ReadWriteThreadsArray;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 

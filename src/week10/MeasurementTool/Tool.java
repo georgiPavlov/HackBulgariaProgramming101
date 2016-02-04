@@ -1,11 +1,4 @@
-package week10.AdvancedFileSearch.MeasurementTool;
-
-import org.apache.http.client.fluent.Executor;
-import week09.BulkThumbnailCreator.Producer;
-import week10.AdvancedFileSearch.ReadWriteThreadsArray.DataBace;
-
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
+package week10.MeasurementTool;
 
 /**
  * Created by georgipavlov on 03.02.16.

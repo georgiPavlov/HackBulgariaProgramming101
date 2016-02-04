@@ -1,4 +1,4 @@
-package week10.AdvancedFileSearch.ReadWriteThreadsArray;
+package week10.ReadWriteThreadsArray;
 
 /**
  * Created by georgipavlov on 02.02.16.

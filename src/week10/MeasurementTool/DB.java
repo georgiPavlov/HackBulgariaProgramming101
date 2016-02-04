@@ -1,4 +1,4 @@
-package week10.AdvancedFileSearch.MeasurementTool;
+package week10.MeasurementTool;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;

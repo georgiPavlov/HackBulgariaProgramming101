@@ -1,4 +1,4 @@
-package week10.AdvancedFileSearch.MeasurementTool;
+package week10.MeasurementTool;
 
 /**
  * Created by georgipavlov on 03.02.16.

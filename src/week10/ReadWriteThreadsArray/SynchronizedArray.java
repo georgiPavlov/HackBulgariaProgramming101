@@ -1,4 +1,4 @@
-package week10.AdvancedFileSearch.ReadWriteThreadsArray;
+package week10.ReadWriteThreadsArray;
 
 import java.util.ArrayList;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
