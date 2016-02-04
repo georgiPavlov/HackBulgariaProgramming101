@@ -19,7 +19,7 @@ public class Test {
         for (int i = 0; i <segments ; i++) {
             end = end + data.getSegmentBig();
             readers.add(new Producer(data,start,end,false));
-            writers.add(new Producer(data,start,end,false));
+            writers.add(new Producer(data,start,end,true));
             start = end;
         }
         long time = System.currentTimeMillis();
@@ -30,6 +30,7 @@ public class Test {
             writers.get(i).join();
             readers.get(i).join();
         }
+
         System.out.println("Test end in " + (System.currentTimeMillis() - time) + "seconds");
 
 
