@@ -22,6 +22,7 @@ public class StartProducer implements Runnable{
            // System.out.println("fdfg");
             Thread t =new Thread(new ProducerT<Integer>(db,j));
             t.start();
+
         }
     }
 }

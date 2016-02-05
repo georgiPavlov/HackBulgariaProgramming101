@@ -23,23 +23,21 @@ public class ConsumerT<T> implements Runnable {
 
     @Override
     public void run() {
-        while (!(dataBase.getCountConsumers().addAndGet(0) == dataBase.getMaxElements())){
+        while (!(dataBase.getCountConsumers().addAndGet(0) >= dataBase.getMaxElements())){
             //System.out.println("consuming...");
             consume();
         }
         System.out.println("out consumer");
-        dataBase.isFinishConsumers= true;
+      //  dataBase.isFinishConsumers= true;
+       // System.out.println(dataBase.isFinishConsumers);
         dataBase.finishConsuming.getAndIncrement();
-        System.out.println(dataBase.isFinishConsumers);
     }
 
     private void consume() {
         while (dataBase.getQueueT().size() == 0){
             try {
                 while (dataBase.queueT.size() == 0){
-                    if(dataBase.isFinishConsumers == true){
-                        return;
-                    }
+
                 synchronized (dataBase){
                 dataBase.wait();
                 }

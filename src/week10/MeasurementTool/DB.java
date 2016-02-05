@@ -41,12 +41,12 @@ public class DB<T> {
     }
 
     public void factoryReset(){
-        countProducers.getAndSet(0);
-        countConsumers.getAndSet(0);
-        finishProducers = false;
-        isFinishConsumers = false;
-        AtomicInteger finishProducing = new AtomicInteger();
-        AtomicInteger finishConsuming = new AtomicInteger();
+         countProducers.getAndSet(0);
+         countConsumers.getAndSet(0);
+         finishProducers = false;
+         isFinishConsumers = false;
+         finishProducing.getAndSet(0);
+         finishConsuming.getAndSet(0);
     }
 
     public Queue<T> getQueueT() {

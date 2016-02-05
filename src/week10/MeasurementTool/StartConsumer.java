@@ -22,6 +22,7 @@ public class StartConsumer implements Runnable{
         //    System.out.println("dfd");
             Thread t = new Thread(new ConsumerT<Integer>(db));
             t.start();
+
         }
     }
 }

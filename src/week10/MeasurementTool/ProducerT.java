@@ -25,12 +25,12 @@ public class ProducerT<T> implements Runnable {
     @Override
     public void run() {
        // System.out.println("start produer");
-        while (!(dataBase.getCountProdusers().addAndGet(0) == dataBase.getMaxElements())){
+        while (!(dataBase.getCountProdusers().addAndGet(0) >= dataBase.getMaxElements())){
             //System.out.println("producing...");
             produce();
         }
         System.out.println("out producer");
-        dataBase.finishProducers = true;
+        //dataBase.finishProducers = true;
         dataBase.finishProducing.getAndIncrement();
         //System.out.println(dataBase.finishProducers);
     }
