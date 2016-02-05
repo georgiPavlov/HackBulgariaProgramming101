@@ -30,14 +30,14 @@ public class ProducerT<T> implements Runnable {
             produce();
         }
         System.out.println("out producer");
-        dataBase.finishProdusers = true;
-        System.out.println(dataBase.finishProdusers);
+        dataBase.finishProducers = true;
+        System.out.println(dataBase.finishProducers);
     }
 
     private void produce() {
         dataBase.queueT.add(element);
        // System.out.println("Produse added element");
-        dataBase.countProdusers.getAndIncrement();
+        dataBase.countProducers.getAndIncrement();
         synchronized (dataBase){
             dataBase.notifyAll();
         }

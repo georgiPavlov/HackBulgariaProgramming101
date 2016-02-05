@@ -21,7 +21,7 @@ public class Tool {
                 for (int k =1; k <MAX_THREADS ; k++) {
                     System.out.println("loop k");
                      new Thread(new startConsumer(k,db)).start();
-                    while ((!db.finishProdusers) && (!db.isFinishConsumers)){
+                    while ((!db.finishProducers) && (!db.isFinishConsumers)){
                         //System.out.println("looping.....");
                     }
                     System.out.println("creating an entry...");

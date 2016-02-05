@@ -10,14 +10,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class DB<T> {
     Queue<T> queueT;
     static Queue<Entry> entries;
-    AtomicInteger countProdusers = new AtomicInteger();
+    AtomicInteger countProducers = new AtomicInteger();
     AtomicInteger countConsumers = new AtomicInteger();
-    boolean finishProdusers = false;
+    boolean finishProducers = false;
     boolean isFinishConsumers  =false;
     private long maxElements;
 
     public AtomicInteger getCountProdusers() {
-        return countProdusers;
+        return countProducers;
     }
 
     public AtomicInteger getCountConsumers() {
@@ -39,9 +39,9 @@ public class DB<T> {
     }
 
     public void factoryReset(){
-        countProdusers.getAndSet(0);
+        countProducers.getAndSet(0);
         countConsumers.getAndSet(0);
-        finishProdusers = false;
+        finishProducers = false;
         isFinishConsumers = false;
     }
 
