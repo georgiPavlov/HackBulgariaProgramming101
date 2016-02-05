@@ -36,15 +36,18 @@ public class ProducerT<T> implements Runnable {
     }
 
     private void produce() {
-        while (dataBase.queueT.size() >= dataBase.getElementsInQueue()){
+       /* while (dataBase.queueT.size() >= dataBase.getElementsInQueue()){
             synchronized (dataBase.queueT){
                 try {
+                   // dataBase.queueT.notifyAll();
+                //    System.out.println("producer wait");
                     dataBase.queueT.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
             }
-        }
+        }*/
         dataBase.queueT.add(element);
        // System.out.println("Produse added element");
         dataBase.countProducers.getAndIncrement();

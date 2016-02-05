@@ -34,14 +34,13 @@ public class ConsumerT<T> implements Runnable {
     }
 
     private void consume() {
-        while (dataBase.getQueueT().size() == 0){
+        while (dataBase.queueT.isEmpty()){
             try {
-                while (dataBase.queueT.size() == 0){
-
                 synchronized (dataBase){
-                dataBase.wait();
+                   // System.out.println("wait consumer");
+                    dataBase.wait();
                 }
-                }
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

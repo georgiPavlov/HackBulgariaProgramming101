@@ -39,16 +39,16 @@ public class Tool implements Runnable {
         long time;
         System.out.println("starting");
 
-        for (long i = 1000; i <= 100000; i *= 10) {
+        for (long i = 1000; i <= 1000; i *= 10) {
             System.out.println("loop i");
-            for (int z = 10; z < 1000; z*=10) {
-                DB<Integer> db = new DB<>(z,i);
+            for (int z = 100; z <= 100; z*=10) {
+                DB<Integer> db = new DB<>(i);
+                System.out.println(db.queueT.size() + " size");
                 for (int j = 1; j < MAX_THREADS; j++) {
                     System.out.println("loop j");
                     for (int k = 1; k < MAX_THREADS + 1; k++) {
                         db.factoryReset();
                         time = System.currentTimeMillis();
-
                         new Thread(new StartProducer(j, db)).start();
                         System.out.println("loop k");
                         new Thread(new StartConsumer(k, db)).start();
