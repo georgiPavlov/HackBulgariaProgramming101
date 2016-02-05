@@ -41,8 +41,8 @@ public class Tool implements Runnable {
 
         for (long i = 1000; i <= 1000; i *= 10) {
             System.out.println("loop i");
-            for (int z = 100; z <= 100; z*=10) {
-                DB<Integer> db = new DB<>(i);
+            for (int z = 10; z <= 100; z*=10) {
+                DB<Integer> db = new DB<>(i,z);
                 System.out.println(db.queueT.size() + " size");
                 for (int j = 1; j < MAX_THREADS; j++) {
                     System.out.println("loop j");
@@ -58,8 +58,6 @@ public class Tool implements Runnable {
                             // System.out.println("count in db for consumers " + k +" " +   db.finishConsuming.getAndAdd(0) );
                             //System.out.println("loop");
                         }
-
-
                         System.out.println("creating an entry...");
                         time = System.currentTimeMillis() - time;
                         System.out.println("reset");
