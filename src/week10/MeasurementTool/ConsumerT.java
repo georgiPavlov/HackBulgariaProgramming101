@@ -29,6 +29,7 @@ public class ConsumerT<T> implements Runnable {
         }
         System.out.println("out consumer");
         dataBase.isFinishConsumers= true;
+        dataBase.finishConsuming.getAndIncrement();
         System.out.println(dataBase.isFinishConsumers);
     }
 
@@ -36,6 +37,9 @@ public class ConsumerT<T> implements Runnable {
         while (dataBase.getQueueT().size() == 0){
             try {
                 while (dataBase.queueT.size() == 0){
+                    if(dataBase.isFinishConsumers == true){
+                        return;
+                    }
                 synchronized (dataBase){
                 dataBase.wait();
                 }

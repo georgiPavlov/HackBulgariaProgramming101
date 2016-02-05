@@ -31,10 +31,14 @@ public class ProducerT<T> implements Runnable {
         }
         System.out.println("out producer");
         dataBase.finishProducers = true;
-        System.out.println(dataBase.finishProducers);
+        dataBase.finishProducing.getAndIncrement();
+        //System.out.println(dataBase.finishProducers);
     }
 
     private void produce() {
+        if(dataBase.finishProducers){
+            return;
+        }
         dataBase.queueT.add(element);
        // System.out.println("Produse added element");
         dataBase.countProducers.getAndIncrement();

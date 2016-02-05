@@ -12,6 +12,8 @@ public class DB<T> {
     static Queue<Entry> entries;
     AtomicInteger countProducers = new AtomicInteger();
     AtomicInteger countConsumers = new AtomicInteger();
+    AtomicInteger finishProducing = new AtomicInteger();
+    AtomicInteger finishConsuming = new AtomicInteger();
     boolean finishProducers = false;
     boolean isFinishConsumers  =false;
     private long maxElements;
@@ -43,6 +45,8 @@ public class DB<T> {
         countConsumers.getAndSet(0);
         finishProducers = false;
         isFinishConsumers = false;
+        AtomicInteger finishProducing = new AtomicInteger();
+        AtomicInteger finishConsuming = new AtomicInteger();
     }
 
     public Queue<T> getQueueT() {

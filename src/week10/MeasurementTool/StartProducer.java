@@ -9,7 +9,7 @@ public class StartProducer implements Runnable{
 
 
     public StartProducer(int j, DB<Integer> db) {
-        System.out.println(j);
+        System.out.println("producer count construcot: " + j);
         this.j  =j;
         this.db =db;
     }

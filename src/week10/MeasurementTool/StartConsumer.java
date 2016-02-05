@@ -8,7 +8,7 @@ public class StartConsumer implements Runnable{
     DB<Integer> db;
 
     public StartConsumer(int k, DB<Integer> db){
-        System.out.println(k);
+        System.out.println("Consumer count constructor : " + k);
         this.k =k;
         this.db =db;
 
