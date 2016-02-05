@@ -3,12 +3,12 @@ package week10.MeasurementTool;
 /**
  * Created by georgipavlov on 03.02.16.
  */
-public class startProduser implements Runnable{
+public class StartProducer implements Runnable{
     int j;
     DB<Integer> db;
 
 
-    public startProduser(int j,DB<Integer> db) {
+    public StartProducer(int j, DB<Integer> db) {
         System.out.println(j);
         this.j  =j;
         this.db =db;
