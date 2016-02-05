@@ -14,6 +14,7 @@ public class DB<T> {
     AtomicInteger countConsumers = new AtomicInteger();
     AtomicInteger finishProducing = new AtomicInteger();
     AtomicInteger finishConsuming = new AtomicInteger();
+    public int produserCount;
     boolean finishProducers = false;
     boolean isFinishConsumers  =false;
     private long maxElements;

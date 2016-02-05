@@ -27,23 +27,26 @@ public class ConsumerT<T> implements Runnable {
             //System.out.println("consuming...");
             consume();
         }
-        System.out.println("out consumer");
+       // System.out.println("out consumer");
       //  dataBase.isFinishConsumers= true;
        // System.out.println(dataBase.isFinishConsumers);
         dataBase.finishConsuming.getAndIncrement();
     }
 
     private void consume() {
-        while (dataBase.queueT.isEmpty()){
+        while (dataBase.queueT.isEmpty() && dataBase.finishProducing.getAndAdd(0) != dataBase.produserCount){
             try {
                 synchronized (dataBase){
-                   // System.out.println("wait consumer");
+                    System.out.println("wait consumer" + dataBase.finishProducing.getAndAdd(0) + dataBase.produserCount);
                     dataBase.wait();
                 }
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+        if(dataBase.finishProducing.getAndAdd(0) ==  dataBase.produserCount && dataBase.queueT.isEmpty()  ){
+            return;
         }
         dataBase.queueT.poll();
         synchronized (dataBase.queueT){

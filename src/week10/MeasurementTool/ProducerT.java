@@ -29,13 +29,17 @@ public class ProducerT<T> implements Runnable {
             //System.out.println("producing...");
             produce();
         }
-        System.out.println("out producer");
+       // System.out.println("out producer");
         //dataBase.finishProducers = true;
         dataBase.finishProducing.getAndIncrement();
+        synchronized (dataBase){
+            dataBase.notifyAll();
+        }
         //System.out.println(dataBase.finishProducers);
     }
 
     private void produce() {
+        /*
         while (dataBase.queueT.size() >= dataBase.getElementsInQueue()){
             synchronized (dataBase.queueT){
                 try {
@@ -47,9 +51,9 @@ public class ProducerT<T> implements Runnable {
                 }
 
             }
-        }
+        }*/
         dataBase.queueT.add(element);
-        System.out.println("Produse added element");
+        //System.out.println("Produse added element");
         dataBase.countProducers.getAndIncrement();
         synchronized (dataBase){
             dataBase.notifyAll();

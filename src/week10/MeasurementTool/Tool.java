@@ -4,7 +4,7 @@ package week10.MeasurementTool;
  * Created by georgipavlov on 03.02.16.
  */
 public class Tool implements Runnable {
-    static final int MAX_THREADS = Runtime.getRuntime().availableProcessors() * 2;
+    static final int MAX_THREADS = Runtime.getRuntime().availableProcessors()*2 ;
 
 
     public static void main(String[] args) {
@@ -39,18 +39,20 @@ public class Tool implements Runnable {
         long time;
         System.out.println("starting");
 
-        for (long i = 1000; i <= 1000; i *= 10) {
+        for (long i = 1000; i <= 10000; i *= 10) {
             System.out.println("loop i");
-            for (int z = 10; z <= 100; z*=10) {
+            for (int z = 10; z <= 1000; z*=10) {
                 DB<Integer> db = new DB<>(i,z);
-                System.out.println(db.queueT.size() + " size");
+              //  System.out.println(db.queueT.size() + " size");
                 for (int j = 1; j < MAX_THREADS; j++) {
-                    System.out.println("loop j");
+                  //  System.out.println("loop j");
+
                     for (int k = 1; k < MAX_THREADS + 1; k++) {
                         db.factoryReset();
+                        db.produserCount = j;
                         time = System.currentTimeMillis();
                         new Thread(new StartProducer(j, db)).start();
-                        System.out.println("loop k");
+                       // System.out.println("loop k");
                         new Thread(new StartConsumer(k, db)).start();
                         while ((!(db.finishProducing.getAndAdd(0) == j)) &&
                                 (!(db.finishConsuming.getAndAdd(0) == k))) {
@@ -58,7 +60,7 @@ public class Tool implements Runnable {
                             // System.out.println("count in db for consumers " + k +" " +   db.finishConsuming.getAndAdd(0) );
                             //System.out.println("loop");
                         }
-                        System.out.println("creating an entry...");
+                        //System.out.println("creating an entry...");
                         time = System.currentTimeMillis() - time;
                         System.out.println("reset");
                         createEntry(i, j, k, time,z);
