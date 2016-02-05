@@ -20,13 +20,15 @@ public class Tool {
                 new Thread(new startProduser(j,db)).start();
                 for (int k =1; k <MAX_THREADS ; k++) {
                     System.out.println("loop k");
-                   new Thread(new startConsumer(k,db)).start();
+                     new Thread(new startConsumer(k,db)).start();
                     while ((!db.finishProdusers) && (!db.isFinishConsumers)){
                         //System.out.println("looping.....");
                     }
                     System.out.println("creating an entry...");
                     time = System.currentTimeMillis() - time;
                     createEntry(i,j,k,time);
+                    db.factoryReset();
+                    System.out.println("reset");
                 }
             }
         }

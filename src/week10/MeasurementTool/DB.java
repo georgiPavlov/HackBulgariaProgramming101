@@ -38,6 +38,13 @@ public class DB<T> {
         }
     }
 
+    public void factoryReset(){
+        countProdusers.getAndSet(0);
+        countConsumers.getAndSet(0);
+        finishProdusers = false;
+        isFinishConsumers = false;
+    }
+
     public Queue<T> getQueueT() {
         return queueT;
     }
