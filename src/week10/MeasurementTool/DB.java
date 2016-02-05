@@ -17,6 +17,11 @@ public class DB<T> {
     boolean finishProducers = false;
     boolean isFinishConsumers  =false;
     private long maxElements;
+    private long elementsInQueue;
+
+    public long getElementsInQueue() {
+        return elementsInQueue;
+    }
 
     public AtomicInteger getCountProdusers() {
         return countProducers;
@@ -33,10 +38,20 @@ public class DB<T> {
 
 
     public DB(long maxElements) {
+        this.elementsInQueue = maxElements;
         this.maxElements = maxElements;
         this.queueT =  new ConcurrentLinkedQueue<>();
         if(entries == null){
          entries = new ConcurrentLinkedQueue<>();
+        }
+    }
+
+    public DB(long elementsInQueue,long maxElements){
+        this.maxElements = maxElements;
+        this.elementsInQueue = elementsInQueue;
+        this.queueT =  new ConcurrentLinkedQueue<>();
+        if(entries == null){
+            entries = new ConcurrentLinkedQueue<>();
         }
     }
 

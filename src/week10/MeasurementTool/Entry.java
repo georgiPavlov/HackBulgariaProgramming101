@@ -8,12 +8,18 @@ public class Entry {
     private long size;
     private long produsersMax;
     private long consumersMax;
+    private long elements;
 
-    public Entry(long time, long size, long produsersMax, long consumersMax) {
+    public long getElements() {
+        return elements;
+    }
+
+    public Entry(long time, long size, long produsersMax, long consumersMax,long elements) {
         this.time = time;
         this.size = size;
         this.produsersMax = produsersMax;
         this.consumersMax = consumersMax;
+        this.elements = elements;
     }
 
     public long getTime() {
@@ -55,6 +61,7 @@ public class Entry {
                 ", size=" + size +
                 ", produsersMax=" + produsersMax +
                 ", consumersMax=" + consumersMax +
+                "elements: " + elements +
                 '}';
     }
 }

@@ -47,6 +47,9 @@ public class ConsumerT<T> implements Runnable {
             }
         }
         dataBase.queueT.poll();
+        synchronized (dataBase.queueT){
+            dataBase.queueT.notifyAll();
+        }
         //System.out.println("Consumer consumer element ");
         dataBase.countConsumers.getAndIncrement();
     }
