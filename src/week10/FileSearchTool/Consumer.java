@@ -46,6 +46,7 @@ public class Consumer extends DataBaseFile implements Runnable{
                 value=maxThread;
             }
         }
+        updateThreads(maxThread,0);
     }
 
     private void updateThreads(int value,int value2){
