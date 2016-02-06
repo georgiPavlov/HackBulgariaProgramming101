@@ -64,7 +64,7 @@ public class BulkThumbnail extends DataBase implements Runnable{
         File child;
 
         for (int i = 0; i <children.length ; i++) {
-            child = new File(link + "/" + children[i]);
+            child = new File(children[i]);
             if(child.isDirectory() && recursive){
                 search(child.getAbsolutePath());
                 continue;
