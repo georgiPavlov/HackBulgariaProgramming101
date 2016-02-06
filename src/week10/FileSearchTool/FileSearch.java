@@ -32,7 +32,7 @@ public class FileSearch extends DataBaseFile implements Runnable {
 
     @Override
     public void run() {
-        wordsSecunce = target;
+        wordsSequence = target;
         maxThread=1;
         consumer = Consumer.createConsumer();
         Thread consumerThread = new Thread(consumer);

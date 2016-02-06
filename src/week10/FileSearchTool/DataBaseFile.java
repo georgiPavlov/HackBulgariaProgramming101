@@ -11,5 +11,5 @@ public class DataBaseFile {
     protected static Integer maxThread;
     protected static Consumer consumer;
     protected static final int MAX_THREADS = (Runtime.getRuntime().availableProcessors() * 6) - 3;
-    protected static String wordsSecunce;
+    protected static String wordsSequence;
 }
