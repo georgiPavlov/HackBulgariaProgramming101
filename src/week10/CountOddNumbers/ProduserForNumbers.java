@@ -8,10 +8,14 @@ import java.util.concurrent.CyclicBarrier;
  * Created by georgipavlov on 05.02.16.
  */
 public class ProduserForNumbers extends DB_Numbers implements Runnable{
-     private long n = 2_000_000/threadCount;
+     private long n = 2_000_000_000/threadCount;
      private Random random = new Random();
+     private int treasuryNumber;
 
 
+    public ProduserForNumbers(int treasuryNumber) {
+        this.treasuryNumber = treasuryNumber;
+    }
 
     @Override
     public void run() {
@@ -21,6 +25,7 @@ public class ProduserForNumbers extends DB_Numbers implements Runnable{
             number = random.nextInt(20000000);
             if( (number & 1) != 0 ){
                 count.getAndIncrement();
+               // treasuries.set(treasuryNumber,treasuries.get(treasuryNumber) + 1);
             }
 
         }

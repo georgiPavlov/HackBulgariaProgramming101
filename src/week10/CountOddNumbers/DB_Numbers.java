@@ -1,5 +1,6 @@
 package week10.CountOddNumbers;
 
+import java.util.ArrayList;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -10,6 +11,13 @@ public class DB_Numbers {
     protected static AtomicLong count = new AtomicLong();
     protected static CyclicBarrier barrier;
     protected static int threadCount;
+    protected static ArrayList<Integer> treasuries=  new ArrayList<>();
+
+    public static void setTreasuries() {
+        for (int i = 0; i < threadCount; i++) {
+            treasuries.add(0);
+        }
+    }
 
     public static void set_Count(AtomicLong count) {
         DB_Numbers.count = count;
