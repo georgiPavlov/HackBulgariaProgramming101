@@ -39,36 +39,43 @@ public class Tool implements Runnable {
         long time;
         System.out.println("starting");
 
-        for (long i = 1000; i <= 10000; i *= 10) {
+        for (long sizeOfElements = 1000; sizeOfElements <= 1000000000; sizeOfElements *= 10) {
             System.out.println("loop i");
-            for (int z = 10; z <= 1000; z*=10) {
-                DB<Integer> db = new DB<>(i,z);
+            for (int memory = 10; memory <= 100; memory*=10) {
+                DB<Integer> db = new DB<>(sizeOfElements,memory);
               //  System.out.println(db.queueT.size() + " size");
-                for (int j = 1; j < MAX_THREADS; j++) {
-                  //  System.out.println("loop j");
-
-                    for (int k = 1; k < MAX_THREADS + 1; k++) {
-                        db.factoryReset();
-                        db.produserCount = j;
-                        time = System.currentTimeMillis();
-                        new Thread(new StartProducer(j, db)).start();
-                       // System.out.println("loop k");
-                        new Thread(new StartConsumer(k, db)).start();
-                        while ((!(db.finishProducing.getAndAdd(0) == j)) &&
-                                (!(db.finishConsuming.getAndAdd(0) == k))) {
-                            //  System.out.println("count in db for producers " + j +" "  +  db.finishProducing.getAndAdd(0));
-                            // System.out.println("count in db for consumers " + k +" " +   db.finishConsuming.getAndAdd(0) );
-                            //System.out.println("loop");
-                        }
-                        //System.out.println("creating an entry...");
-                        time = System.currentTimeMillis() - time;
+                for (int producersCount = 1; producersCount < MAX_THREADS; producersCount++) {
+                    System.out.println("loop j " + producersCount);
+                    for (int consumersCount = 1; consumersCount < MAX_THREADS + 1; consumersCount++) {
+                        time = startTests(producersCount,consumersCount,db);
                         System.out.println("reset");
-                        createEntry(i, j, k, time,z);
+                        createEntry(sizeOfElements, producersCount, consumersCount, time,memory);
                     }
                 }
             }
         }
 
 
+    }
+
+
+    public long startTests(int producersCount,
+                           int consumersCount,DB<Integer> db){
+        long time;
+        db.produserCount = producersCount;
+        time = System.currentTimeMillis();
+        new Thread(new StartProducer(producersCount, db)).start();
+        System.out.println("loop k " + consumersCount);
+        new Thread(new StartConsumer(consumersCount, db)).start();
+        while ((!(db.finishProducing.getAndAdd(0) >= producersCount)) &&
+                (!(db.finishConsuming.getAndAdd(0) >= consumersCount))) {
+            //  System.out.println("count in db for producers " + j +" "  +  db.finishProducing.getAndAdd(0));
+            // System.out.println("count in db for consumers " + k +" " +   db.finishConsuming.getAndAdd(0) );
+            //System.out.println("loop");
+        }
+        //System.out.println("creating an entry...");
+        time = System.currentTimeMillis() - time;
+        db.factoryReset();
+        return time;
     }
 }

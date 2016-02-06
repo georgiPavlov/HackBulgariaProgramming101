@@ -18,11 +18,12 @@ public class StartProducer implements Runnable{
     @Override
     public void run() {
        // System.out.println("fgff");
+        System.out.println("starting j producers "+   j);
         for (int i = 0; i < j ; i++) {
            // System.out.println("fdfg");
             Thread t =new Thread(new ProducerT<Integer>(db,j));
             t.start();
-
         }
+        System.out.println("fibish producers");
     }
 }

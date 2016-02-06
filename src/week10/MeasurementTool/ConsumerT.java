@@ -31,10 +31,12 @@ public class ConsumerT<T> implements Runnable {
       //  dataBase.isFinishConsumers= true;
        // System.out.println(dataBase.isFinishConsumers);
         dataBase.finishConsuming.getAndIncrement();
+         System.out.println("out consumer");
     }
 
     private void consume() {
-        while (dataBase.queueT.isEmpty() && dataBase.finishProducing.getAndAdd(0) != dataBase.produserCount){
+        while (dataBase.queueT.isEmpty() &&
+                (!(dataBase.finishProducing.getAndAdd(0) >= dataBase.produserCount))){
             try {
                 synchronized (dataBase){
                     System.out.println("wait consumer" + dataBase.finishProducing.getAndAdd(0) + dataBase.produserCount);
@@ -45,7 +47,8 @@ public class ConsumerT<T> implements Runnable {
                 e.printStackTrace();
             }
         }
-        if(dataBase.finishProducing.getAndAdd(0) ==  dataBase.produserCount && dataBase.queueT.isEmpty()  ){
+        if(dataBase.finishProducing.getAndAdd(0) >=  dataBase.produserCount
+                && dataBase.queueT.isEmpty()  ){
             return;
         }
         dataBase.queueT.poll();
