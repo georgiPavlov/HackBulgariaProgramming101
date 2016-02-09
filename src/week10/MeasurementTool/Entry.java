@@ -61,7 +61,7 @@ public class Entry {
                 ", size=" + size +
                 ", produsersMax=" + produsersMax +
                 ", consumersMax=" + consumersMax +
-                "elements: " + elements +
+                " elements: " + elements +
                 '}';
     }
 }

@@ -31,7 +31,7 @@ public class ConsumerT<T> implements Runnable {
       //  dataBase.isFinishConsumers= true;
        // System.out.println(dataBase.isFinishConsumers);
         dataBase.finishConsuming.getAndIncrement();
-         System.out.println("out consumer");
+         //System.out.println("out consumer");
     }
 
     private void consume() {
@@ -39,7 +39,7 @@ public class ConsumerT<T> implements Runnable {
                 (!(dataBase.finishProducing.getAndAdd(0) >= dataBase.produserCount))){
             try {
                 synchronized (dataBase){
-                    System.out.println("wait consumer" + dataBase.finishProducing.getAndAdd(0) + dataBase.produserCount);
+                  //  System.out.println("wait consumer" + dataBase.finishProducing.getAndAdd(0) + dataBase.produserCount);
                     dataBase.wait();
                 }
 

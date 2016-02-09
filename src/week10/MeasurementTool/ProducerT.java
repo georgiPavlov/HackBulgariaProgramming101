@@ -35,7 +35,7 @@ public class ProducerT<T> implements Runnable {
         synchronized (dataBase){
             dataBase.notifyAll();
         }
-         System.out.println("out producer");
+         //System.out.println("out producer");
         //System.out.println(dataBase.finishProducers);
     }
 

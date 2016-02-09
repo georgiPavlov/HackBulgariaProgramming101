@@ -18,13 +18,13 @@ public class StartConsumer implements Runnable{
     @Override
     public void run() {
       //  System.out.println("fgdfgd");
-        System.out.println("starting  consumers k "+   k);
+      //  System.out.println("starting  consumers k "+   k);
         for (int i = 0; i < k; i++) {
         //    System.out.println("dfd");
             Thread t = new Thread(new ConsumerT<Integer>(db));
             t.start();
 
         }
-        System.out.println("finish consumers ");
+      //  System.out.println("finish consumers ");
     }
 }

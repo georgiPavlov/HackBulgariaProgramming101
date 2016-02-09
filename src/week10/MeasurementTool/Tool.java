@@ -39,16 +39,16 @@ public class Tool implements Runnable {
         long time;
         System.out.println("starting");
 
-        for (long sizeOfElements = 1000; sizeOfElements <= 1000000000; sizeOfElements *= 10) {
-            System.out.println("loop i");
-            for (int memory = 10; memory <= 100; memory*=10) {
+        for (long sizeOfElements = 2000; sizeOfElements <= 2000000000; sizeOfElements *= 10) {
+            //System.out.println("loop i");
+            for (int memory = 1; memory <= 4; memory++) {
                 DB<Integer> db = new DB<>(sizeOfElements,memory);
               //  System.out.println(db.queueT.size() + " size");
                 for (int producersCount = 1; producersCount < MAX_THREADS; producersCount++) {
                     System.out.println("loop j " + producersCount);
-                    for (int consumersCount = 1; consumersCount < MAX_THREADS + 1; consumersCount++) {
+                    for (int consumersCount = 1; consumersCount < MAX_THREADS; consumersCount++) {
                         time = startTests(producersCount,consumersCount,db);
-                        System.out.println("reset");
+                       // System.out.println("reset");
                         createEntry(sizeOfElements, producersCount, consumersCount, time,memory);
                     }
                 }
