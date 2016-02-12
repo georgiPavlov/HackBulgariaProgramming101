@@ -23,7 +23,7 @@ public class WeatherForcastingTool {
     ArrayList<String> keys;
     ArrayList<JSONArray> arrays;
     Hashtable<String,String> weatherInfo;
-    Hashtable<String,Double> weatherTable;
+    Hashtable<String,String> weatherTable;
 
     public  JSONObject getJsonForWeather(String link) throws IOException, ClassNotFoundException, JSONException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -60,27 +60,42 @@ public class WeatherForcastingTool {
     }
 
     public  void voidGetKeys(JSONObject object) throws JSONException {
+        weatherTable = new Hashtable<>();
         arrays =new ArrayList<>();
         Iterator it = object.keys();
         String result;
         while(it.hasNext()) {
            // result = it.next().toString();
            // keys.add(result);
-            Object js = it.next();
-            Object json = object.get(js.toString());
+            String js = it.next().toString();
+            Object json = object.get(js);
+          //  System.out.println(js);
 
             if (json instanceof JSONObject){
+               // System.out.println("object " + js);
+                Iterator iterator = ((JSONObject) json).keys();
+                while (iterator.hasNext()){
+                    //System.out.println("i am in");
+                    String key = iterator.next().toString();
+                   // System.out.println("      " + key);
+                  //  System.out.println("     value: " + ((JSONObject)json).get(key));
+                    weatherTable.put(key,((JSONObject)json).get(key).toString());
+
+                }
+                //System.out.println(((JSONObject) json).get(js));
 //                weatherInfo.put(js.toString(),(String) ((JSONObject) json).get(js.toString()));
             }
             //you have an object
             else if (json instanceof JSONArray){
                 try {
-                    System.out.println(js.toString());
-
-                    //arrays.add(new JSONArray(js.toString()));
+                    //System.out.println(js);
+                    arrays.add((JSONArray) json);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }else {
+                //System.out.println(js + " " +  object.get(js) + "  single");
+                weatherTable.put(js,object.get(js).toString());
             }
 
         }
@@ -88,7 +103,7 @@ public class WeatherForcastingTool {
     }
 
     public void createWeatherTable() throws JSONException {
-        weatherTable = new Hashtable<>();
+
         JSONArray it;
         for (int i = 0; i < arrays.size() ; i++) {
            it =  arrays.get(i);
@@ -96,7 +111,8 @@ public class WeatherForcastingTool {
                 Iterator iterator = it.getJSONObject(i).keys();
                 while (iterator.hasNext()){
                     String key = iterator.next().toString();
-                    weatherTable.put(key,Double.parseDouble(it.getJSONObject(i).get(key).toString()));
+                  //  System.out.println(key);
+                    weatherTable.put(key, String.valueOf(it.getJSONObject(i).get(key)));
                 }
             }
 
@@ -105,8 +121,8 @@ public class WeatherForcastingTool {
 
     public void printWeathertable(){
 
-        for (Map.Entry<String, Double> entry : weatherTable.entrySet()) {
-            System.out.println("key: " + entry.getKey() + "value: " + entry.getValue());
+        for (Map.Entry<String, String> entry : weatherTable.entrySet()) {
+            System.out.println("key: " + entry.getKey() +   "  value: " + entry.getValue());
         }
     }
 
@@ -117,8 +133,9 @@ public class WeatherForcastingTool {
                     "/weather?q=Sofia,bg&appid=44db6a862fba0b067b1930da0d769e98");
         //printJson(o);
         tool.voidGetKeys(o);
+        tool.createWeatherTable();
        // tool.createWeatherTable();
-       // tool.printWeathertable();
+        tool.printWeathertable();
 
     }
 
