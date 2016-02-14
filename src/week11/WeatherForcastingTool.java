@@ -25,11 +25,15 @@ public class WeatherForcastingTool {
     Hashtable<String,String> weatherInfo;
     Hashtable<String,String> weatherTable;
 
+
+
+
     public  JSONObject getJsonForWeather(String link) throws IOException, ClassNotFoundException, JSONException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpget = new HttpGet(link);
         CloseableHttpResponse response = httpclient.execute(httpget);
         HttpEntity entity = response.getEntity();
+
 
         JSONObject object = null;
         JSONArray array;
@@ -109,7 +113,7 @@ public class WeatherForcastingTool {
            it =  arrays.get(i);
             for (int j = 0; j < it.length(); j++) {
                 Iterator iterator = it.getJSONObject(i).keys();
-                while (iterator.hasNext()){
+                     while (iterator.hasNext()){
                     String key = iterator.next().toString();
                   //  System.out.println(key);
                     weatherTable.put(key, String.valueOf(it.getJSONObject(i).get(key)));
