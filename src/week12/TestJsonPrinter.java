@@ -34,7 +34,7 @@ public class TestJsonPrinter  {
     CloseableHttpClient httpclient = HttpClients.createDefault();
         URI uri = new URI("http://localhost:8080/ServletJson");
         HttpPost httpPost = new HttpPost(uri);
-        NameValuePair param = new BasicNameValuePair("json",json);
+        NameValuePair param = new BasicNameValuePair("POST",json);
         List<NameValuePair> params = new ArrayList<>();
         params.add(param);
         httpPost.setEntity(new UrlEncodedFormEntity(params));
