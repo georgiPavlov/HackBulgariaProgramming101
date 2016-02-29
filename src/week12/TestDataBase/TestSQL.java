@@ -11,8 +11,8 @@ public class TestSQL {
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost/OUR_TEST_UNITS";
 
-    static final String USER = "Local instance 3306";
-    static final String PASS = "password";
+    static final String USER = "root";
+    static final String PASS = "azsamgeorgi1321";
     static final int maxCount = 3;
 
     public void makeTest(){
@@ -30,11 +30,8 @@ public class TestSQL {
             Scanner scanner = new Scanner(System.in);
             String name =scanner.nextLine();
               //--------------------------------------------------------
-            String sql = "USE OUR_TEST_UNITS;\n" +
-                    "SELECT * FROM TESTS_IN\n" +
-                    "ORDER BY RAND()\n" +
-                    "LIMIT 3;";
-            ResultSet rs = stmt.executeQuery(sql);
+            String sql1 = "SELECT * FROM TESTS_IN ORDER BY RAND() LIMIT 3";
+            ResultSet rs = stmt.executeQuery(sql1);
             //STEP 5: Extract data from result set
 
             int trueCount=0;
@@ -75,7 +72,7 @@ public class TestSQL {
 
             String sql2 = "INSERT INTO SCOREBOARD " +
                     "VALUES (NULL,'"+name+"','"+trueCount+"','"+falseCount+"','"+(int)getMark+"')";
-            stmt.executeUpdate(sql);
+            stmt.executeUpdate(sql2);
             System.out.println("Inserted records into the table...");
 
         }catch(SQLException se){
@@ -116,6 +113,11 @@ public class TestSQL {
         return mark;
     }
 
+
+    public static void main(String[] args) {
+        TestSQL testSQL = new TestSQL();
+        testSQL.makeTest();
+    }
 
 
 
