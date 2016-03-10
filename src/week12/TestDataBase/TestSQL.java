@@ -22,6 +22,7 @@ public class TestSQL {
             //STEP 2: Register JDBC driver
             Class.forName("com.mysql.jdbc.Driver");
 
+
             //STEP 3: Open a connection
             System.out.println("Connecting to a selected database...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
