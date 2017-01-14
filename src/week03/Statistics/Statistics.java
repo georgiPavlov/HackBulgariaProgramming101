@@ -1,6 +1,7 @@
 package week03.Statistics;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeSet;
@@ -24,27 +25,24 @@ import java.util.TreeSet;
 
 
 public class Statistics implements StatisticsInterfaceWithAdd {
-    private ArrayList<Integer> arrayList = new ArrayList<>();
+    private ArrayList<Integer> numbers = new ArrayList<>();
+    private int sum = 0;
     @Override
     public int getMean() {
-        int sum=0;
-        for (int i = 0; i <arrayList.size() ; i++) {
-            sum +=arrayList.get(i);
-        }
-        return sum/arrayList.size();
+        return sum/numbers.size();
     }
 
     @Override
     public int getMedian() {
         int index = (arrayList.size()+1)/2;
-        return arrayList.get(index);
+        return numbers.get(index);
     }
 
     @Override
     public int getMode() {
         Map<Integer,Integer> map = new HashMap<>();
         Integer count;
-        for(Integer e:arrayList){
+        for(Integer e:numbers){
             count = map.get(e);
             if(count == null){
                 count = 0;
@@ -64,15 +62,17 @@ public class Statistics implements StatisticsInterfaceWithAdd {
     @Override
     public int getRange() {
         TreeSet<Integer> ts = new TreeSet<>();
-        for (int i = 0; i <arrayList.size() ; i++) {
-            ts.add(arrayList.get(i));
+        for (int i = 0; i <numbers.size() ; i++) {
+            ts.add(numbers.get(i));
         }
         return ts.last() - ts.first();
     }
 
     @Override
     public void add(int number) {
-        arrayList.add(number);
+    	numbers.add(number);
+        Collections.sort(numbers);
+        sum += number;
     }
 
     public static void main(String[] args) {
@@ -89,5 +89,6 @@ public class Statistics implements StatisticsInterfaceWithAdd {
 
     }
 }
+
 
 
